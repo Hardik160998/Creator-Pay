@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>!function(){var d=localStorage.getItem("earnify_dark_mode")==="1";document.documentElement.classList.toggle("dark-mode",d);document.documentElement.style.background=d?"#0d1117":"";document.documentElement.style.colorScheme=d?"dark":"light";document.addEventListener("DOMContentLoaded",function(){document.body.classList.toggle("dark-mode",d);});}();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources - Earnify Admin</title>
+  <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/admin/dark-theme.css">
+  <link rel="stylesheet" href="/admin/admin-dark.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./site-view.css">
+  <link rel="stylesheet" href="./light-theme.css">
+  <link rel="stylesheet" href="./mobile-responsive.css">
+  <link rel="stylesheet" href="/admin/admin-bottom-nav.css">
+  <script src="/admin/dark-theme.js"></script>
+   <style>
+    .resource-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 10px;
+    }
+
+    /* ── SIDEBAR EXACT MATCH WITH PROFILE PAGE ── */
+    .sidebar {
+      padding: 30px 0 !important;
+    }
+
+    .sidebar-header {
+      padding: 0 20px 20px !important;
+      border-bottom: 2px solid rgba(59, 130, 246, 0.2) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      gap: 10px !important;
+    }
+
+    /* ── Neumorphic Toggle ── */
+    .sb-nm-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px 8px 26px;
+      border-top: 1px solid #e2e8f0;
+      /* margin-bottom: 4px; */
+    }
+    body.dark-mode .sb-nm-wrap {
+      border-bottom-color: #30363d;
+    }
+    .sb-nm-wrap-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+    }
+    body.dark-mode .sb-nm-wrap-label {
+      color: #8b949e;
+    }
+    .sb-nm-toggle {
+      position: relative;
+      width: 80px;
+      height: 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      font-family: inherit;
+      background: white;
+      box-shadow: 4px 4px 8px #b8bec7, -4px -4px 8px #ffffff;
+      transition: background 0.4s;
+    }
+    html.dark-mode .sb-nm-toggle,
+    body.dark-mode .sb-nm-toggle {
+      background: #1e2535 !important;
+      box-shadow: 4px 4px 8px #0d1117, -3px -3px 7px #2d3a4a !important;
+    }
+    /* knob: 34px, gap: 4px — dark left = 120-34-4 = 82px */
+    .sb-nm-knob {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 2px 2px 5px #b8bec7, -1px -1px 4px #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      pointer-events: none;
+      transition: left 0.4s cubic-bezier(.4,0,.2,1), background 0.4s;
+      z-index: 2;
+    }
+    html.dark-mode .sb-nm-knob,
+    body.dark-mode .sb-nm-knob {
+      left: 52px !important;
+      background: #2d3748 !important;
+      box-shadow: 2px 2px 5px #0d1117, -1px -1px 4px #3a4a5c !important;
+    }
+    .sb-nm-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    .sb-nm-label-light { right: 9px; color: #64748b; opacity: 1; }
+    .sb-nm-label-dark  { left: 9px;  color: #a78bfa; opacity: 0; }
+    body.dark-mode .sb-nm-label-light { opacity: 0; }
+    body.dark-mode .sb-nm-label-dark  { opacity: 1; }
+
+    /* ── Sidebar nav links base ── */
+    .sidebar a.nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #64748b;
+      padding: 12px 20px 12px 26px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 14px;
+      border-left: 3px solid transparent;
+      margin: 2px 12px 2px 0;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    }
+
+    /* ── Hover: all non-active links ── */
+    .sidebar a.nav-link:not(.active-link):hover {
+      background: linear-gradient(90deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.04) 100%) !important;
+      border-left-color: #93c5fd !important;
+      color: #2563eb !important;
+      transform: translateX(4px) !important;
+    }
+
+    /* ── Active link ── */
+    .sidebar a.nav-link.active-link {
+      background: linear-gradient(90deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.06) 100%) !important;
+      border-left-color: #667eea !important;
+      color: #667eea !important;
+      font-weight: 700 !important;
+    }
+
+    /* ── Active link hover ── */
+    .sidebar a.nav-link.active-link:hover {
+      background: linear-gradient(90deg, rgba(102, 126, 234, 0.2) 0%, rgba(118, 75, 162, 0.1) 100%) !important;
+      border-left-color: #667eea !important;
+      color: #764ba2 !important;
+      transform: translateX(4px) !important;
+    }
+
+    .sidebar a.nav-link-divider {
+      /* margin-top: 16px !important; */
+      border-top: 1px solid #e2e8f0 !important;
+      padding-top: 16px !important;
+    }
+
+    /* no hover on sidebar-user buttons */
+    .sb-logout:hover {
+      background: rgb(251, 156, 156) !important;
+      color: white !important;
+      border-color: #dc2626 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+    }
+
+    .admin-panel-btn:hover {
+      background: rgb(102, 126, 234) !important;
+      color: #fff !important;
+      transform: translateY(-2px) !important;
+      opacity: 0.88 !important;
+    }
+
+    /* ── SIDEBAR USER SECTION ── */
+    .sidebar-user {
+      display: none;
+      margin-top: auto !important;
+      padding: 20px !important;
+      border-top: 2px solid #e2e8f0 !important;
+      background: #ffffff;
+      flex-direction: column !important;
+      gap: 8px !important;
+    }
+    body.dark-mode .sidebar-user {
+      background: #161b22 !important;
+      border-top-color: #30363d !important;
+    }
+
+    .sidebar-user .user-info {
+      display: flex !important;
+      align-items: center !important;
+      gap: 12px !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 15px !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+
+    .sidebar-user .user-avatar {
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 50% !important;
+      background: linear-gradient(135deg, #667eea, #764ba2) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: white !important;
+      font-size: 18px !important;
+      font-weight: 600 !important;
+      flex-shrink: 0 !important;
+    }
+
+    .sidebar-user .user-details {
+      flex: 1 !important;
+      overflow: hidden !important;
+    }
+
+    .sidebar-user .user-name {
+      font-weight: 600 !important;
+      color: #1e293b;
+      font-size: 14px !important;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .sidebar-user .user-email {
+      font-size: 11px !important;
+      color: #64748b;
+      white-space: nowrap !important;
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+    }
+
+    .admin-panel-btn {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      width: 100% !important;
+      padding: 12px 16px !important;
+      background: linear-gradient(135deg, #667eea, #764ba2) !important;
+      color: #fff !important;
+      border-radius: 10px !important;
+      font-weight: 700 !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      text-decoration: none !important;
+      text-align: center !important;
+      border: none !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+    }
+
+    .sb-logout {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      width: 100% !important;
+      padding: 12px 16px !important;
+      background: white !important;
+      color: #1e293b !important;
+      border: 2px solid #ef4444 !important;
+      border-radius: 10px !important;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      text-decoration: none !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .sb-logout:hover {
+      background: rgb(251, 156, 156) !important;
+      color: white !important;
+      border-color: #dc2626 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+    }
+
+    /* ── View Tab Buttons ── */
+    #btnAllResources,
+    #btnPurchases {
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .view-tab-active {
+      border: none;
+      outline: 2.5px solid #667eea;
+      outline-offset: -1px;
+      background: #fff;
+      color: #667eea;
+      box-shadow: 0 0 0 1px #764ba2, 0 4px 14px rgba(102,126,234,0.2);
+    }
+    .view-tab-inactive {
+      border: 2px solid #e2e8f0;
+      background: #f8fafc;
+      color: #64748b;
+      outline: none;
+      box-shadow: none;
+    }
+    body.dark-mode .view-tab-active {
+      outline-color: #7c6af7;
+      background: #161b22;
+      color: #a78bfa;
+      box-shadow: 0 0 0 1px #5b4fcf, 0 4px 14px rgba(124,106,247,0.3);
+    }
+    body.dark-mode .view-tab-inactive {
+      border-color: #30363d;
+      background: #1c2333;
+      color: #8b949e;
+    }
+
+    /* ── Single Add Resource Button ── */
+    .add-resource-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 15px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      box-shadow: 0 4px 14px rgba(102,126,234,0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .add-resource-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(102,126,234,0.45);
+    }
+
+    /* ── Type Picker Grid ── */
+    .type-picker-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+    .type-picker-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 12px;
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      background: #f8fafc;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      transition: all 0.2s;
+    }
+    .type-picker-btn:hover {
+      border-color: #667eea;
+      background: #fff;
+      box-shadow: 0 4px 16px rgba(102,126,234,0.15);
+      transform: translateY(-2px);
+      color: #667eea;
+    }
+    .type-picker-btn img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+    body.dark-mode .type-picker-btn {
+      background: #1c2333;
+      border-color: #30363d;
+      color: #e6edf3;
+    }
+    body.dark-mode .type-picker-btn:hover {
+      border-color: #7c6af7;
+      background: #21293d;
+      color: #a78bfa;
+    }
+
+    /* ── Back Button ── */
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      background: #f8fafc;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      margin-bottom: 16px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      border-color: #667eea;
+      color: #667eea;
+      background: #fff;
+    }
+    body.dark-mode .back-btn {
+      background: #1c2333;
+      border-color: #30363d;
+      color: #8b949e;
+    }
+    body.dark-mode .back-btn:hover {
+      border-color: #7c6af7;
+      color: #a78bfa;
+    }
+      .pr-filter-strip {
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 8px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        padding: 4px 0;
+        flex-shrink: 1;
+        min-width: 0;
+        width: 100%;
+        touch-action: pan-x;
+      }
+     .pr-filter-strip::-webkit-scrollbar { display: none; }
+     .dash-section-head {
+       display: flex;
+       justify-content: space-between;
+       align-items: center;
+       margin-bottom: 24px;
+       gap: 16px;
+       flex-wrap: nowrap;
+     }
+     @media (max-width: 1024px) {
+       .dash-section-head {
+         flex-wrap: wrap;
+       }
+     }
+     .purchased-heading {
+       font-size: 20px;
+       font-weight: 800;
+       color: #1e293b;
+       margin: 0;
+       flex-shrink: 1;
+       min-width: 0;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       white-space: nowrap;
+     }
+     body.dark-mode .purchased-heading {
+       color: #e6edf3;
+     }
+    .pr-filter {
+      padding: 8px 16px;
+      border-radius: 50px;
+      border: 2px solid #e2e8f0;
+      background: #fff;
+      color: #64748b;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: all 0.18s;
+    }
+    body.dark-mode .pr-filter {
+      background: #1c2333;
+      border-color: #30363d;
+      color: #8b949e;
+    }
+    .pr-filter.active,
+    .pr-filter:hover {
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      color: #fff;
+      border-color: #667eea;
+    }
+    .pr-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 18px;
+      border: 1px solid #e8edf5;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      transition: box-shadow 0.2s;
+    }
+    body.dark-mode .pr-card {
+      background: #161b22;
+      border-color: #30363d;
+      box-shadow: none;
+    }
+    .pr-card:hover { box-shadow: 0 4px 16px rgba(102,126,234,0.12); }
+    body.dark-mode .pr-card:hover { box-shadow: 0 4px 16px rgba(124,106,247,0.15); }
+    .pr-icon {
+      width: 46px; height: 46px; border-radius: 12px; flex-shrink: 0;
+      background: linear-gradient(135deg,rgba(102,126,234,0.12),rgba(118,75,162,0.12));
+      display: flex; align-items: center; justify-content: center; font-size: 22px;
+    }
+    body.dark-mode .pr-icon { background: rgba(124,106,247,0.12); }
+    .pr-info { flex: 1; min-width: 0; }
+    .pr-title {
+      font-size: 14px; font-weight: 700; color: #1e293b;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    body.dark-mode .pr-title { color: #e6edf3; }
+    .pr-meta { font-size: 12px; color: #94a3b8; margin-top: 3px; }
+    body.dark-mode .pr-meta { color: #484f58; }
+    .pr-right {
+      display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+    }
+    .pr-price { font-size: 15px; font-weight: 800; color: #667eea; white-space: nowrap; }
+    body.dark-mode .pr-price { color: #a78bfa; }
+    .pr-dl-btn {
+      padding: 7px 14px;
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      color: #fff; border: none; border-radius: 8px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
+      text-decoration: none; white-space: nowrap; display: inline-block;
+    }
+    .pr-no-file { font-size: 12px; color: #cbd5e1; }
+    body.dark-mode .pr-no-file { color: #484f58; }
+
+    /* ── Skeleton shimmer ── */
+    @keyframes pr-shimmer {
+      0%   { background-position: -400px 0; }
+      100% { background-position:  400px 0; }
+    }
+    .pr-sk {
+      background: linear-gradient(90deg,#f0f0f0 25%,#e8e8e8 50%,#f0f0f0 75%);
+      background-size: 400px 100%;
+      animation: pr-shimmer 1.4s infinite linear;
+      border-radius: 6px;
+      display: block;
+    }
+    body.dark-mode .pr-sk,
+    html.dark-mode .pr-sk,
+    html.dark-mode body .pr-sk {
+      background: linear-gradient(90deg,#1c2333 25%,#21293d 50%,#1c2333 75%) !important;
+      background-size: 400px 100% !important;
+    }
+    .pr-sk-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 16px 18px;
+      border: 1px solid #e8edf5;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    body.dark-mode .pr-sk-card,
+    html.dark-mode .pr-sk-card,
+    html.dark-mode body .pr-sk-card {
+      background: #161b22 !important;
+      border-color: #30363d !important;
+    }
+    .pr-sk-icon  { width:46px; height:46px; border-radius:12px; flex-shrink:0; }
+    .pr-sk-body  { flex:1; display:flex; flex-direction:column; gap:9px; }
+    .pr-sk-title { height:13px; width:52%; }
+    .pr-sk-meta  { height:10px; width:32%; }
+    .pr-sk-right { display:flex; align-items:center; gap:10px; flex-shrink:0; }
+    .pr-sk-price { height:15px; width:42px; }
+    .pr-sk-btn   { height:30px; width:78px; border-radius:8px; }
+
+    /* ── Custom Dropdown (cd-wrap) ── */
+    .cd-wrap { position: relative; display: inline-flex; align-items: center; font-family: inherit; }
+    .cd-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 8px 14px; min-width: 130px;
+      background: #fff; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer;
+      font-family: inherit; outline: none; user-select: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: border-color .18s, box-shadow .18s, color .18s;
+      white-space: nowrap;
+    }
+    .cd-btn:hover { border-color: #a5b4fc; color: #667eea !important; box-shadow: 0 2px 8px rgba(102,126,234,0.12); }
+    .cd-btn.open { border-color: #667eea; color: #667eea !important; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+    .cd-btn svg { flex-shrink: 0; transition: transform .22s; }
+    .cd-btn.open svg { transform: rotate(180deg); }
+    .cd-label { flex: 1; text-align: left; }
+    .cd-list {
+      position: fixed;
+      background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.14), 0 2px 8px rgba(0,0,0,0.08);
+      z-index: 99999; overflow: hidden; padding: 4px;
+      animation: cdDrop .18s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes cdDrop { from { opacity:0; transform:translateY(-6px) scale(.97); } to { opacity:1; transform:none; } }
+    .cd-item {
+      display: flex; align-items: center; gap: 9px;
+      padding: 9px 13px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: #334155;
+      cursor: pointer; transition: background .14s, color .14s;
+      white-space: nowrap;
+    }
+    .cd-item:hover { background: #f0f4ff; color: #667eea; }
+    .cd-item.selected { background: linear-gradient(135deg,#667eea,#764ba2); color: #fff; font-weight: 700; }
+    .cd-item.selected:hover { background: linear-gradient(135deg,#5a6fd6,#6a3f96); }
+    .cd-check { margin-left: auto; opacity: 0; font-size: 11px; }
+    .cd-item.selected .cd-check { opacity: 1; }
+    .cd-item img { width: 18px !important; height: 18px !important; border-radius: 4px !important; object-fit: cover !important; flex-shrink: 0 !important; display: inline-block !important; }
+    body.dark-mode .cd-btn, html.dark-mode .cd-btn {
+      background: #1c2333 !important; border-color: #30363d !important;
+      color: #8b949e !important; box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+    }
+    body.dark-mode .cd-btn:hover, html.dark-mode .cd-btn:hover {
+      border-color: #7c6af7 !important; color: #a78bfa !important;
+      box-shadow: 0 2px 8px rgba(124,106,247,0.18) !important;
+    }
+    body.dark-mode .cd-btn.open, html.dark-mode .cd-btn.open {
+      border-color: #7c6af7 !important; color: #a78bfa !important;
+      box-shadow: 0 0 0 3px rgba(124,106,247,0.18) !important;
+    }
+    body.dark-mode .cd-list, html.dark-mode .cd-list {
+      background: #1c2333 !important; border-color: #30363d !important;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3) !important;
+    }
+    body.dark-mode .cd-item, html.dark-mode .cd-item { color: #c9d1d9 !important; }
+    body.dark-mode .cd-item:hover, html.dark-mode .cd-item:hover { background: #21293d !important; color: #a78bfa !important; }
+    body.dark-mode .cd-item.selected, html.dark-mode .cd-item.selected {
+      background: linear-gradient(135deg,#4c3d9e,#3d2f7a) !important; color: #e2d9f3 !important;
+    }
+    /* Pagination */
+    #resPagination > div {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; background: white; border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06); flex-wrap: wrap; gap: 8px;
+    }
+    #resPagination > div > div { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    #resPagination button:hover:not([disabled]) { border-color: #667eea !important; color: #667eea !important; }
+    body.dark-mode #resPagination > div, html.dark-mode #resPagination > div {
+      background: #161b22 !important; border-color: rgba(124,106,247,0.25) !important;
+    }
+    body.dark-mode #resPagination button:not([style*='linear-gradient']),
+    html.dark-mode #resPagination button:not([style*='linear-gradient']) {
+      background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important;
+    }
+    body.dark-mode #resPagination span, html.dark-mode #resPagination span { color: #484f58 !important; }
+    #prPagination > div {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; background: white; border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06); flex-wrap: wrap; gap: 8px;
+    }
+    #prPagination > div > div { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    #prPagination button:hover:not([disabled]) { border-color: #667eea !important; color: #667eea !important; }
+    body.dark-mode #prPagination > div, html.dark-mode #prPagination > div {
+      background: #161b22 !important; border-color: rgba(124,106,247,0.25) !important;
+    }
+    body.dark-mode #prPagination button:not([style*='linear-gradient']),
+    html.dark-mode #prPagination button:not([style*='linear-gradient']) {
+      background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important;
+    }
+    body.dark-mode #prPagination span, html.dark-mode #prPagination span { color: #484f58 !important; }
+      /* ── pr-filter: desktop pills / mobile dropdown ── */
+      .pr-filter-strip-desktop { display: flex; }
+      .pr-filter-dropdown-mobile { display: none; }
+      @media (max-width: 768px) {
+        .pr-filter-strip-desktop { display: none !important; }
+        .pr-filter-dropdown-mobile { display: inline-flex !important; flex: 1; min-width: 0; }
+        .pr-filter-dropdown-mobile .cd-btn { width: 100%; }
+        .purchased-heading { font-size: 18px; }
+        .pr-card { flex-wrap: wrap; gap: 10px; }
+        .pr-info { width: calc(100% - 60px); }
+        .pr-title { white-space: normal; }
+        .pr-right { width: 100%; justify-content: space-between; padding-top: 8px; border-top: 1px solid #f1f5f9; }
+        body.dark-mode .pr-right { border-top-color: #30363d; }
+        .pr-dl-btn { flex: 1; text-align: center; padding: 9px 10px; font-size: 13px; }
+        .dash-section-head { flex-direction: column; align-items: stretch; gap: 12px; margin-bottom: 20px; }
+        .dash-section-head > div:last-child { display: flex !important; align-items: center !important; gap: 10px !important; flex-wrap: nowrap !important; width: 100% !important; }
+      }
+     /* ── sh-filter-row always visible (desktop + mobile) ── */
+     .sh-filter-row {
+       display: flex !important;
+       align-items: center !important;
+       gap: 8px !important;
+       margin-bottom: 10px !important;
+     }
+     .sh-add-btn-mobile {
+       display: inline-flex !important;
+       flex-shrink: 0 !important;
+       padding: 9px 12px !important;
+       font-size: 13px !important;
+       white-space: nowrap !important;
+     }
+     .sh-filter-row .cd-wrap {
+       flex: 1 !important;
+       min-width: 0 !important;
+     }
+     .sh-filter-row .cd-btn {
+       /* width: 100% !important; */
+       font-size: 12px !important;
+       padding: 8px 10px !important;
+       min-width: 0 !important;
+     }
+     /* ── resource-filter always visible ── */
+     .resource-filter {
+       display: flex !important;
+       align-items: center !important;
+       gap: 8px !important;
+       margin-bottom: 10px !important;
+       position: relative !important;
+       z-index: 10 !important;
+     }
+     .resource-filter .custom-select {
+       flex: 1 !important;
+       min-width: 0 !important;
+     }
+     .resource-filter .dropdown {
+       z-index: 9999 !important;
+     }
+     .resource-grid {
+       position: relative;
+       z-index: 1;
+     }
+     /* ── Section-header: desktop layout ── */
+     @media (min-width: 769px) {
+       .section-header {
+         display: flex !important;
+         align-items: center !important;
+         justify-content: space-between !important;
+         margin-bottom: 24px !important;
+         gap: 16px !important;
+       }
+       .section-title {
+         display: flex !important;
+         align-items: center !important;
+         gap: 8px !important;
+         flex-wrap: nowrap !important;
+         min-width: 0 !important;
+       }
+       .section-title h2 {
+         font-size: 20px !important;
+         white-space: nowrap !important;
+       }
+       .sh-add-btn-mobile { display: none !important; }
+       .sh-page-size {
+         display: inline-flex !important;
+         flex-shrink: 0 !important;
+       }
+        .sh-page-size .cd-btn {
+          min-width: 90px !important;
+          font-size: 11px !important;
+          padding: 6px 10px !important;
+        }
+        /* Desktop: ensure filter strip container doesn't wrap and grows */
+        #purchasedSection .dash-section-head > div:last-child {
+          flex-wrap: nowrap !important;
+          flex: 1 1 0% !important;
+          min-width: 0 !important;
+        }
+        #purchasedSection .dash-section-head > div:last-child > .pr-filter-strip {
+          flex: 1 1 0% !important;
+          min-width: 0 !important;
+          overflow-x: auto !important;
+        }
+       .add-buttons-group {
+         display: flex !important;
+         align-items: center !important;
+         gap: 8px !important;
+         flex-shrink: 0 !important;
+       }
+       .view-toggle { display: none !important; }
+     }
+     /* Mobile (≤768px): 2-row layout */
+     @media (max-width: 768px) {
+       .section-header {
+         flex-direction: column !important;
+         align-items: stretch !important;
+         gap: 8px !important;
+         margin-bottom: 10px !important;
+       }
+       .view-toggle { display: none !important; }
+       .add-buttons-group { display: none !important; }
+       .section-title {
+         display: flex !important;
+         align-items: center !important;
+         gap: 8px !important;
+         flex-wrap: nowrap !important;
+         width: 100% !important;
+         min-width: 0 !important;
+       }
+       .section-title h2 {
+         font-size: 15px !important;
+         white-space: nowrap !important;
+         overflow: hidden !important;
+         text-overflow: ellipsis !important;
+         flex-shrink: 1 !important;
+         min-width: 0 !important;
+       }
+       .resource-count {
+         flex-shrink: 0 !important;
+         font-size: 11px !important;
+         padding: 3px 8px !important;
+       }
+       .section-title .sh-page-size {
+         display: inline-flex !important;
+         margin-left: auto !important;
+         flex-shrink: 0 !important;
+       }
+        .section-title .sh-page-size .cd-btn {
+          min-width: 90px !important;
+          font-size: 11px !important;
+          padding: 6px 10px !important;
+        }
+        #purchasedSection #cdWrap-prPageSize .cd-btn {
+          min-width: 90px !important;
+          font-size: 11px !important;
+          padding: 6px 10px !important;
+        }
+         .sh-filter-row { display: flex !important; }
+       .resource-filter {
+         display: flex !important;
+         margin-bottom: 10px !important;
+       }
+        }
+      @media (max-width: 480px) {
+        .section-title h2 { font-size: 13px !important; }
+        .section-title .sh-page-size .cd-btn { min-width: 80px !important; font-size: 10px !important; padding: 5px 8px !important; }
+        #purchasedSection #cdWrap-prPageSize .cd-btn { min-width: 80px !important; font-size: 10px !important; padding: 5px 8px !important; }
+        .sh-add-btn-mobile { padding: 8px 10px !important; font-size: 12px !important; }
+      }
+      /* Mobile (≤768px): override for 2-row layout */
+     @media (max-width: 768px) {
+       .section-header {
+         flex-direction: column !important;
+         align-items: stretch !important;
+         gap: 8px !important;
+         margin-bottom: 10px !important;
+       }
+       .view-toggle { display: none !important; }
+       .add-buttons-group { display: none !important; }
+       .section-title {
+         display: flex !important;
+         align-items: center !important;
+         gap: 8px !important;
+         flex-wrap: nowrap !important;
+         width: 100% !important;
+         min-width: 0 !important;
+       }
+       .section-title h2 {
+         font-size: 15px !important;
+         white-space: nowrap !important;
+         overflow: hidden !important;
+         text-overflow: ellipsis !important;
+         flex-shrink: 1 !important;
+         min-width: 0 !important;
+       }
+       .resource-count {
+         flex-shrink: 0 !important;
+         font-size: 11px !important;
+         padding: 3px 8px !important;
+       }
+       .section-title .sh-page-size {
+         display: inline-flex !important;
+         margin-left: auto !important;
+         flex-shrink: 0 !important;
+       }
+       .section-title .sh-page-size .cd-btn {
+         min-width: 90px !important;
+         font-size: 11px !important;
+         padding: 6px 10px !important;
+       }
+      }
+      @media (max-width: 480px) {
+        .section-title h2 { font-size: 13px !important; }
+        .section-title .sh-page-size .cd-btn { min-width: 80px !important; font-size: 10px !important; padding: 5px 8px !important; }
+        #purchasedSection #cdWrap-prPageSize .cd-btn { min-width: 80px !important; font-size: 10px !important; padding: 5px 8px !important; }
+        .sh-add-btn-mobile { padding: 8px 10px !important; font-size: 12px !important; }
+      }
+
+
+  </style> 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar">
+    <div class="sidebar-header" onclick="window.location.href='https://earnify-gamma.vercel.app/'" style="cursor:pointer;">
+      <h2>Earnify Admin</h2>
+      <button class="sidebar-close-btn" onclick="event.stopPropagation();toggleSidebar()">&times;</button>
+    </div>
+
+   
+    <a href="/admin/Resources/" class="nav-link active-link">📚 Resources</a>
+    <a href="/admin/Statistics/" class="nav-link">📈 Statistics</a>
+    <a href="/admin/Profile/" class="nav-link">👤 Profile</a>
+    <a href="/admin/Withdrawal/" class="nav-link">💸 Withdrawal</a>
+     <!-- Neumorphic Dark/Light Toggle -->
+    <div class="sb-nm-wrap">
+      <button class="sb-nm-toggle" id="sbNmToggle" onclick="toggleDarkMode()" title="Toggle dark/light mode">
+        <span class="sb-nm-knob" id="sbNmKnob"></span>
+        <span class="sb-nm-label sb-nm-label-light">LIGHT</span>
+        <span class="sb-nm-label sb-nm-label-dark">DARK</span>
+      </button>
+    </div>
+    <a href="/" class="nav-link nav-link-divider">🏠 Main Site</a>
+
+    <!-- User Profile Section -->
+    <div class="sidebar-user" id="sidebarUser">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebarAvatar">??</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebarUserName">User</div>
+          <div class="user-email" id="sidebarUserEmail">user@email.com</div>
+        </div>
+      </div>
+      <a onclick="logout()" class="sb-logout">🚪 Logout</a>
+    </div>
+  </div>
+<script>!function(){var k=document.getElementById('sbNmKnob');if(k)k.textContent=localStorage.getItem('earnify_dark_mode')==='1'?'🌙':'☀️';}();</script>
+
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+      <span class="close" onclick="closeAuthModal()">&times;</span>
+      <h2 id="authTitle">Admin Login</h2>
+      <p id="authSubtitle">Login to access admin dashboard</p>
+      <div id="authError" class="error-message"></div>
+      <div id="authSuccess" class="success-message"></div>
+      <form id="authLoginForm">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="authLoginEmail" required placeholder="admin@earnify.com" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authLoginPassword" required placeholder="Enter password" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-submit">Login</button>
+        <div class="toggle-form">
+          Don't have an account? <a onclick="toggleAuthForm()">Sign Up</a>
+        </div>
+      </form>
+      <form id="authSignupForm" class="hidden">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="authSignupName" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="authSignupEmail" required placeholder="admin@earnify.com" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authSignupPassword" required placeholder="Min 6 characters" autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="authSignupConfirm" required placeholder="Re-enter password" autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-submit">Sign Up</button>
+        <div class="toggle-form">
+          Already have an account? <a onclick="toggleAuthForm()">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="page-header">
+      <div class="header-content">
+        <button class="mobile-menu-toggle page-header-toggle" onclick="toggleSidebar()">
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+          <div class="hamburger"></div>
+        </button>
+        <div class="header-text">
+          <h1>Resources</h1>
+          <p class="subtitle">Manage your PDF notes, Excel templates, Exam materials, and Freelance services</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- View Toggle Buttons -->
+    <div style="display:flex;gap:10px;margin-bottom:24px;">
+      <button id="btnAllResources" onclick="switchView('resources')">📚 All Resources</button>
+      <button id="btnPurchases" onclick="switchView('purchases')">🛒 Purchased Resources</button>
+    </div>
+
+
+
+    <div id="all" class="tab-content active">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>All Resources</h2>
+            <span class="resource-count" id="allCount">0 items</span>
+            <div class="cd-wrap sh-page-size" id="cdWrap-resPageSize">
+              <button class="cd-btn" onclick="cdToggle('resPageSize')" type="button">
+                <span class="cd-label" id="cdLabel-resPageSize">10 / page</span>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+              </button>
+               <div class="cd-list" id="cdList-resPageSize" style="display:none;" data-align="right">
+                <div class="cd-item selected" onclick="cdResPageSize('10','10 / page')">10 / page<span class="cd-check">&#10003;</span></div>
+                <div class="cd-item" onclick="cdResPageSize('30','30 / page')">30 / page<span class="cd-check">&#10003;</span></div>
+                <div class="cd-item" onclick="cdResPageSize('50','50 / page')">50 / page<span class="cd-check">&#10003;</span></div>
+                <div class="cd-item" onclick="cdResPageSize('100','100 / page')">100 / page<span class="cd-check">&#10003;</span></div>
+                <div class="cd-item" onclick="cdResPageSize('all','All')">All<span class="cd-check">&#10003;</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="view-toggle">
+            <button class="view-btn active" onclick="setView('grid')">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+              </svg>
+              Grid
+            </button>
+          </div>
+          <div class="add-buttons-group">
+            <button class="add-resource-btn" onclick="openAddPicker()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Resource
+            </button>
+          </div>
+        </div>
+        <div class="resource-filter sh-filter-row">
+          <button class="add-resource-btn sh-add-btn-mobile" onclick="openAddPicker()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Resource
+          </button>
+          <div class="cd-wrap" id="cdWrap-resourceFilter">
+            <button class="cd-btn" onclick="cdToggle('resourceFilter')" type="button">
+              <img src="/file/all.jpg" id="cdFilterIcon" style="width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;">
+              <span class="cd-label" id="cdLabel-resourceFilter">All Resources</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="cd-list" id="cdList-resourceFilter" style="display:none;">
+              <div class="cd-item selected" onclick="cdFilterSelect('all','All Resources','/file/all.jpg')">
+                <img src="/file/all.jpg" style="width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;"> All Resources<span class="cd-check">&#10003;</span>
+              </div>
+              <div class="cd-item" onclick="cdFilterSelect('pdf','PDF Notes','/file/pdf.jpg')">
+                <img src="/file/pdf.jpg" style="width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;"> PDF Notes<span class="cd-check">&#10003;</span>
+              </div>
+              <div class="cd-item" onclick="cdFilterSelect('excel','Excel Templates','/file/excel.jpg')">
+                <img src="/file/excel.jpg" style="width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;"> Excel Templates<span class="cd-check">&#10003;</span>
+              </div>
+              <div class="cd-item" onclick="cdFilterSelect('exam','Exam Materials','/file/exam.jpg')">
+                <img src="/file/exam.jpg" style="width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;"> Exam Materials<span class="cd-check">&#10003;</span>
+              </div>
+              <div class="cd-item" onclick="cdFilterSelect('freelance','Freelance Services','/file/service.jpg')">
+                <img src="/file/service.jpg" style="width:18px;height:18px;border-radius:4px;object-fit:cover;flex-shrink:0;"> Freelance Services<span class="cd-check">&#10003;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="resource-grid" id="allGrid">
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/empty-resources.png" style="width:80px;height:80px;object-fit:contain;"></div>
+            <h3>No Resources Yet</h3>
+            <p>Click the buttons above to add your first resource!</p>
+          </div>
+        </div>
+        <div id="resPagination" style="font-family:inherit;margin-top:16px;"></div>
+      </div>
+    </div>
+
+    <div id="pdf" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2><img src="/file/pdf.jpg" alt="PDF"
+                style="width:24px;height:24px;object-fit:contain;vertical-align:middle;"> PDF Notes</h2>
+            <span class="resource-count" id="pdfCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-filter">
+          <div class="custom-select" onclick="toggleDropdownById('dropdownMenuPdf')">
+            <img src="/file/pdf.jpg" class="select-icon" id="selectedIconPdf">
+            <span id="selectedTextPdf">PDF Notes</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="dropdown" id="dropdownMenuPdf">
+            <div
+              onclick="selectOption('all','All Resources','/file/all.jpg'); document.getElementById('dropdownMenuPdf').style.display='none';">
+              <img src="/file/all.jpg"> All Resources
+            </div>
+            <div
+              onclick="selectOption('pdf','PDF Notes','/file/pdf.jpg'); document.getElementById('dropdownMenuPdf').style.display='none';">
+              <img src="/file/pdf.jpg"> PDF Notes
+            </div>
+            <div
+              onclick="selectOption('excel','Excel Templates','/file/excel.jpg'); document.getElementById('dropdownMenuPdf').style.display='none';">
+              <img src="/file/excel.jpg"> Excel Templates
+            </div>
+            <div
+              onclick="selectOption('exam','Exam Materials','/file/exam.jpg'); document.getElementById('dropdownMenuPdf').style.display='none';">
+              <img src="/file/exam.jpg"> Exam Materials
+            </div>
+            <div
+              onclick="selectOption('freelance','Freelance Services','/file/service.jpg'); document.getElementById('dropdownMenuPdf').style.display='none';">
+              <img src="/file/service.jpg"> Freelance Services
+            </div>
+          </div>
+        </div>
+        <div class="resource-grid" id="pdfGrid">
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/pdf.jpg" alt="PDF"></div>
+            <h3>No PDF Notes</h3>
+            <p>Go to "All Resources" tab to add PDF notes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="excel" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2><img src="/file/excel.jpg" alt="Excel"
+                style="width:24px;height:24px;object-fit:contain;vertical-align:middle;"> Excel Templates</h2>
+            <span class="resource-count" id="excelCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-filter">
+          <div class="custom-select" onclick="toggleDropdownExcel()"><img src="/file/excel.jpg" class="select-icon">
+            <span>Excel Templates</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="dropdown" id="dropdownMenuExcel">
+            <div
+              onclick="selectOption('all','All Resources','/file/all.jpg'); document.getElementById('dropdownMenuExcel').style.display='none';">
+              <img src="/file/all.jpg"> All Resources
+            </div>
+            <div
+              onclick="selectOption('pdf','PDF Notes','/file/pdf.jpg'); document.getElementById('dropdownMenuExcel').style.display='none';">
+              <img src="/file/pdf.jpg"> PDF Notes
+            </div>
+            <div
+              onclick="selectOption('excel','Excel Templates','/file/excel.jpg'); document.getElementById('dropdownMenuExcel').style.display='none';">
+              <img src="/file/excel.jpg"> Excel Templates
+            </div>
+            <div
+              onclick="selectOption('exam','Exam Materials','/file/exam.jpg'); document.getElementById('dropdownMenuExcel').style.display='none';">
+              <img src="/file/exam.jpg"> Exam Materials
+            </div>
+            <div
+              onclick="selectOption('freelance','Freelance Services','/file/service.jpg'); document.getElementById('dropdownMenuExcel').style.display='none';">
+              <img src="/file/service.jpg"> Freelance Services
+            </div>
+          </div>
+        </div>
+        <div class="resource-grid" id="excelGrid">
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/excel.jpg" alt="Excel"></div>
+            <h3>No Excel Templates</h3>
+            <p>Go to "All Resources" tab to add Excel templates</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="exam" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2><img src="/file/exam.jpg" alt="Exam"
+                style="width:24px;height:24px;object-fit:contain;vertical-align:middle;"> Exam Materials</h2>
+            <span class="resource-count" id="examCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-filter">
+          <div class="custom-select" onclick="toggleDropdownExam()"><img src="/file/exam.jpg" class="select-icon">
+            <span>Exam Materials</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="dropdown" id="dropdownMenuExam">
+            <div
+              onclick="selectOption('all','All Resources','/file/all.jpg'); document.getElementById('dropdownMenuExam').style.display='none';">
+              <img src="/file/all.jpg"> All Resources
+            </div>
+            <div
+              onclick="selectOption('pdf','PDF Notes','/file/pdf.jpg'); document.getElementById('dropdownMenuExam').style.display='none';">
+              <img src="/file/pdf.jpg"> PDF Notes
+            </div>
+            <div
+              onclick="selectOption('excel','Excel Templates','/file/excel.jpg'); document.getElementById('dropdownMenuExam').style.display='none';">
+              <img src="/file/excel.jpg"> Excel Templates
+            </div>
+            <div
+              onclick="selectOption('exam','Exam Materials','/file/exam.jpg'); document.getElementById('dropdownMenuExam').style.display='none';">
+              <img src="/file/exam.jpg"> Exam Materials
+            </div>
+            <div
+              onclick="selectOption('freelance','Freelance Services','/file/service.jpg'); document.getElementById('dropdownMenuExam').style.display='none';">
+              <img src="/file/service.jpg"> Freelance Services
+            </div>
+          </div>
+        </div>
+        <div class="resource-grid" id="examGrid">
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/exam.jpg" alt="Exam"></div>
+            <h3>No Exam Materials</h3>
+            <p>Go to "All Resources" tab to add exam materials</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="freelance" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2><img src="/file/service.jpg" alt="Freelance"
+                style="width:24px;height:24px;object-fit:contain;vertical-align:middle;"> Freelance Services</h2>
+            <span class="resource-count" id="freelanceCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-filter">
+          <div class="custom-select" onclick="toggleDropdownFreelance()">
+            <img src="/file/service.jpg" class="select-icon">
+            <span>Freelance Services</span>
+            <span class="arrow">&#9660;</span>
+          </div>
+          <div class="dropdown" id="dropdownMenuFreelance">
+            <div
+              onclick="selectOption('all','All Resources','/file/all.jpg'); document.getElementById('dropdownMenuFreelance').style.display='none';">
+              <img src="/file/all.jpg"> All Resources
+            </div>
+            <div
+              onclick="selectOption('pdf','PDF Notes','/file/pdf.jpg'); document.getElementById('dropdownMenuFreelance').style.display='none';">
+              <img src="/file/pdf.jpg"> PDF Notes
+            </div>
+            <div
+              onclick="selectOption('excel','Excel Templates','/file/excel.jpg'); document.getElementById('dropdownMenuFreelance').style.display='none';">
+              <img src="/file/excel.jpg"> Excel Templates
+            </div>
+            <div
+              onclick="selectOption('exam','Exam Materials','/file/exam.jpg'); document.getElementById('dropdownMenuFreelance').style.display='none';">
+              <img src="/file/exam.jpg"> Exam Materials
+            </div>
+            <div
+              onclick="selectOption('freelance','Freelance Services','/file/service.jpg'); document.getElementById('dropdownMenuFreelance').style.display='none';">
+              <img src="/file/service.jpg"> Freelance Services
+            </div>
+          </div>
+        </div>
+        <div class="resource-grid" id="freelanceGrid">
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/service.jpg" alt=""></div>
+            <h3>No Freelance Services</h3>
+            <p>Go to "All Resources" tab to add freelance services</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Purchased Resources Section -->
+    <div id="purchasedSection" style="display:none;padding-bottom:30px;">
+      <div class="dash-section-head">
+        <h2 class="purchased-heading">🛒 My Purchased Resources</h2>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+          <!-- Desktop: pill buttons -->
+          <div class="pr-filter-strip pr-filter-strip-desktop">
+            <button class="pr-filter active" onclick="filterPurchased('all',this)">All</button>
+            <button class="pr-filter" onclick="filterPurchased('pdf',this)">📄 PDF</button>
+            <button class="pr-filter" onclick="filterPurchased('excel',this)">📊 Excel</button>
+            <button class="pr-filter" onclick="filterPurchased('exam',this)">📝 Exam</button>
+            <button class="pr-filter" onclick="filterPurchased('freelance',this)">💼 Services</button>
+          </div>
+          <!-- Mobile: dropdown -->
+          <div class="cd-wrap pr-filter-dropdown-mobile" id="cdWrap-prFilter">
+            <button class="cd-btn" onclick="cdToggle('prFilter')" type="button">
+              <span class="cd-label" id="cdLabel-prFilter">All</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="cd-list" id="cdList-prFilter" style="display:none;">
+              <div class="cd-item selected" onclick="cdPrFilter('all','All')">All<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrFilter('pdf','📄 PDF')">📄 PDF<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrFilter('excel','📊 Excel')">📊 Excel<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrFilter('exam','📝 Exam')">📝 Exam<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrFilter('freelance','💼 Services')">💼 Services<span class="cd-check">&#10003;</span></div>
+            </div>
+          </div>
+          <div class="cd-wrap" id="cdWrap-prPageSize">
+            <button class="cd-btn" onclick="cdToggle('prPageSize')" type="button">
+              <span class="cd-label" id="cdLabel-prPageSize">10 / page</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="cd-list" id="cdList-prPageSize" style="display:none;" data-align="right">
+              <div class="cd-item selected" onclick="cdPrPageSize('10','10 / page')">10 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrPageSize('30','30 / page')">30 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrPageSize('50','50 / page')">50 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrPageSize('100','100 / page')">100 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdPrPageSize('all','All')">All<span class="cd-check">&#10003;</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="purchasedGrid" style="display:grid;gap:16px;margin-top:16px;"></div>
+      <div id="prPagination" style="font-family:inherit;margin-top:16px;"></div>
+    </div>
+
+  </div>
+
+  <div id="addModal" class="modal">
+    <div class="modal-content" style="max-width:420px;padding:30px 28px;">
+      <span class="close" onclick="closeModal()">&times;</span>
+
+      <!-- Step 1: Type Picker Dropdown -->
+      <div id="addStep1" style="padding:10px 0;">
+        <h2 style="margin-bottom:24px;font-size:22px;text-align:center;">Choose Resource Type</h2>
+        <div class="type-select-wrapper" style="position:relative;">
+          <div class="custom-select" id="typeSelectTrigger" onclick="toggleTypeDropdown()" style="width:100%;justify-content:space-between;padding:14px 18px;border:2px solid #e2e8f0;border-radius:12px;background:#fff;display:flex;align-items:center;cursor:pointer;transition:all 0.2s;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <img src="/file/pdf.jpg" class="select-icon" id="typeIcon" style="width:28px;height:28px;border-radius:6px;object-fit:cover;">
+              <span id="typeText" style="font-size:16px;font-weight:500;color:#334155;">Select Type...</span>
+            </div>
+            <span class="arrow" style="font-size:12px;color:#64748b;transition:transform 0.2s;">&#9660;</span>
+          </div>
+          <div class="dropdown type-option-dropdown" id="typeDropdown" style="display:none;position:relative;top:8px;left:0;right:0;background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.12);z-index:1000;margin-top:8px;">
+            <div onclick="pickType('pdf')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background 0.2s;font-size:15px;">
+              <img src="/file/pdf.jpg" style="width:28px;height:28px;border-radius:6px;object-fit:cover;"> <span style="font-weight:500;">PDF Notes</span>
+            </div>
+            <div onclick="pickType('excel')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background 0.2s;font-size:15px;">
+              <img src="/file/excel.jpg" style="width:28px;height:28px;border-radius:6px;object-fit:cover;"> <span style="font-weight:500;">Excel Template</span>
+            </div>
+            <div onclick="pickType('exam')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background 0.2s;font-size:15px;">
+              <img src="/file/exam.jpg" style="width:28px;height:28px;border-radius:6px;object-fit:cover;"> <span style="font-weight:500;">Exam Material</span>
+            </div>
+            <div onclick="pickType('freelance')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;transition:background 0.2s;font-size:15px;">
+              <img src="/file/service.jpg" style="width:28px;height:28px;border-radius:6px;object-fit:cover;"> <span style="font-weight:500;">Freelance Service</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Form -->
+      <div id="addStep2" style="display:none;">
+        <button class="back-btn" onclick="backToPicker()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+          Back
+        </button>
+        <h2 id="modalTitle">Add Resource</h2>
+        <div class="type-select-wrapper" style="position:relative;margin-bottom:20px;">
+          <div class="custom-select" id="typeSelectTrigger2" onclick="toggleTypeDropdown2()" style="width:100%;justify-content:space-between;padding:14px 18px;border:2px solid #e2e8f0;border-radius:12px;background:#fff;display:flex;align-items:center;cursor:pointer;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <img src="/file/pdf.jpg" id="typeIcon2" style="width:28px;height:28px;border-radius:6px;">
+              <span id="typeText2" style="font-size:16px;font-weight:500;color:#334155;">Select Type...</span>
+            </div>
+            <span class="arrow" style="font-size:12px;color:#64748b;">&#9660;</span>
+          </div>
+          <div id="typeDropdown2" class="type-option-dropdown" style="display:none;position:relative;top:8px;left:0;right:0;background:#fff;border:1px solid #e2e8f0;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,0.12);margin-top:8px;">
+            <div onclick="changeType('pdf')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;"><img src="/file/pdf.jpg" style="width:28px;height:28px;border-radius:6px;"><span style="font-weight:500;">PDF Notes</span></div>
+            <div onclick="changeType('excel')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;"><img src="/file/excel.jpg" style="width:28px;height:28px;border-radius:6px;"><span style="font-weight:500;">Excel Template</span></div>
+            <div onclick="changeType('exam')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;"><img src="/file/exam.jpg" style="width:28px;height:28px;border-radius:6px;"><span style="font-weight:500;">Exam Material</span></div>
+            <div onclick="changeType('freelance')" style="padding:14px 18px;display:flex;align-items:center;gap:14px;cursor:pointer;"><img src="/file/service.jpg" style="width:28px;height:28px;border-radius:6px;"><span style="font-weight:500;">Freelance Service</span></div>
+          </div>
+        </div>
+        <form id="resourceForm">
+          <input type="text" id="title" placeholder="Title" required>
+          <textarea id="description" placeholder="Description" required></textarea>
+          <input type="text" id="price" placeholder="Price (₹)" required>
+          <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx" required>
+          <div id="uploadProgress" style="display:none;">Uploading...</div>
+          <button type="submit">Add Resource</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div id="viewModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeViewModal()">&times;</span>
+      <h2>View Resource</h2>
+      <div id="viewContent">
+        <p><strong>Title:</strong> <span id="viewTitle"></span></p>
+        <p><strong>Description:</strong> <span id="viewDescription"></span></p>
+        <p><strong>Price:</strong> ?<span id="viewPrice"></span></p>
+        <p><strong>Type:</strong> <span id="viewType"></span></p>
+        <p><strong>File:</strong> <span id="viewFileName">No file uploaded</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h2>Edit Resource</h2>
+      <form id="editForm">
+        <input type="hidden" id="editId">
+        <input type="text" id="editTitle" placeholder="Title" required>
+        <textarea id="editDescription" placeholder="Description" required></textarea>
+        <input type="text" id="editPrice" placeholder="Price (?)" required>
+        <input type="file" id="editFileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx">
+        <small style="color: #64748b; margin-bottom: 10px; display: block;">Leave empty to keep current file</small>
+        <div class="last-file-info">
+          <small>Last uploaded: <span id="lastFileName">No file</span></small>
+        </div>
+        <button type="submit">Update Resource</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Delete Confirm Modal -->
+  <div id="deleteModal"
+    style="display:none;position:fixed;inset:0;background:rgba(15,23,42,0.55);backdrop-filter:blur(4px);z-index:3000;align-items:center;justify-content:center;">
+    <div
+      style="background:#fff;border-radius:20px;padding:32px 28px;width:90%;max-width:400px;box-shadow:0 24px 60px rgba(0,0,0,0.22);text-align:center;">
+      <div
+        style="width:60px;height:60px;background:#fef2f2;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;font-size:1.6rem;">
+        🗑️</div>
+      <h3 style="font-size:1.1rem;font-weight:800;color:#0f172a;margin:0 0 8px;">Delete Resource?</h3>
+      <p style="font-size:0.88rem;color:#64748b;margin:0 0 24px;line-height:1.6;">This action cannot be undone. The
+        resource will be permanently removed.</p>
+      <div style="display:flex;gap:10px;justify-content:center;">
+        <button onclick="closeDeleteModal()"
+          style="flex:1;padding:11px;border-radius:10px;border:1.5px solid #e2e8f0;background:#fff;color:#475569;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:inherit;">Cancel</button>
+        <button id="confirmDeleteBtn" onclick="confirmDelete()"
+          style="flex:1;padding:11px;border-radius:10px;border:none;background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff;font-size:0.9rem;font-weight:700;cursor:pointer;font-family:inherit;">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Undo Toast -->
+  <div id="undoToast"
+    style="display:none;position:fixed;bottom:28px;left:50%;transform:translateX(-50%);z-index:4000;background:#1e293b;border-radius:14px;padding:14px 20px;box-shadow:0 8px 32px rgba(0,0,0,0.25);flex-direction:column;gap:10px;min-width:280px;max-width:360px;">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <span style="font-size:0.88rem;font-weight:600;color:#fff;">🗑️ Resource deleted</span>
+      <button onclick="undoDelete()"
+        style="padding:7px 18px;border-radius:8px;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;font-size:0.82rem;font-weight:700;cursor:pointer;font-family:inherit;white-space:nowrap;">↩
+        Undo</button>
+    </div>
+    <div style="height:3px;background:rgba(255,255,255,0.15);border-radius:2px;overflow:hidden;">
+      <div id="undoBar"
+        style="height:100%;width:100%;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:2px;"></div>
+    </div>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <nav class="admin-mob-nav">
+    <a href="/admin/Resources/" class="amn-item active">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Resources</span>
+    </a>
+    <a href="/admin/Statistics/" class="amn-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Statistics</span>
+    </a>
+    <a href="/" class="amn-item amn-home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="/admin/Profile/" class="amn-item">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+    <a href="/admin/Withdrawal/" class="amn-item">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>Withdraw</span>
+    </a>
+  </nav>
+
+  <script src="/admin/api-config.js"></script>
+  <script src="/admin/super-admin-btn.js"></script>
+  <script src="auth-guard.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="./app.js"></script>
+  <script src="./auth-modal.js"></script>
+  <script src="dropdown.js"></script>
+  <script>
+    // Make sure functions are globally accessible
+    window.showAddModal = window.showAddModal || function (type) {
+      console.log('showAddModal called with type:', type);
+      const modal = document.getElementById('addModal');
+      if (modal) {
+        modal.style.display = 'flex';
+      }
+    };
+
+    // Open picker step
+    window.openAddPicker = function() {
+      document.getElementById('addStep1').style.display = 'block';
+      document.getElementById('addStep2').style.display = 'none';
+      document.getElementById('addModal').style.display = 'flex';
+    };
+
+    // Pick a type and go to form
+    window.pickType = function(type) {
+      // Close dropdown and hide step1 completely
+      const dropdown = document.getElementById('typeDropdown');
+      if (dropdown) {
+        dropdown.style.display = 'none';
+        dropdown.style.visibility = 'hidden';
+      }
+      // Hide addStep1
+      document.getElementById('addStep1').style.display = 'none';
+      document.getElementById('addStep1').style.visibility = 'hidden';
+      // Update the selected type display
+      const icons = { pdf:'/file/pdf.jpg', excel:'/file/excel.jpg', exam:'/file/exam.jpg', freelance:'/file/service.jpg' };
+      const labels = { pdf:'PDF Notes', excel:'Excel Template', exam:'Exam Material', freelance:'Freelance Service' };
+      document.getElementById('typeIcon').src = icons[type] || '/file/pdf.jpg';
+      document.getElementById('typeText').textContent = labels[type] || type;
+      document.getElementById('typeIcon2').src = icons[type] || '/file/pdf.jpg';
+      document.getElementById('typeText2').textContent = labels[type] || type;
+      // Show form
+      document.getElementById('addStep2').style.display = 'block';
+      document.getElementById('addStep2').style.visibility = 'visible';
+      if (typeof showAddModal === 'function') showAddModal(type);
+      else {
+        // Update modal title with selected type
+        const modalTitle = document.getElementById('modalTitle');
+        if (modalTitle) {
+          modalTitle.innerHTML = '<img src="' + (icons[type] || '/file/pdf.jpg') + '" style="width:24px;height:24px;vertical-align:middle;margin-right:8px;border-radius:4px;"> Add ' + (labels[type] || 'Resource');
+        }
+        // Update the type dropdown in form
+        document.getElementById('typeIcon2').src = icons[type] || '/file/pdf.jpg';
+        document.getElementById('typeText2').textContent = labels[type] || type;
+      }
+    };
+
+    // Back to picker
+    window.backToPicker = function() {
+      document.getElementById('addStep2').style.display = 'none';
+      document.getElementById('addStep2').style.visibility = 'hidden';
+      document.getElementById('addStep1').style.display = 'block';
+      document.getElementById('addStep1').style.visibility = 'visible';
+      // Reset the dropdown display
+      const dropdown = document.getElementById('typeDropdown');
+      if (dropdown) {
+        dropdown.style.display = 'none';
+        dropdown.style.visibility = 'visible';
+      }
+    };
+
+    window.showTab = window.showTab || function (type) {
+      console.log('showTab called with type:', type);
+    };
+
+    // Check login status, update sidebar, and show Super Admin button if applicable
+    (async function () {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const sidebarUser = document.getElementById('sidebarUser');
+
+      if (!currentUser.email) return;
+
+      if (sidebarUser) sidebarUser.style.display = 'flex';
+      const userName = currentUser.user_metadata?.name || currentUser.email.split('@')[0] || 'User';
+      document.getElementById('sidebarUserName').textContent = userName;
+      document.getElementById('sidebarUserEmail').textContent = currentUser.email;
+      document.getElementById('sidebarAvatar').textContent = userName.charAt(0).toUpperCase();
+
+      // Super Admin button injected by super-admin-btn.js
+    })();
+
+    function logout() {
+      // Clear all authentication data
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('userLoggedIn');
+      localStorage.removeItem('adminUser');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+
+      // Clear session storage as well
+      sessionStorage.clear();
+
+      // Sign out from Supabase if available
+      if (typeof supabaseClient !== 'undefined') {
+        supabaseClient.auth.signOut().catch(console.error);
+      }
+
+      // Force redirect to main site index page
+      window.location.href = '../../index.html';
+
+      // Fallback redirect after a short delay
+      setTimeout(() => {
+        window.location.replace('../../index.html');
+      }, 100);
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      const body = document.body;
+
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      body.classList.toggle('sidebar-open');
+    }
+
+    function closeMobileSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      const body = document.body;
+
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        body.classList.remove('sidebar-open');
+      }
+    }
+
+    // Set view mode - Grid only (table view removed)
+    function setView(view, isInit) {
+      const grids = document.querySelectorAll('.resource-grid');
+      grids.forEach(grid => {
+        grid.classList.remove('list-view');
+        grid.classList.add('grid-view');
+      });
+
+      const viewBtns = document.querySelectorAll('.view-btn');
+      viewBtns.forEach(btn => btn.classList.remove('active'));
+
+      // Only update button state if not initialization
+      if (!isInit && event && event.target) {
+        event.target.closest('.view-btn').classList.add('active');
+      } else {
+        // Set grid button as active on init
+        const gridBtn = document.querySelector('.view-btn[onclick*="grid"]');
+        if (gridBtn) gridBtn.classList.add('active');
+      }
+
+      localStorage.setItem('resourceView', view);
+    }
+
+    (function () {
+      const savedView = localStorage.getItem('resourceView') || 'grid';
+      setView(savedView, true);
+    })();
+
+
+
+    /* ── View Switcher ── */
+    let _allPurchased = [];
+    let _filteredPurchased = [];
+    window._prPageSize = 10;
+    window._prPage = 1;
+
+    function switchView(view) {
+      const btnRes       = document.getElementById('btnAllResources');
+      const btnPur       = document.getElementById('btnPurchases');
+      const purchasedSec = document.getElementById('purchasedSection');
+      const tabContents  = document.querySelectorAll('.tab-content');
+
+      if (view === 'resources') {
+        tabContents.forEach(t => t.style.display = '');
+        purchasedSec.style.display = 'none';
+        btnRes.classList.add('view-tab-active');
+        btnRes.classList.remove('view-tab-inactive');
+        btnPur.classList.add('view-tab-inactive');
+        btnPur.classList.remove('view-tab-active');
+      } else {
+        tabContents.forEach(t => t.style.display = 'none');
+        purchasedSec.style.display = 'block';
+        btnPur.classList.add('view-tab-active');
+        btnPur.classList.remove('view-tab-inactive');
+        btnRes.classList.add('view-tab-inactive');
+        btnRes.classList.remove('view-tab-active');
+        loadPurchased();
+      }
+    }
+
+    async function loadPurchased() {
+      showPrSkeleton();
+      try {
+        const cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        let userId = cu.id;
+        if (!userId) {
+          const { data: { user } } = await supabaseClient.auth.getUser();
+          userId = user?.id;
+        }
+        if (!userId) throw new Error('Not logged in');
+        const baseURL = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
+          ? (location.port === '5500' ? 'https://earnify-gamma.vercel.app' : 'http://localhost:5000')
+          : location.origin;
+        const res = await fetch(baseURL + '/api/payments/' + userId);
+        _allPurchased = res.ok ? await res.json() : [];
+      } catch (e) {
+        console.error('[Purchased] load error =>', e);
+        _allPurchased = [];
+      }
+      _filteredPurchased = _allPurchased;
+      window._prPage = 1;
+      renderPurchased(_filteredPurchased);
+    }
+
+    function showPrSkeleton() {
+      const grid = document.getElementById('purchasedGrid');
+      const skCard = `
+        <div class="pr-sk-card">
+          <span class="pr-sk pr-sk-icon"></span>
+          <div class="pr-sk-body">
+            <span class="pr-sk pr-sk-title"></span>
+            <span class="pr-sk pr-sk-meta"></span>
+          </div>
+          <div class="pr-sk-right">
+            <span class="pr-sk pr-sk-price"></span>
+            <span class="pr-sk pr-sk-btn"></span>
+          </div>
+        </div>`;
+      grid.innerHTML = skCard + skCard + skCard;
+    }
+
+    function filterPurchased(type, btn) {
+      document.querySelectorAll('.pr-filter').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      showPrSkeleton();
+      setTimeout(() => {
+        _filteredPurchased = type === 'all' ? _allPurchased : _allPurchased.filter(p => p.resources?.type === type);
+        window._prPage = 1;
+        renderPurchased(_filteredPurchased);
+      }, 300);
+    }
+
+    function renderPurchased(list) {
+      _filteredPurchased = list;
+      const grid = document.getElementById('purchasedGrid');
+      const pagEl = document.getElementById('prPagination');
+      const valid = list.filter(p => p.resources);
+
+      if (!valid.length) {
+        const isDark = document.body.classList.contains('dark-mode');
+        grid.innerHTML = `<div style="text-align:center;padding:60px 20px;"><div style="margin-bottom:12px;"><img src="/file/empty-cart.png" class="empty-state-img" style="width:80px;height:80px;object-fit:contain;"></div><div style="font-size:16px;font-weight:700;color:${isDark?'#e6edf3':'#1e293b'};margin-bottom:6px;">No Purchases Yet</div><div style="font-size:13px;color:${isDark?'#484f58':'#94a3b8'};">Resources you purchase will appear here.</div></div>`;
+        if (pagEl) pagEl.innerHTML = '';
+        return;
+      }
+
+      const total = valid.length;
+      const ps = window._prPageSize === 'all' ? total : window._prPageSize;
+      const totalPages = Math.ceil(total / ps) || 1;
+      window._prPage = Math.min(window._prPage, totalPages);
+      const start = (window._prPage - 1) * ps;
+      const slice = window._prPageSize === 'all' ? valid : valid.slice(start, start + ps);
+
+      const icons = { pdf: '📄', excel: '📊', exam: '📝', freelance: '💼' };
+      grid.innerHTML = slice.map(p => {
+        const r    = p.resources;
+        const icon = icons[r.type] || '📦';
+        const date = new Date(p.created_at).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        const dlBtn = r.fileurl
+          ? `<a href="${r.fileurl}" target="_blank" download class="pr-dl-btn">&#8595; Download</a>`
+          : `<span class="pr-no-file">No file</span>`;
+        return `
+        <div class="pr-card">
+          <div class="pr-icon">${icon}</div>
+          <div class="pr-info">
+            <div class="pr-title">${r.title || 'Resource'}</div>
+            <div class="pr-meta">${(r.type || '').toUpperCase()} &nbsp;•&nbsp; ${date}</div>
+          </div>
+          <div class="pr-right">
+            <div class="pr-price">&#8377;${r.price || '—'}</div>
+            ${dlBtn}
+          </div>
+        </div>`;
+      }).join('');
+
+      if (!pagEl) return;
+      if (window._prPageSize === 'all' || totalPages <= 1) { pagEl.innerHTML = ''; return; }
+      const btnBase   = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid #e2e8f0;background:#f8fafc;color:#64748b;transition:all .2s;';
+      const btnActive = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;';
+      const range = 2; let pages = '';
+      for (let p = 1; p <= totalPages; p++) {
+        if (p===1||p===totalPages||(p>=window._prPage-range&&p<=window._prPage+range))
+          pages += `<button onclick="window._prPage=${p};renderPurchased(_filteredPurchased)" style="${p===window._prPage?btnActive:btnBase}">${p}</button>`;
+        else if (p===window._prPage-range-1||p===window._prPage+range+1)
+          pages += `<span style="padding:0 2px;color:#94a3b8;">…</span>`;
+      }
+      pagEl.innerHTML = `<div>
+        <span style="font-size:12px;color:#94a3b8;font-weight:500;">Showing ${start+1}–${Math.min(start+ps,total)} of ${total}</span>
+        <div>
+          <button onclick="window._prPage=Math.max(1,window._prPage-1);renderPurchased(_filteredPurchased)" ${window._prPage===1?'disabled':''} style="${btnBase}opacity:${window._prPage===1?'.4':'1'};">&#8249; Prev</button>
+          ${pages}
+          <button onclick="window._prPage=Math.min(${totalPages},window._prPage+1);renderPurchased(_filteredPurchased)" ${window._prPage===totalPages?'disabled':''} style="${btnBase}opacity:${window._prPage===totalPages?'.4':'1'};">Next &#8250;</button>
+        </div>
+      </div>`;
+    }
+  </script>
+  <script>
+    // Apply initial button styles on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      switchView('resources');
+    });
+  </script>
+  <script>
+    /* ── cd-wrap Engine ── */
+    window._resPageSize = 10;
+    window._resPage = 1;
+    window._resAllData = [];
+
+    // Track open dropdown for scroll repositioning
+    window._cdOpenId = null;
+    window._cdOpenBtn = null;
+
+    function cdCloseAll() {
+      document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+      document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      window._cdOpenId = null;
+      window._cdOpenBtn = null;
+    }
+
+    function cdPositionList(list, btn) {
+      const rect = btn.getBoundingClientRect();
+      const alignRight = list.getAttribute('data-align') === 'right';
+      list.style.position = 'fixed';
+      list.style.top = (rect.bottom + 6) + 'px';
+      if (alignRight) { list.style.left = 'auto'; list.style.right = (window.innerWidth - rect.right) + 'px'; }
+      else { list.style.right = 'auto'; list.style.left = rect.left + 'px'; }
+      list.style.minWidth = rect.width + 'px';
+    }
+
+    function cdToggle(id) {
+      const list = document.getElementById('cdList-' + id);
+      const btn  = document.querySelector('#cdWrap-' + id + ' .cd-btn');
+      const open = list.style.display !== 'none';
+      cdCloseAll();
+      if (!open) {
+        // Move list to body so overflow:hidden on .main never clips it
+        if (list.parentNode !== document.body) document.body.appendChild(list);
+        cdPositionList(list, btn);
+        list.style.display = '';
+        btn.classList.add('open');
+        window._cdOpenId = id;
+        window._cdOpenBtn = btn;
+      }
+    }
+
+    // Close dropdown on scroll (fixes dropdown scrolling with page)
+    document.querySelector('.main').addEventListener('scroll', function() {
+      if (window._cdOpenId) cdCloseAll();
+    }, { passive: true });
+    function cdFilterSelect(value, label, imgSrc) {
+      document.getElementById('cdLabel-resourceFilter').textContent = label;
+      document.getElementById('cdFilterIcon').src = imgSrc;
+      document.querySelectorAll('#cdList-resourceFilter .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-resourceFilter').style.display = 'none';
+      document.querySelector('#cdWrap-resourceFilter .cd-btn').classList.remove('open');
+      window._resPage = 1;
+      // Filter within the #all section (stay in current view, don't navigate to another tab)
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const userEmail = currentUser.email;
+      if (!userEmail) return;
+      const baseURL = (location.hostname === '127.0.0.1' || location.hostname === 'localhost')
+        ? (location.port === '5500' ? 'https://earnify-gamma.vercel.app' : 'http://localhost:5000')
+        : location.origin;
+      fetch(baseURL + '/api/resources')
+        .then(r => r.json())
+        .then(all => {
+          let resources = all.filter(r => r.user_email === userEmail);
+          if (value !== 'all') resources = resources.filter(r => r.type === value);
+          const countEl = document.getElementById('allCount');
+          if (countEl) countEl.textContent = resources.length + ' item' + (resources.length !== 1 ? 's' : '');
+          window._resAllData = resources;
+          window._resPage = 1;
+          window._renderResPage();
+        })
+        .catch(console.error);
+    }
+    function cdResPageSize(value, label) {
+      document.getElementById('cdLabel-resPageSize').textContent = label;
+      document.querySelectorAll('#cdList-resPageSize .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-resPageSize').style.display = 'none';
+      document.querySelector('#cdWrap-resPageSize .cd-btn').classList.remove('open');
+      window._resPageSize = value === 'all' ? 'all' : parseInt(value);
+      window._resPage = 1;
+      window._renderResPage();
+    }
+    function cdPrPageSize(value, label) {
+      document.getElementById('cdLabel-prPageSize').textContent = label;
+      document.querySelectorAll('#cdList-prPageSize .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-prPageSize').style.display = 'none';
+      document.querySelector('#cdWrap-prPageSize .cd-btn').classList.remove('open');
+      window._prPageSize = value === 'all' ? 'all' : parseInt(value);
+      window._prPage = 1;
+      renderPurchased(_filteredPurchased);
+    }
+    function cdPrFilter(value, label) {
+      document.getElementById('cdLabel-prFilter').textContent = label;
+      document.querySelectorAll('#cdList-prFilter .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-prFilter').style.display = 'none';
+      document.querySelector('#cdWrap-prFilter .cd-btn').classList.remove('open');
+      // sync pill buttons if visible
+      const pill = document.querySelector('.pr-filter-strip-desktop .pr-filter[onclick*="\'' + value + '\'"]');
+      document.querySelectorAll('.pr-filter').forEach(b => b.classList.remove('active'));
+      if (pill) pill.classList.add('active');
+      showPrSkeleton();
+      setTimeout(() => {
+        _filteredPurchased = value === 'all' ? _allPurchased : _allPurchased.filter(p => p.resources?.type === value);
+        window._prPage = 1;
+        renderPurchased(_filteredPurchased);
+      }, 300);
+    }
+    window._renderResPage = function() {
+      const grid = document.getElementById('allGrid');
+      const pagEl = document.getElementById('resPagination');
+      const data = window._resAllData;
+      if (!data || !data.length) { if (pagEl) pagEl.innerHTML = ''; return; }
+      const total = data.length;
+      const ps = window._resPageSize === 'all' ? total : window._resPageSize;
+      const totalPages = Math.ceil(total / ps) || 1;
+      window._resPage = Math.min(window._resPage, totalPages);
+      const start = (window._resPage - 1) * ps;
+      const slice = window._resPageSize === 'all' ? data : data.slice(start, start + ps);
+      grid.innerHTML = slice.map(r => `
+<div class="row">
+  <div class="table-title">
+    <span class="icon">${getIcon(r.type)}</span>
+    <div><h4>${r.title}</h4><p>${r.description}</p></div>
+  </div>
+  <div class="price">₹${r.price}</div>
+  <div class="actions">
+    <button class="btn-view" onclick="openFile(${r.id})">Open</button>
+    <button class="btn-edit" onclick="editResource(${r.id})">Edit</button>
+    <button class="btn-delete" onclick="deleteResource(${r.id})">Delete</button>
+  </div>
+</div>`).join('');
+      if (!pagEl) return;
+      if (window._resPageSize === 'all' || totalPages <= 1) { pagEl.innerHTML = ''; return; }
+      const btnBase   = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid #e2e8f0;background:#f8fafc;color:#64748b;transition:all .2s;';
+      const btnActive = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;';
+      const range = 2; let pages = '';
+      for (let p = 1; p <= totalPages; p++) {
+        if (p === 1 || p === totalPages || (p >= window._resPage - range && p <= window._resPage + range))
+          pages += `<button onclick="window._resPage=${p};window._renderResPage()" style="${p===window._resPage?btnActive:btnBase}">${p}</button>`;
+        else if (p === window._resPage - range - 1 || p === window._resPage + range + 1)
+          pages += `<span style="padding:0 2px;color:#94a3b8;">…</span>`;
+      }
+      pagEl.innerHTML = `<div>
+        <span style="font-size:12px;color:#94a3b8;font-weight:500;">Showing ${start+1}–${Math.min(start+ps,total)} of ${total}</span>
+        <div>
+          <button onclick="window._resPage=Math.max(1,window._resPage-1);window._renderResPage()" ${window._resPage===1?'disabled':''} style="${btnBase}opacity:${window._resPage===1?'.4':'1'};">&#8249; Prev</button>
+          ${pages}
+          <button onclick="window._resPage=Math.min(${totalPages},window._resPage+1);window._renderResPage()" ${window._resPage===totalPages?'disabled':''} style="${btnBase}opacity:${window._resPage===totalPages?'.4':'1'};">Next &#8250;</button>
+        </div>
+      </div>`;
+    };
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.cd-wrap') && !e.target.closest('.cd-list')) {
+        cdCloseAll();
+      }
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,570 @@
+/* ═══════════════════════════════════════
+   HERO
+═══════════════════════════════════════ */
+
+.hero {
+  position: relative !important; width: 100% !important;
+  display: flex !important; align-items: center !important;
+  justify-content: center !important; text-align: center !important;
+  overflow: hidden !important; padding: 0 !important;
+  margin: 0;
+}
+.hero img { position: absolute; width: 100%; height: 100%; object-fit: cover; object-position: center; top: 0; left: 0; z-index: 0; }
+.hero::before { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.18); z-index: 1; }
+.hero .container { position: relative; z-index: 2; width: 100%; max-width: 760px; padding: 5rem 2rem; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgb(97 72 72 / 25%); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.5); color: #1e293b; padding: 6px 16px; border-radius: 50px; font-size: 0.82rem; font-weight: 700; margin-bottom: 1.1rem; }
+.hero-badge-dot { width: 7px; height: 7px; background: #667eea; border-radius: 50%; display: inline-block; }
+.hero h1 { font-size: clamp(2rem,5vw,3.2rem); font-weight: 900; color: #0f172a; margin-bottom: 0.9rem; line-height: 1.15; }
+.hero-gradient-text { background: linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+.hero p { font-size: 1.05rem; color: #334155; max-width: 520px; line-height: 1.65; }
+@media (max-width: 768px) {
+  /* .hero { min-height: 44vh !important; } */
+  .hero .container { padding: 3rem 1.2rem; }
+  .hero h1 { font-size: clamp(1.6rem,6vw,2rem); }
+  .hero p  { font-size: 0.93rem; }
+  .hero-badge { font-size: 0.76rem; }
+}
+
+/* ═══════════════════════════════════════
+   PAGE LAYOUT
+═══════════════════════════════════════ */
+.page-content {
+  background: linear-gradient(160deg,#f1f5f9 0%,#e8edf5 100%);
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════
+   CONTENT BOX
+═══════════════════════════════════════ */
+.content-box {
+  background: white;
+  padding: 40px max(24px, calc((100% - 900px) / 2));
+  margin-bottom: 0;
+  border-radius: 0;
+  border: none;
+  border-bottom: 1px solid #edf0f7;
+  width: 100%;
+  transition: background 0.2s;
+}
+.content-box:nth-child(even) { background: #f8fafc; }
+
+/* ═══════════════════════════════════════
+   FAQ INTRO & CATEGORY NAV
+═══════════════════════════════════════ */
+.faq-intro { margin-bottom: 20px; }
+.faq-intro p {  font-size: 0.95rem; line-height: 1.7; margin: 0; }
+
+.faq-cat-nav {
+  display: flex; flex-wrap: wrap; gap: 10px;
+}
+.faq-cat-dropdown { display: none; } /* shown only in mobile media query */
+.faq-cat-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 18px; border-radius: 50px;
+  background: #f1f5f9; border: 1.5px solid #e2e8f0;
+  color: #475569; font-size: 0.85rem; font-weight: 600;
+  text-decoration: none;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.faq-cat-btn:hover {
+  background: linear-gradient(135deg,rgba(102,126,234,0.10),rgba(118,75,162,0.10));
+  border-color: #c7d2fe; color: #667eea; transform: translateY(-2px);
+}
+.faq-cat-btn i { font-size: 0.82rem; }
+
+/* ═══════════════════════════════════════
+   CATEGORY HEADING
+═══════════════════════════════════════ */
+.faq-cat-head {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 20px; padding-bottom: 14px;
+  border-bottom: 2px solid #f1f5f9;
+}
+.faq-cat-head i {
+  width: 40px; height: 40px; flex-shrink: 0;
+  background: linear-gradient(135deg,rgba(102,126,234,0.12),rgba(118,75,162,0.12));
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  color: #667eea; font-size: 1rem;
+}
+.faq-cat-head h2 {
+  background: linear-gradient(135deg,#667eea,#764ba2);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  font-size: 1.35rem; font-weight: 800; margin: 0;
+}
+
+/* ═══════════════════════════════════════
+   FAQ ACCORDION
+═══════════════════════════════════════ */
+.faq-list { display: flex; flex-direction: column; gap: 10px; }
+
+.faq-item {
+  background: #f8fafc;
+  border: 1.5px solid #e8edf5;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  scroll-margin-top: 90px;
+}
+.faq-item:hover { border-color: #c7d2fe; box-shadow: 0 4px 14px rgba(102,126,234,0.10); }
+.faq-item.open  { border-color: #667eea; border-left: 4px solid #667eea; background: white; box-shadow: 0 4px 20px rgba(102,126,234,0.13); }
+
+.faq-q {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 15px 18px;
+  font-size: 0.93rem; font-weight: 700; color: #1e293b;
+  user-select: none;
+}
+.faq-icon {
+  color: #94a3b8; font-size: 0.82rem; flex-shrink: 0;
+  transition: transform 0.25s, color 0.2s;
+}
+.faq-item.open .faq-icon { transform: rotate(180deg); color: #667eea; }
+
+.faq-a {
+  max-height: 0; overflow: hidden;
+  font-size: 0.9rem; color: #475569; line-height: 1.75;
+  padding: 0 18px;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  border-top: 0 solid transparent;
+}
+.faq-item.open .faq-a {
+  max-height: 300px;
+  padding: 12px 18px 16px;
+  border-top: 1px solid #f1f5f9;
+}
+
+/* ═══════════════════════════════════════
+   CTA BLOCK (reused from About)
+═══════════════════════════════════════ */
+.about-cta {
+  background: linear-gradient(135deg,#667eea,#764ba2);
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 12px 40px rgba(102,126,234,0.30);
+}
+.about-cta h2 {
+  color: white !important; -webkit-text-fill-color: white !important;
+  font-size: 1.9rem !important; font-weight: 900 !important;
+  border-bottom: none !important; margin-bottom: 12px !important; padding-bottom: 0 !important;
+}
+.about-cta p {
+  color: rgba(255,255,255,0.88) !important; font-size: 1rem !important;
+  max-width: 480px; margin: 0 auto 28px !important; line-height: 1.7 !important;
+}
+.about-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+.about-btn-primary {
+  display: inline-block; padding: 14px 32px;
+  background: white; color: #667eea;
+  border-radius: 50px; font-weight: 800; font-size: 0.97rem;
+  text-decoration: none; box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.about-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(0,0,0,0.2); }
+.about-btn-secondary {
+  display: inline-block; padding: 14px 32px;
+  background: rgba(255,255,255,0.14); color: white;
+  border: 1.5px solid rgba(255,255,255,0.4);
+  border-radius: 50px; font-weight: 700; font-size: 0.97rem;
+  text-decoration: none; transition: background 0.2s;
+}
+.about-btn-secondary:hover { background: rgba(255,255,255,0.24); }
+
+/* ═══════════════════════════════════════
+   SHIMMER
+═══════════════════════════════════════ */
+.shimmer-box { position: relative; overflow: hidden; }
+.shimmer-box::before { content: ''; position: absolute; top: 0; left: -150%; width: 150%; height: 100%; background: linear-gradient(90deg,transparent,rgba(255,255,255,0.65),transparent); animation: shimmerMove 1.8s infinite; z-index: 1; }
+@keyframes shimmerMove { 0% { left: -150%; } 100% { left: 150%; } }
+.shimmer-title { width: 38%; height: 28px; background: #e2e8f0; border-radius: 8px; margin-bottom: 18px; }
+.shimmer-list  { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.shimmer-list-item { width: 100%; height: 52px; background: #e2e8f0; border-radius: 10px; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════ */
+@media (max-width: 768px) {
+  .content-box { padding: 28px 18px; }
+  .faq-cat-head h2 { font-size: 1.15rem; }
+  .faq-q { font-size: 0.88rem; padding: 13px 14px; }
+  .faq-a { font-size: 0.86rem; }
+  .about-cta { padding: 32px 20px; }
+  .about-cta h2 { font-size: 1.5rem !important; }
+  .about-btn-primary, .about-btn-secondary { width: 100%; text-align: center; padding: 13px 20px; }
+  .faq-cat-nav { display: block; }
+  .faq-cat-btn  { display: none; }
+
+  .faq-cat-dropdown {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+  .faq-dd-trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 18px;
+    border-radius: 12px;
+    border: 1.5px solid #e2e8f0;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 0.88rem;
+    font-weight: 600;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 2px 8px rgba(102,126,234,0.07);
+  }
+  .faq-dd-trigger:hover {
+    border-color: #c7d2fe;
+    background: #f1f5f9;
+  }
+  .faq-dd-label { display: flex; align-items: center; gap: 8px; color: #667eea; font-weight: 700; }
+  .faq-dd-label i { font-size: 0.85rem; }
+  .faq-dd-arrow {
+    color: #667eea;
+    font-size: 0.78rem;
+    transition: transform 0.25s ease;
+  }
+  .faq-dd-list {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0; right: 0;
+    background: #fff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(102,126,234,0.13);
+    overflow: hidden;
+    z-index: 100;
+    list-style: none;
+    margin: 0; padding: 6px;
+  }
+  .faq-dd-list.open { display: block; }
+  .faq-dd-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 14px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+  .faq-dd-item:hover {
+    background: linear-gradient(135deg, rgba(102,126,234,0.10), rgba(118,75,162,0.10));
+    color: #667eea;
+  }
+  .faq-dd-item i { color: #667eea; font-size: 0.82rem; width: 16px; text-align: center; }
+}
+
+/* ── Contact Us Strip ── */
+.contact-us-strip { background: white; border-top: 1px solid #e8edf5; padding: 28px 24px; }
+.contact-us-strip-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+.contact-us-left { display: flex; align-items: center; gap: 16px; }
+.contact-us-icon { width: 48px; height: 48px; flex-shrink: 0; background: linear-gradient(135deg,rgba(102,126,234,0.12),rgba(118,75,162,0.12)); border-radius: 13px; display: flex; align-items: center; justify-content: center; }
+.contact-us-icon i { color: #667eea; font-size: 1.3rem; }
+.contact-us-left h3 { font-size: 1rem; font-weight: 800; color: #0f172a; margin: 0 0 4px; }
+.contact-us-left p  { font-size: 0.85rem; color: #64748b; margin: 0; }
+.contact-us-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 28px; border-radius: 50px; background: linear-gradient(135deg,#667eea,#764ba2); color: white; font-weight: 800; font-size: 0.9rem; text-decoration: none; box-shadow: 0 4px 16px rgba(102,126,234,0.3); transition: transform 0.2s, box-shadow 0.2s; white-space: nowrap; }
+.contact-us-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(0,0,0,0.2); }
+@media (max-width: 640px) { .contact-us-strip-inner { flex-direction: column; align-items: flex-start; } .contact-us-btn { width: 100%; justify-content: center; } }
+
+/* ══════════════════════════════════════════
+   DARK MODE — instant via html.dark-mode
+   Applies to: About, FAQ, Terms, Privacy, Contact
+   ══════════════════════════════════════════ */
+
+/* Body & page bg */
+html.dark-mode body,
+body.dark-mode {
+  background: #0d1117 !important;
+  color: #e6edf3 !important;
+  transition: none !important;
+}
+html.dark-mode .page-content,
+body.dark-mode .page-content {
+  background: #0d1117 !important;
+  transition: none !important;
+}
+
+/* Content boxes — instant bg + border */
+html.dark-mode .content-box,
+body.dark-mode .content-box {
+  background: #161b22 !important;
+  border-bottom-color: #30363d !important;
+  transition: none !important;
+}
+html.dark-mode .content-box:nth-child(even),
+body.dark-mode .content-box:nth-child(even) {
+  background: #0d1117 !important;
+}
+html.dark-mode .content-box:nth-child(even):hover,
+body.dark-mode .content-box:nth-child(even):hover {
+  background: #161b22 !important;
+}
+html.dark-mode .content-box h2,
+body.dark-mode .content-box h2 {
+  border-bottom-color: #30363d !important;
+}
+html.dark-mode .content-box > p,
+body.dark-mode .content-box > p { color: #8b949e !important; }
+html.dark-mode .content-box strong,
+body.dark-mode .content-box strong { color: #e6edf3 !important; }
+
+/* Hero */
+html.dark-mode .hero::before,
+body.dark-mode .hero::before {
+  background: rgba(13,17,23,0.55) !important;
+}
+html.dark-mode .hero-badge,
+body.dark-mode .hero-badge {
+  background: rgba(124,106,247,0.18) !important;
+  border-color: rgba(124,106,247,0.35) !important;
+  color: #c9d1d9 !important;
+}
+html.dark-mode .hero-badge-dot,
+body.dark-mode .hero-badge-dot { background: #a78bfa !important; }
+html.dark-mode .hero h1,
+body.dark-mode .hero h1 { color: #e6edf3 !important; }
+html.dark-mode .hero p,
+body.dark-mode .hero p { color: #8b949e !important; }
+
+/* Feature items */
+html.dark-mode .feature-item,
+body.dark-mode .feature-item {
+  background: #1c2333 !important;
+  border-color: #30363d !important;
+  transition: none !important;
+}
+html.dark-mode .feature-item:hover,
+body.dark-mode .feature-item:hover {
+  background: #21293d !important;
+  border-color: #7c6af7 !important;
+}
+html.dark-mode .feature-item h3,
+body.dark-mode .feature-item h3 { color: #e6edf3 !important; }
+html.dark-mode .feature-item p,
+body.dark-mode .feature-item p { color: #8b949e !important; }
+
+/* Benefits list */
+html.dark-mode .benefits-list li,
+body.dark-mode .benefits-list li {
+  background: #1c2333 !important;
+  border-color: #30363d !important;
+  transition: none !important;
+}
+html.dark-mode .benefits-list li:hover,
+body.dark-mode .benefits-list li:hover {
+  background: #21293d !important;
+  border-color: #7c6af7 !important;
+}
+html.dark-mode .benefits-list i,
+body.dark-mode .benefits-list i { color: #a78bfa !important; }
+html.dark-mode .benefits-list li strong,
+body.dark-mode .benefits-list li strong { color: #e6edf3 !important; }
+html.dark-mode .benefits-list li span,
+body.dark-mode .benefits-list li span { color: #8b949e !important; }
+
+/* Value cards */
+html.dark-mode .value-card,
+body.dark-mode .value-card {
+  background: #1c2333 !important;
+  border-color: #30363d !important;
+  transition: none !important;
+}
+html.dark-mode .value-card:hover,
+body.dark-mode .value-card:hover {
+  background: #21293d !important;
+  border-color: #7c6af7 !important;
+}
+html.dark-mode .value-card h3,
+body.dark-mode .value-card h3 { color: #e6edf3 !important; }
+html.dark-mode .value-card p,
+body.dark-mode .value-card p { color: #8b949e !important; }
+
+/* FAQ accordion */
+html.dark-mode .faq-item,
+body.dark-mode .faq-item {
+  background: #161b22 !important;
+  border-color: #30363d !important;
+  transition: none !important;
+}
+html.dark-mode .faq-item:hover,
+body.dark-mode .faq-item:hover {
+  border-color: #7c6af7 !important;
+}
+html.dark-mode .faq-item.open,
+body.dark-mode .faq-item.open {
+  background: #1c2333 !important;
+  border-color: #7c6af7 !important;
+  border-left-color: #7c6af7 !important;
+}
+html.dark-mode .faq-q,
+body.dark-mode .faq-q { color: #e6edf3 !important; }
+html.dark-mode .faq-icon,
+body.dark-mode .faq-icon { color: #484f58 !important; }
+html.dark-mode .faq-item.open .faq-icon,
+body.dark-mode .faq-item.open .faq-icon { color: #a78bfa !important; }
+html.dark-mode .faq-a,
+body.dark-mode .faq-a {
+  color: #8b949e !important;
+  border-top-color: #30363d !important;
+}
+html.dark-mode .faq-cat-head,
+body.dark-mode .faq-cat-head { border-bottom-color: #30363d !important; }
+html.dark-mode .faq-cat-btn,
+body.dark-mode .faq-cat-btn {
+  background: #1c2333 !important;
+  border-color: #30363d !important;
+  color: #8b949e !important;
+}
+html.dark-mode .faq-cat-btn:hover,
+body.dark-mode .faq-cat-btn:hover {
+  background: rgba(124,106,247,0.1) !important;
+  border-color: #7c6af7 !important;
+  color: #a78bfa !important;
+}
+html.dark-mode .faq-cat-dropdown .faq-dd-trigger,
+body.dark-mode .faq-cat-dropdown .faq-dd-trigger {
+  background: #1c2333 !important;
+  border-color: #30363d !important;
+  color: #8b949e !important;
+}
+html.dark-mode .faq-cat-dropdown .faq-dd-trigger:hover,
+body.dark-mode .faq-cat-dropdown .faq-dd-trigger:hover {
+  border-color: #7c6af7 !important;
+  background: #21293d !important;
+}
+html.dark-mode .faq-dd-list,
+body.dark-mode .faq-dd-list {
+  background: #161b22 !important;
+  border-color: #30363d !important;
+  box-shadow: 0 8px 28px rgba(0,0,0,0.4) !important;
+}
+html.dark-mode .faq-dd-item,
+body.dark-mode .faq-dd-item { color: #8b949e !important; }
+html.dark-mode .faq-dd-item:hover,
+body.dark-mode .faq-dd-item:hover {
+  background: rgba(124,106,247,0.1) !important;
+  color: #a78bfa !important;
+}
+html.dark-mode .faq-dd-item i,
+body.dark-mode .faq-dd-item i { color: #a78bfa !important; }
+html.dark-mode .faq-dd-label,
+body.dark-mode .faq-dd-label { color: #a78bfa !important; }
+html.dark-mode .faq-dd-arrow,
+body.dark-mode .faq-dd-arrow { color: #a78bfa !important; }
+
+/* Contact us strip */
+html.dark-mode .contact-us-strip,
+body.dark-mode .contact-us-strip {
+  background: #161b22 !important;
+  border-top-color: #30363d !important;
+  transition: none !important;
+}
+html.dark-mode .contact-us-icon,
+body.dark-mode .contact-us-icon { background: rgba(124,106,247,0.15) !important; }
+html.dark-mode .contact-us-icon i,
+body.dark-mode .contact-us-icon i { color: #a78bfa !important; }
+html.dark-mode .contact-us-left h3,
+body.dark-mode .contact-us-left h3 { color: #e6edf3 !important; }
+html.dark-mode .contact-us-left p,
+body.dark-mode .contact-us-left p { color: #8b949e !important; }
+
+/* ── Shimmer — dark-correct, no transition ── */
+html.dark-mode .shimmer-title,
+html.dark-mode .shimmer-text,
+html.dark-mode .shimmer-icon,
+html.dark-mode .shimmer-feature-title,
+html.dark-mode .shimmer-list-item,
+html.dark-mode .shimmer-form-field,
+html.dark-mode .shimmer-button,
+html.dark-mode .shimmer-contact-item,
+body.dark-mode .shimmer-title,
+body.dark-mode .shimmer-text,
+body.dark-mode .shimmer-icon,
+body.dark-mode .shimmer-feature-title,
+body.dark-mode .shimmer-list-item,
+body.dark-mode .shimmer-form-field,
+body.dark-mode .shimmer-button,
+body.dark-mode .shimmer-contact-item {
+  background: #21293d !important;
+  transition: none !important;
+}
+html.dark-mode .shimmer-box::before,
+body.dark-mode .shimmer-box::before {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent) !important;
+  transition: none !important;
+}
+
+/* ══════════════════════════════════════════
+   FAQ — ADDITIONAL DARK/LIGHT FIXES
+   ══════════════════════════════════════════ */
+
+/* Light mode explicit text colors */
+.content-box { color: #1e293b; }
+.faq-intro p  { color: #475569; }
+.faq-q        { color: #1e293b; }
+.faq-a        { color: #475569; }
+
+/* Shimmer light mode — more visible */
+.shimmer-title     { background: #e2e8f0; }
+.shimmer-list-item { background: #e2e8f0; }
+
+/* Dark mode — shimmer animated wave */
+html.dark-mode .shimmer-title,
+html.dark-mode .shimmer-list-item,
+body.dark-mode .shimmer-title,
+body.dark-mode .shimmer-list-item {
+  background: linear-gradient(90deg, #1c2333 25%, #252f42 50%, #1c2333 75%) !important;
+  background-size: 400px 100% !important;
+  animation: shimmerMove 1.8s infinite linear !important;
+  transition: none !important;
+}
+
+/* Dark mode — faq-intro text & link */
+html.dark-mode .faq-intro p,
+body.dark-mode .faq-intro p { color: #8b949e !important; }
+
+html.dark-mode .faq-intro a,
+body.dark-mode .faq-intro a { color: #a78bfa !important; }
+
+/* Dark mode — category head icon bg */
+html.dark-mode .faq-cat-head i,
+body.dark-mode .faq-cat-head i {
+  background: rgba(124,106,247,0.15) !important;
+  color: #a78bfa !important;
+}
+
+/* Dark mode — faq-item background on shimmer phase */
+html.dark-mode .shimmer-box,
+body.dark-mode .shimmer-box {
+  background: transparent !important;
+}
+
+/* Dark mode — content-box text */
+html.dark-mode .content-box,
+body.dark-mode .content-box { color: #e6edf3 !important; }
+
+html.dark-mode .faq-intro p strong,
+body.dark-mode .faq-intro p strong { color: #e6edf3 !important; }
+
+/* Dark mode — faq-q background (open state) */
+html.dark-mode .faq-item.open .faq-q,
+body.dark-mode .faq-item.open .faq-q { color: #e6edf3 !important; }
+
+/* Dark mode — faq-a link */
+html.dark-mode .faq-a a,
+body.dark-mode .faq-a a { color: #a78bfa !important; }
+
+/* Dark mode — section heading text (gradient stays, just ensure visibility) */
+html.dark-mode .faq-cat-head h2,
+body.dark-mode .faq-cat-head h2 {
+  background: linear-gradient(135deg,#a78bfa,#7c6af7) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+}

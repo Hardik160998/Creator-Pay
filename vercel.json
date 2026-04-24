@@ -1,0 +1,79 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "public/**/*",
+      "use": "@vercel/static"
+    },
+    {
+      "src": "earnify-admin/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/server.js" },
+
+    { "src": "/earnify-admin/Dashboard/?$",   "dest": "/public/earnify-admin/Dashboard/index.html", "headers": { "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" } },
+    { "src": "/earnify-admin/Dashboard/(.*)", "dest": "/public/earnify-admin/Dashboard/$1", "headers": { "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" } },
+    { "src": "/earnify-admin/statistic/?$",   "dest": "/public/earnify-admin/statistic/index.html", "headers": { "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" } },
+    { "src": "/earnify-admin/statistic/(.*)", "dest": "/public/earnify-admin/statistic/$1" },
+    { "src": "/earnify-admin/payments/?$",    "dest": "/public/earnify-admin/payments/index.html", "headers": { "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" } },
+    { "src": "/earnify-admin/payments/(.*)",  "dest": "/public/earnify-admin/payments/$1" },
+    { "src": "/earnify-admin/Blog/?$",        "dest": "/public/earnify-admin/Blog/index.html", "headers": { "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" } },
+    { "src": "/earnify-admin/Blog/(.*)",      "dest": "/public/earnify-admin/Blog/$1" },
+
+    { "src": "/admin/Resources/?$",    "dest": "/public/admin/Resources/index.html", "headers": { "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" } },
+    { "src": "/admin/Resources/(.*)",  "dest": "/public/admin/Resources/$1" },
+    { "src": "/admin/Statistics/?$",   "dest": "/public/admin/Statistics/index.html" },
+    { "src": "/admin/Statistics/(.*)", "dest": "/public/admin/Statistics/$1" },
+    { "src": "/admin/Profile/?$",      "dest": "/public/admin/Profile/index.html" },
+    { "src": "/admin/Profile/(.*)",    "dest": "/public/admin/Profile/$1" },
+    { "src": "/admin/Withdrawal/?$",   "dest": "/public/admin/Withdrawal/index.html", "headers": { "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0" } },
+    { "src": "/admin/Withdrawal/(.*)", "dest": "/public/admin/Withdrawal/$1" },
+    { "src": "/admin/(.*)",            "dest": "/public/admin/$1" },
+
+    { "src": "/file/(.*)", "dest": "/public/file/$1" },
+    { "src": "/favicon.ico", "dest": "/public/file/logo1.jpeg" },
+
+    { "src": "/About/?$",    "dest": "/public/About/index.html" },
+    { "src": "/About/(.*)",  "dest": "/public/About/$1" },
+    { "src": "/Blog/?$",     "dest": "/public/Blog/index.html" },
+    { "src": "/Blog/(.*)",   "dest": "/public/Blog/$1" },
+    { "src": "/Contact/?$",  "dest": "/public/Contact/index.html" },
+    { "src": "/Contact/(.*)", "dest": "/public/Contact/$1" },
+    { "src": "/Dashboard/?$", "dest": "/public/Dashboard/index.html" },
+    { "src": "/Dashboard/(.*)", "dest": "/public/Dashboard/$1" },
+    { "src": "/Detail/?$",   "dest": "/public/Detail/index.html" },
+    { "src": "/Detail/(.*\\.(js|css|json|png|jpg|jpeg|gif|svg|ico))", "dest": "/public/Detail/$1" },
+    { "src": "/Detail/(.*)", "dest": "/public/Detail/index.html" },
+    { "src": "/FAQ/?$",      "dest": "/public/FAQ/index.html" },
+    { "src": "/FAQ/(.*)",    "dest": "/public/FAQ/$1" },
+    { "src": "/Payment/?$",  "dest": "/public/Payment/index.html" },
+    { "src": "/Payment/(.*)", "dest": "/public/Payment/$1" },
+    { "src": "/Privacy/?$",  "dest": "/public/Privacy/index.html" },
+    { "src": "/Privacy/(.*)", "dest": "/public/Privacy/$1" },
+    { "src": "/Resources/?$", "dest": "/public/Resources/index.html" },
+    { "src": "/Terms/?$",    "dest": "/public/Terms/index.html" },
+    { "src": "/Terms/(.*)",  "dest": "/public/Terms/$1" },
+
+    {
+      "src": "/(.*\\.js)$",
+      "dest": "/public/$1",
+      "headers": { "Content-Type": "application/javascript" }
+    },
+    {
+      "src": "/(.*\\.css)$",
+      "dest": "/public/$1",
+      "headers": { "Content-Type": "text/css" }
+    },
+
+    { "src": "/(.*\\.(html|png|jpg|jpeg|gif|svg|ico|pdf|xls|xlsx|json))", "dest": "/public/$1" },
+
+    { "src": "/?$", "dest": "/public/index.html" },
+    { "src": "/(.*)", "dest": "/public/$1" }
+  ]
+}

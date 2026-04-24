@@ -1,0 +1,1888 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile - Earnify Admin</title>
+  <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="light-theme.css">
+  <link rel="stylesheet" href="mobile-responsive.css">
+  <link rel="stylesheet" href="/admin/admin-bottom-nav.css">
+  <link rel="stylesheet" href="/admin/admin-dark.css">
+  <script>!function(){var d=localStorage.getItem("earnify_dark_mode")==="1";document.documentElement.classList.toggle("dark-mode",d);if(d){document.documentElement.style.background="#0d1117";document.documentElement.style.colorScheme="dark";}var s=document.createElement("style");s.id="profile-flash-fix";s.textContent=d?".main{background:#0d1117!important}.sidebar{background:linear-gradient(180deg,#161b22,#0d1117)!important;border-right-color:#30363d!important}.profile-card,.wi-method{background:#161b22!important;border-color:#30363d!important}.sb-nm-knob{left:52px!important;background:#2d3748!important}.sb-nm-toggle{background:#1e2535!important}":".main{background:rgba(255,255,255,0.8)!important}.sb-nm-knob{left:4px!important}";document.head.appendChild(s);document.addEventListener("DOMContentLoaded",function(){document.body.classList.toggle("dark-mode",d);var k=document.getElementById("sbNmKnob");if(k)k.textContent=d?"🌙":"☀️";setTimeout(function(){var el=document.getElementById("profile-flash-fix");if(el)el.remove();},400);});}();</script>
+  <script src="/admin/dark-theme.js"></script>
+  <script>
+    // Start in loading mode to avoid initial content flash.
+    document.documentElement.classList.add('profile-loading');
+  </script>
+  <style>
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 30px;
+      border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .sidebar-header h2 {
+      padding: 0;
+      border-bottom: none;
+      margin: 0;
+      white-space: nowrap;
+    }
+
+    .sidebar-close-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      color: #64748b;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: none !important;
+    }
+
+    .sidebar-close-btn:hover {
+      background: #f1f5f9;
+      color: #ef4444;
+    }
+
+    .logout-link {
+      background: white !important;
+      color: #1e293b !important;
+      border: 2px solid #ef4444 !important;
+      border-radius: 10px !important;
+      font-weight: 600 !important;
+      transition: all 0.3s !important;
+    }
+
+    .logout-link:hover {
+      background: rgb(251, 156, 156) !important;
+      color: white !important;
+      border-color: #dc2626 !important;
+      transform: translateY(-2px) !important;
+    }
+
+    .sidebar.active .sidebar-close-btn {
+      display: block;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    @media (min-width: 769px) {
+      .sidebar-close-btn {
+        display: none !important;
+      }
+    }
+
+.profile-container {
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .profile-container.shimmer-loading {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-container.shimmer-loading::after {
+      display: none;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .profile-page-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 50px 40px;
+      border-radius: 25px;
+      margin-bottom: 40px;
+      box-shadow: 0 15px 50px rgba(102, 126, 234, 0.4);
+      text-align: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-page-header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .profile-page-header h1 {
+      color: white !important;
+      font-size: 42px;
+      margin-bottom: 15px;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      font-weight: 800;
+    }
+
+    .profile-page-header p {
+      color: rgba(255, 255, 255, 0.9) !important;
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .profile-card {
+      background: white;
+      border-radius: 25px;
+      padding: 15px;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .profile-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+
+    .profile-card h2 {
+      color: #1e293b;
+      margin-bottom: 25px;
+      font-size: 24px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .profile-avatar-section {
+      text-align: center;
+    }
+
+    .profile-avatar-large {
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 56px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+      color: white;
+    }
+
+    .profile-name {
+      color: #1e293b;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .profile-email {
+      color: #64748b;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    .profile-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .profile-details h2 {
+      color: #1e293b;
+      margin-bottom: 25px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-bottom: 15px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .detail-label {
+      color: #64748b;
+      font-weight: 600;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .detail-value {
+      color: #1e293b;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .profile-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px;
+      /* margin-top: 25px; */
+    }
+
+    .action-btn {
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-edit {
+      background: white;
+      color: black;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-edit:hover {
+      background: rgb(111, 219, 111);
+      color: black;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 128, 0, 0.4);
+    }
+
+    .btn-logout {
+      background: white;
+      color: black;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+
+    .btn-logout:hover {
+      background: rgb(255, 165, 165);
+      color: black;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: -800px 0; }
+      100% { background-position:  800px 0; }
+    }
+
+    .shimmer-gradient {
+      background: linear-gradient(90deg, #e8edf5 25%, #d0d8e8 50%, #e8edf5 75%);
+      background-size: 800px 100%;
+      animation: shimmer 1.6s infinite linear;
+    }
+
+    body.dark-mode .shimmer-gradient,
+    html.dark-mode .shimmer-gradient {
+      background: linear-gradient(90deg, #1c2333 25%, #21293d 50%, #1c2333 75%) !important;
+      background-size: 800px 100% !important;
+    }
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-profile-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        /* justify-content: center; */
+        position: relative;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 20px;
+        padding: 20px;
+        margin-bottom: 20px;
+      }
+
+      .mobile-profile-header .page-header-toggle {
+        /* position: relative !important; */
+        left: 20px !important;
+        top: 50% !important;
+        /* transform: translateY(-50%) !important; */
+      }
+
+      .mobile-profile-header h2 {
+        color: white;
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0;
+        text-align: center;
+      }
+
+      .profile-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-page-header {
+        display: none !important;
+      }
+
+      .profile-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .resource-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      border-bottom: 1px solid #f1f5f9;
+      transition: all 0.3s;
+    }
+
+    .resource-item:last-child {
+      border-bottom: none;
+    }
+
+    .resource-item:hover {
+      background: #f8fafc;
+      padding-left: 20px;
+    }
+
+    .resource-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex: 1;
+    }
+
+    .resource-type-icon {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .resource-details h4 {
+      color: #1e293b;
+      font-size: 16px;
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .resource-details p {
+      color: #64748b;
+      font-size: 13px;
+      margin: 0;
+    }
+
+    .resource-price-tag {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .empty-resources {
+      text-align: center;
+      padding: 40px;
+      color: #64748b;
+    }
+
+    .empty-resources-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+      opacity: 0.5;
+    }
+
+    /* Shimmer Animation - defined above */
+
+    .shimmer-profile-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+    }
+
+    .shimmer-profile-name {
+      width: 60%;
+      height: 24px;
+      border-radius: 6px;
+      margin: 0 auto 8px;
+    }
+
+    .shimmer-profile-email {
+      width: 50%;
+      height: 14px;
+      border-radius: 4px;
+      margin: 0 auto 20px;
+    }
+
+    .shimmer-badge {
+      width: 120px;
+      height: 28px;
+      border-radius: 20px;
+      margin: 0 auto;
+    }
+
+    .shimmer-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .shimmer-detail-label {
+      width: 30%;
+      height: 14px;
+      border-radius: 4px;
+    }
+
+    .shimmer-detail-value {
+      width: 40%;
+      height: 14px;
+      border-radius: 4px;
+    }
+
+    .shimmer-resource-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .shimmer-resource-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+    }
+
+    .shimmer-resource-content {
+      flex: 1;
+      margin-left: 15px;
+    }
+
+    .shimmer-resource-title {
+      width: 70%;
+      height: 16px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+
+    .shimmer-resource-desc {
+      width: 90%;
+      height: 13px;
+      border-radius: 4px;
+    }
+
+    .shimmer-resource-price {
+      width: 60px;
+      height: 28px;
+      border-radius: 20px;
+    }
+
+    /* Profile skeleton loading state */
+    body.profile-loading .profile-avatar-section .profile-actions,
+    html.profile-loading body .profile-avatar-section .profile-actions {
+      display: none !important;
+    }
+
+    /* Hide actions during loading but keep cards visible */
+    body.profile-loading .profile-actions,
+    html.profile-loading body .profile-actions {
+      display: none !important;
+    }
+
+    /* Explicit skeleton targets: top two profile cards */
+    body.profile-loading .profile-grid .profile-card.skeleton-card,
+    html.profile-loading body .profile-grid .profile-card.skeleton-card {
+      background: #ffffff;
+      border-color: #e8edf5;
+      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.08);
+    }
+    body.dark-mode.profile-loading .profile-grid .profile-card.skeleton-card,
+    html.dark-mode body.profile-loading .profile-grid .profile-card.skeleton-card {
+      background: #161b22;
+      border-color: #30363d;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+    }
+
+    /* Apply skeleton surface directly on profile cards */
+    body.profile-loading .profile-grid .profile-card,
+    html.profile-loading body .profile-grid .profile-card {
+      position: relative;
+      overflow: hidden;
+    }
+    body.profile-loading .profile-grid .profile-card::after,
+    html.profile-loading body .profile-grid .profile-card::after {
+      display: none;
+    }
+
+    /* Shimmer for cards outside profile-grid */
+    body.profile-loading #withdrawalInfoCard,
+    html.profile-loading body #withdrawalInfoCard,
+    body.profile-loading #recentResourcesCard,
+    html.profile-loading body #recentResourcesCard {
+      position: relative;
+      overflow: hidden;
+    }
+    body.profile-loading #withdrawalInfoCard::after,
+    html.profile-loading body #withdrawalInfoCard::after,
+    body.profile-loading #recentResourcesCard::after,
+    html.profile-loading body #recentResourcesCard::after {
+      display: none;
+    }
+
+    @keyframes cardShimmer {
+      100% { transform: translateX(100%); }
+    }
+
+    @media (max-width: 768px) {
+      .mobile-menu-toggle:not(.page-header-toggle) {
+        display: none !important;
+      }
+
+      .page-header-toggle {
+        display: flex !important;
+        position: static !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        padding: 8px !important;
+        border-radius: 10px !important;
+        flex-shrink: 0 !important;
+        box-shadow: none !important;
+        background: rgba(255, 255, 255, 0.25) !important;
+        border: 2px solid rgba(255, 255, 255, 0.5) !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+        gap: 5px !important;
+      }
+
+      .page-header-toggle .hamburger {
+        width: 22px !important;
+        height: 2px !important;
+        background: #ffffff !important;
+        border-radius: 2px !important;
+        display: block !important;
+        margin: 0 !important;
+      }
+    }
+
+    /* ── Withdrawal Info Card ── */
+    .wi-methods {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 6px;
+    }
+    .wi-method {
+      border-radius: 16px;
+      padding: 20px 12px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      border: 1.5px solid #e8edf5;
+      background: #fafbff;
+    }
+    .wi-method::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 4px;
+      border-radius: 16px 16px 0 0;
+    }
+    .wi-method.upi::before   { background: linear-gradient(90deg,#667eea,#764ba2); }
+    .wi-method.bank::before  { background: linear-gradient(90deg,#10b981,#059669); }
+    .wi-method.gpay::before  { background: linear-gradient(90deg,#14b8a6,#0d9488); }
+    .wi-method.paytm::before { background: linear-gradient(90deg,#3b82f6,#2563eb); }
+    .wi-method:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(0,0,0,0.10); border-color: #c7d2fe; }
+    .wi-method-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+    .wi-icon {
+      width: 48px; height: 48px;
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; flex-shrink: 0;
+    }
+    .wi-method.upi   .wi-icon { background: linear-gradient(135deg,#667eea,#764ba2); }
+    .wi-method.bank  .wi-icon { background: linear-gradient(135deg,#10b981,#059669); }
+    .wi-method.gpay  .wi-icon { background: linear-gradient(135deg,#14b8a6,#0d9488); }
+    .wi-method.paytm .wi-icon { background: linear-gradient(135deg,#3b82f6,#2563eb); }
+    .wi-label {
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.5px;
+      color: #1e293b;
+    }
+    .wi-status {
+      display: inline-flex; align-items: center; gap: 4px;
+      font-size: 10px; font-weight: 700;
+      padding: 3px 10px; border-radius: 20px;
+    }
+    .wi-status.set   { background: #dcfce7; color: #16a34a; }
+    .wi-status.unset { background: #fee2e2; color: #dc2626; }
+    .wi-edit-btn {
+      padding: 7px 16px;
+      background: linear-gradient(135deg,#667eea,#764ba2);
+      color: white; border: none; border-radius: 8px;
+      font-size: 12px; font-weight: 700; cursor: pointer;
+      font-family: inherit; white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s; flex-shrink: 0;
+    }
+    .wi-edit-btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    @media (max-width: 600px) {
+      .wi-methods { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    }
+
+    /* ── WI Detail Popup ── */
+    #wiDetailPopup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10002;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 20px;
+    }
+
+    #wiDetailPopup.open {
+      display: flex;
+    }
+
+    .wi-detail-box {
+      background: white;
+      border-radius: 22px;
+      padding: 0;
+      width: 100%;
+      max-width: 380px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+      animation: wiPopIn .25s ease;
+      overflow: hidden;
+    }
+
+    @keyframes wiPopIn {
+      from {
+        transform: scale(0.92) translateY(16px);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .wi-detail-header {
+      padding: 22px 22px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+
+    .wi-detail-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      flex-shrink: 0;
+    }
+
+    .wi-detail-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #1e293b;
+    }
+
+    .wi-detail-close {
+      margin-left: auto;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: red;
+      border: 1.5px solid #e2e8f0;
+      font-size: 18px;
+      color: #475569;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all .2s;
+      flex-shrink: 0;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .wi-detail-close:hover {
+      background: #fee2e2;
+      border-color: #fca5a5;
+      color: #dc2626;
+    }
+
+    body.dark-mode .wi-detail-close,
+    html.dark-mode .wi-detail-close {
+      background: #1c2333 !important;
+      border-color: #30363d !important;
+      color: #8b949e !important;
+    }
+
+    body.dark-mode .wi-detail-close:hover,
+    html.dark-mode .wi-detail-close:hover {
+      background: rgba(248,113,113,0.15) !important;
+      border-color: #f87171 !important;
+      color: #f87171 !important;
+    }
+
+    .wi-detail-body {
+      padding: 18px 22px;
+    }
+
+    .wi-detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 11px 0;
+      border-bottom: 1px solid #f1f5f9;
+      gap: 12px;
+    }
+
+    .wi-detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .wi-detail-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      flex-shrink: 0;
+    }
+
+    .wi-detail-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .wi-detail-val.empty {
+      color: #cbd5e1;
+      font-style: italic;
+      font-weight: 400;
+    }
+
+    .wi-detail-footer {
+      padding: 0 22px 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .wi-detail-edit-btn {
+      flex: 1;
+      padding: 12px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: opacity .2s;
+    }
+
+    .wi-detail-edit-btn:hover {
+      opacity: .88;
+    }
+
+    .wi-detail-cancel-btn {
+      padding: 12px 18px;
+      background: #f1f5f9;
+      color: #64748b;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .2s;
+    }
+    .wi-detail-cancel-btn:hover { background: #e2e8f0; color: #1e293b; }
+
+    /* ── Withdrawal Edit Modal ── */
+    #wiModal .modal-content {
+      max-width: 480px;
+    }
+
+    .wi-form-group {
+      margin-bottom: 16px;
+    }
+
+    .wi-form-group label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 7px;
+    }
+
+    .wi-form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #f8fafc;
+      color: #1e293b;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .wi-form-group input:focus {
+      border-color: #667eea;
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.12);
+    }
+
+    .wi-save-btn {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      margin-top: 8px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .wi-save-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 769px) {
+      .page-header-toggle {
+        display: none !important;
+      }
+    }
+
+    /* ── Neumorphic Theme Toggle ── */
+   .sb-nm-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px 8px 26px;
+      border-top: 1px solid #e2e8f0;
+      /* margin-bottom: 4px; */
+    }
+    body.dark-mode .sb-nm-wrap { border-top-color: #30363d !important; }
+    html.dark-mode .sb-nm-wrap { border-top-color: #30363d !important; }
+    .sb-nm-wrap-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+    }
+    body.dark-mode .sb-nm-wrap-label { color: #8b949e; }
+      .sb-nm-toggle {
+      position: relative;
+      width: 80px;
+      height: 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      font-family: inherit;
+      background: white;
+      box-shadow: 4px 4px 8px #b8bec7, -4px -4px 8px #ffffff;
+      transition: background 0.4s;
+    }
+    html.dark-mode .sb-nm-toggle,
+    body.dark-mode .sb-nm-toggle {
+      background: #1e2535 !important;
+      box-shadow: 4px 4px 8px #0d1117, -3px -3px 7px #2d3a4a !important;
+    }
+    .sb-nm-knob {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 2px 2px 5px #b8bec7, -1px -1px 4px #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      pointer-events: none;
+      transition: left 0.4s cubic-bezier(.4,0,.2,1), background 0.4s;
+      z-index: 2;
+    }
+    html.dark-mode .sb-nm-knob,
+    body.dark-mode .sb-nm-knob {
+      left: 52px !important;
+      background: #2d3748 !important;
+      box-shadow: 2px 2px 5px #0d1117, -1px -1px 4px #3a4a5c !important;
+    }
+    .sb-nm-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    .sb-nm-label-light { right: 9px; color: #64748b; opacity: 1; }
+    .sb-nm-label-dark  { left: 9px;  color: #a78bfa; opacity: 0; }
+    body.dark-mode .sb-nm-label-light { opacity: 0; }
+    body.dark-mode .sb-nm-label-dark  { opacity: 1; }
+  </style>
+
+
+
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar">
+    <div class="sidebar-header" onclick="window.location.href='https://earnify-gamma.vercel.app/'" style="cursor:pointer;">
+      <h2>Earnify Admin</h2>
+      <button class="sidebar-close-btn" onclick="event.stopPropagation();toggleSidebar()">&times;</button>
+    </div>
+    <a href="/admin/Resources/" onclick="closeMobileSidebar()" class="nav-link">📚 Resources</a>
+    <a href="/admin/Statistics/" onclick="closeMobileSidebar()" class="nav-link">📈 Statistics</a>
+    <a href="/admin/Profile/" onclick="closeMobileSidebar()" class="nav-link active-link">👤 Profile</a>
+    <a href="/admin/Withdrawal/" onclick="closeMobileSidebar()" class="nav-link">💸 Withdrawal</a>
+      <!-- Neumorphic Theme Toggle -->
+    <div class="sb-nm-wrap">
+      <button class="sb-nm-toggle" id="sbNmToggle" onclick="toggleDarkMode()" title="Toggle dark/light mode">
+        <span class="sb-nm-knob" id="sbNmKnob"></span>
+        <span class="sb-nm-label sb-nm-label-light">LIGHT</span>
+        <span class="sb-nm-label sb-nm-label-dark">DARK</span>
+      </button>
+    </div>
+    <a href="/" class="nav-link nav-link-divider" onclick="closeMobileSidebar()">🏠 Main Site</a>
+    <a onclick="logout()" class="nav-link nav-link-logout"><span>🚪</span> Logout</a>
+
+  
+
+    <!-- User Profile Section -->
+    <div class="sidebar-user" id="sidebarUser" style="display: none;">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebarAvatar">👤</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebarUserName">User</div>
+          <div class="user-email" id="sidebarUserEmail">user@email.com</div>
+        </div>
+      </div>
+      <a onclick="logout()" class="logout-link">🚪 Logout</a>
+    </div>
+
+  </div>
+<script>!function(){var k=document.getElementById('sbNmKnob');if(k)k.textContent=localStorage.getItem('earnify_dark_mode')==='1'?'🌙':'☀️';}();</script>
+
+  <div class="main">
+    <div class="profile-container" id="profileContainer">
+
+      <!-- Mobile-only header bar -->
+      <div class="mobile-profile-header" style="display:none;"></div>
+
+      <div class="page-header">
+        <div class="header-content">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <button class="mobile-menu-toggle page-header-toggle" onclick="toggleSidebar()" style="display:none;">
+              <div class="hamburger"></div>
+              <div class="hamburger"></div>
+              <div class="hamburger"></div>
+            </button>
+            <h1 style="margin:0;">My Profile</h1>
+          </div>
+          <p class="subtitle">Manage your account information and settings</p>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-card profile-avatar-section skeleton-card">
+          <!-- Shimmer Loading -->
+          <div id="profileAvatarShimmer">
+            <div class="shimmer-profile-avatar shimmer-gradient"></div>
+            <div class="shimmer-profile-name shimmer-gradient"></div>
+            <div class="shimmer-profile-email shimmer-gradient"></div>
+            <div class="shimmer-badge shimmer-gradient"></div>
+          </div>
+
+          <!-- Actual Content -->
+          <div id="profileAvatarContent" style="display: none;">
+            <div class="profile-avatar-large" id="profileAvatarLarge">👤</div>
+            <div class="profile-name" id="profileName">User Name</div>
+            <div class="profile-email" id="profileEmail">user@email.com</div>
+            <div class="profile-badge">✨ Active Member</div>
+          </div>
+
+          <div class="profile-actions">
+            <button class="action-btn btn-edit" onclick="editProfile()">
+              <span>✏️</span>
+              <span>Edit Profile</span>
+            </button>
+            <button class="action-btn btn-logout" onclick="logout()">
+              <span>🚺</span>
+              <span>Logout</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="profile-card skeleton-card">
+          <h2>📝 Profile Information</h2>
+
+          <!-- Shimmer Loading -->
+          <div id="profileDetailsShimmer">
+            <div class="shimmer-detail-row">
+              <div class="shimmer-detail-label shimmer-gradient"></div>
+              <div class="shimmer-detail-value shimmer-gradient"></div>
+            </div>
+            <div class="shimmer-detail-row">
+              <div class="shimmer-detail-label shimmer-gradient"></div>
+              <div class="shimmer-detail-value shimmer-gradient"></div>
+            </div>
+            <div class="shimmer-detail-row">
+              <div class="shimmer-detail-label shimmer-gradient"></div>
+              <div class="shimmer-detail-value shimmer-gradient"></div>
+            </div>
+            <div class="shimmer-detail-row">
+              <div class="shimmer-detail-label shimmer-gradient"></div>
+              <div class="shimmer-detail-value shimmer-gradient"></div>
+            </div>
+            <div class="shimmer-detail-row">
+              <div class="shimmer-detail-label shimmer-gradient"></div>
+              <div class="shimmer-detail-value shimmer-gradient"></div>
+            </div>
+          </div>
+
+          <!-- Actual Content -->
+          <div id="profileDetailsContent" style="display: none;">
+            <div class="detail-row">
+              <span class="detail-label">👤 Full Name:</span>
+              <span class="detail-value" id="detailName">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">📧 Email:</span>
+              <span class="detail-value" id="detailEmail">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">🆔 User ID:</span>
+              <span class="detail-value" id="detailUserId">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">📅 Account Created:</span>
+              <span class="detail-value" id="detailCreated">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-label">🕑 Last Login:</span>
+              <span class="detail-value" id="detailLastLogin">-</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Withdrawal Info Card -->
+      <div class="profile-card" id="withdrawalInfoCard" style="margin-top: 24px;">
+        <h2>💳 Withdrawal Info
+          <button class="wi-edit-btn" onclick="openWiModal()" style="margin-left:auto;">✏️ Edit Info</button>
+        </h2>
+        <div class="wi-methods">
+          <div class="wi-method upi" onclick="openWiDetail('upi')">
+            <div class="wi-method-header">
+              <div class="wi-icon">🔗</div>
+              <div class="wi-label">UPI ID</div>
+              <span class="wi-status unset" id="wi-status-upi">● Not Set</span>
+            </div>
+          </div>
+          <div class="wi-method bank" onclick="openWiDetail('bank')">
+            <div class="wi-method-header">
+              <div class="wi-icon">🏦</div>
+              <div class="wi-label">Bank</div>
+              <span class="wi-status unset" id="wi-status-bank">● Not Set</span>
+            </div>
+          </div>
+          <div class="wi-method gpay" onclick="openWiDetail('gpay')">
+            <div class="wi-method-header">
+              <div class="wi-icon">💚</div>
+              <div class="wi-label">GPay</div>
+              <span class="wi-status unset" id="wi-status-gpay">● Not Set</span>
+            </div>
+          </div>
+          <div class="wi-method paytm" onclick="openWiDetail('paytm')">
+            <div class="wi-method-header">
+              <div class="wi-icon">💙</div>
+              <div class="wi-label">Paytm</div>
+              <span class="wi-status unset" id="wi-status-paytm">● Not Set</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-card" id="recentResourcesCard" style="margin-top: 30px;">
+        <h2 style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">📚 My Recent Resources
+          <div class="cd-wrap" id="cdWrap-resLimit">
+            <button class="cd-btn" onclick="cdToggle('resLimit')" type="button">
+              <span class="cd-label" id="cdLabel-resLimit">10 / page</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="cd-list" id="cdList-resLimit" style="display:none;" data-align="right">
+              <div class="cd-item selected" onclick="cdResLimit('10','10 / page')">10 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdResLimit('30','30 / page')">30 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdResLimit('50','50 / page')">50 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdResLimit('100','100 / page')">100 / page<span class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdResLimit('all','All')">All<span class="cd-check">&#10003;</span></div>
+            </div>
+          </div>
+        </h2>
+        <div id="recentResourcesList">
+          <div style="text-align: center; padding: 40px; color: #64748b;">
+            Loading resources...
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- Edit Profile Modal -->
+  <div id="editProfileModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditProfileModal()">&times;</span>
+      <h2 style="color: #60a5fa; text-align: center; margin-bottom: 25px;">Edit Profile</h2>
+      <form id="editProfileForm" onsubmit="handleEditProfile(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="editName" required>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="editEmail" required>
+        </div>
+        <button type="submit" class="btn-submit">Save Changes</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- WI Detail Popup -->
+  <div id="wiDetailPopup" onclick="if(event.target===this)closeWiDetail()">
+    <div class="wi-detail-box">
+      <div class="wi-detail-header">
+        <div class="wi-detail-icon" id="wiDetailIcon"></div>
+        <div class="wi-detail-title" id="wiDetailTitle"></div>
+        <button class="wi-detail-close" onclick="closeWiDetail()">&times;</button>
+      </div>
+      <div class="wi-detail-body" id="wiDetailBody"></div>
+      <div class="wi-detail-footer">
+        <button class="wi-detail-cancel-btn" onclick="closeWiDetail()">Close</button>
+        <button class="wi-detail-edit-btn" onclick="closeWiDetail();openWiModal()">✏️ Edit Info</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Withdrawal Info Modal -->
+  <div id="wiModal" class="modal">
+    <div class="modal-content" id="wiModalContent">
+      <span class="close" onclick="closeWiModal()">&times;</span>
+      <h2 style="color:#667eea;text-align:center;margin-bottom:22px;font-size:20px;">💳 Edit Withdrawal Info</h2>
+      <div class="wi-form-group">
+        <label>🔗 UPI ID</label>
+        <input type="text" id="wi-input-upi" placeholder="e.g. yourname@okaxis">
+      </div>
+      <div class="wi-form-group">
+        <label>🏦 Bank Account Number</label>
+        <input type="text" id="wi-input-bank" placeholder="e.g. 9876543210123">
+      </div>
+      <div class="wi-form-group">
+        <label>🏦 IFSC Code</label>
+        <input type="text" id="wi-input-ifsc" placeholder="e.g. SBIN0001234"
+          oninput="this.value=this.value.toUpperCase()">
+      </div>
+      <div class="wi-form-group">
+        <label>💚 Google Pay Number / UPI</label>
+        <input type="text" id="wi-input-gpay" placeholder="e.g. 9876543210 or name@okicici">
+      </div>
+      <div class="wi-form-group">
+        <label>💙 Paytm Number / UPI</label>
+        <input type="text" id="wi-input-paytm" placeholder="e.g. 9876543210 or name@paytm">
+      </div>
+      <button class="wi-save-btn" onclick="saveWiInfo()">💾 Save Withdrawal Info</button>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Mobile Bottom Nav -->
+  <nav class="admin-mob-nav">
+    <a href="/admin/Resources/" class="amn-item">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Resources</span>
+    </a>
+    <a href="/admin/Statistics/" class="amn-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Statistics</span>
+    </a>
+    <a href="/" class="amn-item amn-home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="/admin/Profile/" class="amn-item active">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+    <a href="/admin/Withdrawal/" class="amn-item">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>Withdraw</span>
+    </a>
+  </nav>
+
+  <script src="api-config.js"></script>
+  <script src="/admin/auth-guard.js"></script>
+  <script src="/admin/toast.js"></script>
+  <script>
+    const SUPA_URL = 'https://emnrgsgerfjvndexomro.supabase.co';
+    const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MjAyMTAsImV4cCI6MjA4Nzk5NjIxMH0.uXr8lipxLbB4D_5JwQkpLzc-HudQw23tOFBfV4C6hqY';
+    const SUPA_SVC = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjQyMDIxMCwiZXhwIjoyMDg3OTk2MjEwfQ.mr4k_GsJ14CC1mqvEZgf9cTaNiLMlnj_sZxFjJud67k';
+    const _db = window.supabase.createClient(SUPA_URL, SUPA_SVC, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    });
+
+    // Get current logged-in user email from any auth source
+    function getCurrentEmail() {
+      try {
+        const cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        if (cu?.email) return cu;
+      } catch (e) { }
+      const token = localStorage.getItem('adminToken');
+      if (token) {
+        try {
+          const p = JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+          if (p?.email) return { email: p.email, id: p.sub || p.id, ...p };
+        } catch (e) { }
+      }
+      return null;
+    }
+
+    const currentUser = getCurrentEmail() || JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+    function showShimmers() {
+      document.documentElement.classList.add('profile-loading');
+      document.body.classList.add('profile-loading');
+      const container = document.getElementById('profileContainer');
+      if (container) container.classList.add('shimmer-loading');
+      document.getElementById('profileAvatarShimmer').style.display = 'block';
+      document.getElementById('profileAvatarContent').style.display = 'none';
+      document.getElementById('profileDetailsShimmer').style.display = 'block';
+      document.getElementById('profileDetailsContent').style.display = 'none';
+    }
+
+    function hideShimmers() {
+      const container = document.getElementById('profileContainer');
+      if (container) container.classList.remove('shimmer-loading');
+      document.getElementById('profileAvatarShimmer').style.display = 'none';
+      document.getElementById('profileAvatarContent').style.display = 'block';
+      document.getElementById('profileDetailsShimmer').style.display = 'none';
+      document.getElementById('profileDetailsContent').style.display = 'block';
+      document.body.classList.remove('profile-loading');
+      document.documentElement.classList.remove('profile-loading');
+    }
+
+    function loadProfile() {
+      showShimmers();
+
+      if (!currentUser || !currentUser.id) {
+        alert('Please login first');
+        window.location.href = 'login.html';
+        return;
+      }
+
+      const userName = currentUser.user_metadata?.name || currentUser.email?.split('@')[0] || 'User';
+      const userEmail = currentUser.email || 'No email';
+      const userId = currentUser.id || 'N/A';
+      const createdAt = currentUser.created_at ? new Date(currentUser.created_at).toLocaleDateString() : 'N/A';
+      const lastLogin = currentUser.last_sign_in_at ? new Date(currentUser.last_sign_in_at).toLocaleDateString() : 'N/A';
+
+      // Update header
+      document.getElementById('profileAvatarLarge').textContent = userName.charAt(0).toUpperCase();
+      document.getElementById('profileName').textContent = userName;
+      document.getElementById('profileEmail').textContent = userEmail;
+
+      // Update details
+      document.getElementById('detailName').textContent = userName;
+      document.getElementById('detailEmail').textContent = userEmail;
+      document.getElementById('detailUserId').textContent = userId;
+      document.getElementById('detailCreated').textContent = createdAt;
+      document.getElementById('detailLastLogin').textContent = lastLogin;
+
+      setTimeout(() => hideShimmers(), 1200);
+    }
+
+    function editProfile() {
+      const userName = currentUser.user_metadata?.name || currentUser.email?.split('@')[0] || '';
+      const userEmail = currentUser.email || '';
+
+      document.getElementById('editName').value = userName;
+      document.getElementById('editEmail').value = userEmail;
+      document.getElementById('editProfileModal').style.display = 'flex';
+    }
+
+    function closeEditProfileModal() {
+      document.getElementById('editProfileModal').style.display = 'none';
+    }
+
+    async function handleEditProfile(event) {
+      event.preventDefault();
+
+      const newName = document.getElementById('editName').value;
+      const newEmail = document.getElementById('editEmail').value;
+
+      try {
+        // Update user metadata
+        const { data, error } = await supabaseClient.auth.updateUser({
+          email: newEmail,
+          data: { name: newName }
+        });
+
+        if (error) throw error;
+
+        // Update localStorage
+        currentUser.email = newEmail;
+        currentUser.user_metadata = { ...currentUser.user_metadata, name: newName };
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+        alert('Profile updated successfully!');
+        closeEditProfileModal();
+        loadProfile();
+      } catch (error) {
+        console.error('Error updating profile:', error);
+        alert('Failed to update profile: ' + error.message);
+      }
+    }
+
+    function logout() {
+      // Clear all authentication data
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('userLoggedIn');
+      localStorage.removeItem('adminUser');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+
+      // Clear session storage as well
+      sessionStorage.clear();
+
+      // Sign out from Supabase if available
+      if (typeof supabaseClient !== 'undefined') {
+        supabaseClient.auth.signOut().catch(console.error);
+      }
+
+      // Force redirect to main site index page
+      window.location.href = '../../index.html';
+
+      // Fallback redirect after a short delay
+      setTimeout(() => {
+        window.location.replace('../../index.html');
+      }, 100);
+    }
+
+    // Load profile on page load
+    window.addEventListener('DOMContentLoaded', async function () {
+      loadProfile();
+      loadProfileStats();
+      loadWiInfo();
+
+      // Update sidebar profile + Super Admin button
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const sidebarUser = document.getElementById('sidebarUser');
+      if (currentUser.email) {
+        if (sidebarUser) {
+          sidebarUser.style.display = 'flex';
+          sidebarUser.style.flexDirection = 'column';
+          sidebarUser.style.gap = '5px';
+        }
+        const userName = currentUser.user_metadata?.name || currentUser.email.split('@')[0] || 'User';
+        document.getElementById('sidebarUserName').textContent = userName;
+        document.getElementById('sidebarUserEmail').textContent = currentUser.email;
+        document.getElementById('sidebarAvatar').textContent = userName.charAt(0).toUpperCase();
+
+        // Super Admin button injected by super-admin-btn.js
+      }
+    });
+
+    async function loadProfileStats() {
+      loadRecentResources(null);
+
+      const userEmail = currentUser?.email;
+      if (!userEmail) { loadRecentResources([]); return; }
+
+      try {
+        const { data: userResources, error: resErr } = await _db
+          .from('resources').select('id, title, description, type, price, user_email')
+          .eq('user_email', userEmail);
+        if (resErr) throw resErr;
+        loadRecentResources(userResources || []);
+      } catch (error) {
+        console.error('Error loading profile stats:', error);
+        loadRecentResources([]);
+      }
+    }
+
+    function loadRecentResources(resources) {
+      const container = document.getElementById('recentResourcesList');
+      window._allRecentResources = resources; // store for re-render
+
+      // Show shimmer while loading
+      if (resources === null) {
+        container.innerHTML = `
+        <div class="shimmer-resource-item">
+          <div class="shimmer-resource-icon shimmer-gradient"></div>
+          <div class="shimmer-resource-content">
+            <div class="shimmer-resource-title shimmer-gradient"></div>
+            <div class="shimmer-resource-desc shimmer-gradient"></div>
+          </div>
+          <div class="shimmer-resource-price shimmer-gradient"></div>
+        </div>
+        <div class="shimmer-resource-item">
+          <div class="shimmer-resource-icon shimmer-gradient"></div>
+          <div class="shimmer-resource-content">
+            <div class="shimmer-resource-title shimmer-gradient"></div>
+            <div class="shimmer-resource-desc shimmer-gradient"></div>
+          </div>
+          <div class="shimmer-resource-price shimmer-gradient"></div>
+        </div>
+        <div class="shimmer-resource-item">
+          <div class="shimmer-resource-icon shimmer-gradient"></div>
+          <div class="shimmer-resource-content">
+            <div class="shimmer-resource-title shimmer-gradient"></div>
+            <div class="shimmer-resource-desc shimmer-gradient"></div>
+          </div>
+          <div class="shimmer-resource-price shimmer-gradient"></div>
+        </div>
+      `;
+        return;
+      }
+
+      if (!resources || resources.length === 0) {
+        container.innerHTML = `
+        <div class="empty-resources">
+          <div class="empty-resources-icon"><img src="/file/empty-resources.png" class="empty-state-img" style="width:80px;height:80px;object-fit:contain;"></div>
+          <h4>No Resources Yet</h4>
+          <p>Start adding resources to see them here</p>
+        </div>
+      `;
+        return;
+      }
+
+      const typeIcons = {
+        pdf: '<img src="/file/pdf.jpg" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">',
+        excel: '<img src="/file/excel.jpg" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">',
+        exam: '<img src="/file/exam.jpg" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">',
+        freelance: '<img src="/file/service.jpg" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">'
+      };
+
+      // Show last N resources based on selected page size
+      const limit = window._resLimit === 'all' ? resources.length : (window._resLimit || 10);
+      const recentResources = resources.slice(-limit).reverse();
+
+      container.innerHTML = recentResources.map(resource => `
+      <div class="resource-item">
+        <div class="resource-info">
+          <div class="resource-type-icon">${typeIcons[resource.type] || '<img src="/file/pdf.jpg" style="width:32px;height:32px;object-fit:contain;border-radius:6px;">'}  </div>
+          <div class="resource-details">
+            <h4>${resource.title}</h4>
+            <p>${resource.description.substring(0, 60)}${resource.description.length > 60 ? '...' : ''}</p>
+          </div>
+        </div>
+        <div class="resource-price-tag">₹${resource.price}</div>
+      </div>
+    `).join('');
+    }
+
+    // Close modal when clicking outside
+    window.onclick = function (event) {
+      const modal = document.getElementById('editProfileModal');
+      if (event.target === modal) closeEditProfileModal();
+      const wiModal = document.getElementById('wiModal');
+      if (event.target === wiModal) closeWiModal();
+      const wiDetail = document.getElementById('wiDetailPopup');
+      if (event.target === wiDetail) closeWiDetail();
+    }
+
+    // ── Withdrawal Info (Supabase profiles table) ──
+    const placeholders = { upi: 'Add your UPI ID', bank: 'Add account number', gpay: 'Add GPay number / UPI', paytm: 'Add Paytm number / UPI' };
+    let _wiCache = {};
+
+    function renderWiFields(data) {
+      _wiCache = data || {};
+      const fields = ['upi', 'bank', 'gpay', 'paytm'];
+      fields.forEach(f => {
+        const st = document.getElementById('wi-status-' + f);
+        if (!st) return;
+        const hasVal = f === 'bank' ? (data?.bank || data?.ifsc) : data?.[f];
+        if (hasVal) {
+          st.textContent = '\u25cf Active'; st.className = 'wi-status set';
+        } else {
+          st.textContent = '\u25cf Not Set'; st.className = 'wi-status unset';
+        }
+      });
+    }
+
+    const wiMeta = {
+      upi: { icon: '🔗', title: 'UPI ID', bg: 'linear-gradient(135deg,#667eea,#764ba2)' },
+      bank: { icon: '🏦', title: 'Bank Transfer', bg: 'linear-gradient(135deg,#10b981,#059669)' },
+      gpay: { icon: '💚', title: 'Google Pay', bg: 'linear-gradient(135deg,#14b8a6,#0d9488)' },
+      paytm: { icon: '💙', title: 'Paytm', bg: 'linear-gradient(135deg,#3b82f6,#2563eb)' },
+    };
+
+    function openWiDetail(method) {
+      const meta = wiMeta[method];
+
+      // ── If not set → open edit form directly focused on this field ──
+      const isSet = method === 'bank'
+        ? (_wiCache.bank || _wiCache.ifsc)
+        : _wiCache[method];
+
+      if (!isSet) {
+        openWiModalForMethod(method);
+        return;
+      }
+
+      const iconEl = document.getElementById('wiDetailIcon');
+      const titleEl = document.getElementById('wiDetailTitle');
+      const bodyEl = document.getElementById('wiDetailBody');
+      iconEl.textContent = meta.icon;
+      iconEl.style.background = meta.bg;
+      titleEl.textContent = meta.title;
+
+      const row = (label, val) => {
+        const empty = !val;
+        return `<div class="wi-detail-row">
+          <span class="wi-detail-lbl">${label}</span>
+          <span class="wi-detail-val${empty ? ' empty' : ''}">${val || 'Not set'}</span>
+        </div>`;
+      };
+
+      if (method === 'bank') {
+        bodyEl.innerHTML = row('Account No.', _wiCache.bank) + row('IFSC Code', _wiCache.ifsc);
+      } else {
+        const labels = { upi: 'UPI ID', gpay: 'GPay / UPI', paytm: 'Paytm / UPI' };
+        bodyEl.innerHTML = row(labels[method] || method.toUpperCase(), _wiCache[method]);
+      }
+
+      document.getElementById('wiDetailPopup').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Opens wiModal pre-filled and scrolls/focuses the specific method field
+    async function openWiModalForMethod(method) {
+      await openWiModal();
+      // Hide all form groups, show only the relevant one(s)
+      const allGroups = document.querySelectorAll('#wiModalContent .wi-form-group');
+      allGroups.forEach(g => g.style.display = 'none');
+
+      const fieldMap = {
+        upi:   ['wi-input-upi'],
+        bank:  ['wi-input-bank', 'wi-input-ifsc'],
+        gpay:  ['wi-input-gpay'],
+        paytm: ['wi-input-paytm'],
+      };
+      const fields = fieldMap[method] || [];
+      fields.forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+          input.closest('.wi-form-group').style.display = '';
+        }
+      });
+
+      // Update modal title to reflect the specific method
+      const meta = wiMeta[method];
+      document.querySelector('#wiModalContent h2').textContent = meta.icon + ' Set ' + meta.title;
+
+      // Focus first field
+      if (fields[0]) setTimeout(() => document.getElementById(fields[0])?.focus(), 100);
+
+      // Store which method we're editing so save restores all groups
+      document.getElementById('wiModal').dataset.focusMethod = method;
+    }
+
+    function closeWiDetail() {
+      document.getElementById('wiDetailPopup').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    async function loadWiInfo() {
+      try {
+        const uid = currentUser?.id;
+        if (!uid) return;
+        const { data, error } = await _db
+          .from('profiles')
+          .select('wi_upi, wi_bank, wi_ifsc, wi_gpay, wi_paytm')
+          .eq('id', uid)
+          .single();
+        if (error) throw error;
+        renderWiFields({ upi: data?.wi_upi, bank: data?.wi_bank, ifsc: data?.wi_ifsc, gpay: data?.wi_gpay, paytm: data?.wi_paytm });
+      } catch (e) {
+        console.warn('loadWiInfo error:', e);
+        renderWiFields({});
+      }
+    }
+
+    async function openWiModal() {
+      try {
+        const uid = currentUser?.id;
+        if (uid) {
+          const { data } = await _db
+            .from('profiles')
+            .select('wi_upi, wi_bank, wi_ifsc, wi_gpay, wi_paytm')
+            .eq('id', uid)
+            .single();
+          document.getElementById('wi-input-upi').value = data?.wi_upi || '';
+          document.getElementById('wi-input-bank').value = data?.wi_bank || '';
+          document.getElementById('wi-input-ifsc').value = data?.wi_ifsc || '';
+          document.getElementById('wi-input-gpay').value = data?.wi_gpay || '';
+          document.getElementById('wi-input-paytm').value = data?.wi_paytm || '';
+        }
+      } catch (e) { }
+      document.getElementById('wiModal').style.display = 'flex';
+    }
+
+    function closeWiModal() {
+      // Restore all form groups in case only one was shown
+      document.querySelectorAll('#wiModalContent .wi-form-group').forEach(g => g.style.display = '');
+      document.querySelector('#wiModalContent h2').innerHTML = '\uD83D\uDCB3 Edit Withdrawal Info';
+      delete document.getElementById('wiModal').dataset.focusMethod;
+      document.getElementById('wiModal').style.display = 'none';
+    }
+
+    async function saveWiInfo() {
+      const btn = document.querySelector('.wi-save-btn');
+      const uid = currentUser?.id;
+      if (!uid) { alert('Not logged in'); return; }
+
+      const payload = {
+        wi_upi: document.getElementById('wi-input-upi').value.trim(),
+        wi_bank: document.getElementById('wi-input-bank').value.trim(),
+        wi_ifsc: document.getElementById('wi-input-ifsc').value.trim().toUpperCase(),
+        wi_gpay: document.getElementById('wi-input-gpay').value.trim(),
+        wi_paytm: document.getElementById('wi-input-paytm').value.trim(),
+      };
+
+      btn.textContent = '⏳ Saving...';
+      btn.disabled = true;
+
+      try {
+        const { error } = await _db
+          .from('profiles')
+          .upsert({ id: uid, ...payload }, { onConflict: 'id' });
+        if (error) throw error;
+        renderWiFields({ upi: payload.wi_upi, bank: payload.wi_bank, ifsc: payload.wi_ifsc, gpay: payload.wi_gpay, paytm: payload.wi_paytm });
+        closeWiModal();
+      } catch (e) {
+        console.error('saveWiInfo error:', e);
+        alert('Failed to save: ' + (e.message || e));
+      } finally {
+        btn.textContent = '\uD83D\uDCBE Save Withdrawal Info';
+        btn.disabled = false;
+      }
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      if (!sidebar) return;
+      sidebar.classList.toggle('active');
+      if (overlay) overlay.classList.toggle('active');
+      document.body.classList.toggle('sidebar-open');
+    }
+
+    function closeMobileSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      if (sidebar && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.classList.remove('sidebar-open');
+      }
+    }
+  </script>
+
+ 
+  
+  <script src="../super-admin-btn.js"></script>
+
+  <style>
+    /* ── cd-wrap dropdown ── */
+    .cd-wrap { position: relative; display: inline-flex; align-items: center; font-family: inherit; }
+    .cd-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; min-width: 100px;
+      background: #fff !important; border: 1.5px solid #e2e8f0 !important; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer;
+      font-family: inherit; outline: none; user-select: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
+      transition: border-color .18s, box-shadow .18s, color .18s; white-space: nowrap;
+      color: #334155 !important;
+      transform: none !important;
+    }
+    .cd-btn:hover { border-color: #a5b4fc !important; color: #667eea !important; box-shadow: 0 2px 8px rgba(102,126,234,0.12) !important; transform: none !important; }
+    .cd-btn.open { border-color: #667eea !important; color: #667eea !important; box-shadow: 0 0 0 3px rgba(102,126,234,0.15) !important; }
+    .cd-btn svg { flex-shrink: 0; transition: transform .22s; color: inherit; }
+    .cd-btn.open svg { transform: rotate(180deg); }
+    .cd-label { flex: 1; text-align: left; color: inherit; }
+    .cd-list {
+      position: fixed; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.14), 0 2px 8px rgba(0,0,0,0.08);
+      z-index: 99999; overflow: hidden; padding: 4px;
+      animation: cdDrop .18s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes cdDrop { from { opacity:0; transform:translateY(-6px) scale(.97); } to { opacity:1; transform:none; } }
+    .cd-item {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: #334155;
+      cursor: pointer; transition: background .14s, color .14s; white-space: nowrap;
+    }
+    .cd-item:hover { background: #f0f4ff; color: #667eea; }
+    .cd-item.selected { background: linear-gradient(135deg,#667eea,#764ba2); color: #fff; font-weight: 700; }
+    .cd-item.selected:hover { background: linear-gradient(135deg,#5a6fd6,#6a3f96); }
+    .cd-check { margin-left: auto; opacity: 0; font-size: 11px; }
+    .cd-item.selected .cd-check { opacity: 1; }
+    body.dark-mode .cd-btn, html.dark-mode .cd-btn { background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important; box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important; transform: none !important; }
+    body.dark-mode .cd-btn:hover, html.dark-mode .cd-btn:hover { border-color: #7c6af7 !important; color: #a78bfa !important; transform: none !important; }
+    body.dark-mode .cd-btn.open, html.dark-mode .cd-btn.open { border-color: #7c6af7 !important; color: #a78bfa !important; box-shadow: 0 0 0 3px rgba(124,106,247,0.18) !important; }
+    body.dark-mode .cd-list, html.dark-mode .cd-list { background: #1c2333 !important; border-color: #30363d !important; box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important; }
+    body.dark-mode .cd-item, html.dark-mode .cd-item { color: #c9d1d9 !important; }
+    body.dark-mode .cd-item:hover, html.dark-mode .cd-item:hover { background: #21293d !important; color: #a78bfa !important; }
+    body.dark-mode .cd-item.selected, html.dark-mode .cd-item.selected { background: linear-gradient(135deg,#4c3d9e,#3d2f7a) !important; color: #e2d9f3 !important; }
+  </style>
+  <script>
+    window._resLimit = 10;
+    function cdToggle(id) {
+      const list = document.getElementById('cdList-' + id);
+      const btn  = document.querySelector('#cdWrap-' + id + ' .cd-btn');
+      const open = list.style.display !== 'none';
+      document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+      document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      if (!open) {
+        if (list.parentNode !== document.body) document.body.appendChild(list);
+        const rect = btn.getBoundingClientRect();
+        list.style.position = 'fixed';
+        list.style.left = 'auto';
+        list.style.right = (window.innerWidth - rect.right) + 'px';
+        list.style.top = (rect.bottom + 6) + 'px';
+        list.style.minWidth = rect.width + 'px';
+        list.style.display = '';
+        btn.classList.add('open');
+      }
+    }
+    function cdResLimit(value, label) {
+      document.getElementById('cdLabel-resLimit').textContent = label;
+      document.querySelectorAll('#cdList-resLimit .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-resLimit').style.display = 'none';
+      document.querySelector('#cdWrap-resLimit .cd-btn').classList.remove('open');
+      window._resLimit = value === 'all' ? 'all' : parseInt(value);
+      if (window._allRecentResources) loadRecentResources(window._allRecentResources);
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.cd-wrap') && !e.target.closest('.cd-list')) {
+        document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+        document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      }
+    });
+    function _cdCloseAll() {
+      document.querySelectorAll('.cd-list').forEach(function(l){ l.style.display = 'none'; });
+      document.querySelectorAll('.cd-btn').forEach(function(b){ b.classList.remove('open'); });
+      window._cdOpenBtn = null; window._cdOpenList = null;
+    }
+    document.querySelector('.main').addEventListener('scroll', _cdCloseAll, { passive: true });
+    window.addEventListener('scroll', _cdCloseAll, { passive: true });
+    document.addEventListener('touchmove', _cdCloseAll, { passive: true });
+  </script>
+</body>
+
+</html>

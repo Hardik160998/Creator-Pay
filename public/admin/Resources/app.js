@@ -1,0 +1,936 @@
+﻿// API Configuration will be loaded from api-config.js
+// const API = "http://localhost:5000/api/users";
+// const RESOURCE_API = "http://localhost:5000/api/resources";
+
+async function loadUsers() {
+  // User management removed
+}
+
+async function updateStatus(id, status) {
+  // User management removed
+}
+
+async function deleteUser(id) {
+  // User management removed
+}
+
+async function loadDashboard() {
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.admin.users));
+    const users = await res.json();
+
+    const sidebarCount = document.getElementById("sidebarUserCount");
+    if (sidebarCount) sidebarCount.textContent = users.length;
+
+    if (!Array.isArray(users)) {
+      console.error('Users data is not an array:', users);
+      document.getElementById("totalUsers").innerText = "Total Users: Error";
+      document.getElementById("activeUsers").innerText = "Active Users: Error";
+      document.getElementById("inactiveUsers").innerText = "Inactive Users: Error";
+      return;
+    }
+
+    const active = users.filter(u => u.status === "Active").length;
+    const inactive = users.filter(u => u.status === "Inactive" || u.status === "Blocked").length;
+
+    document.getElementById("totalUsers").innerText = "Total Users: " + users.length;
+    document.getElementById("activeUsers").innerText = "Active Users: " + active;
+    document.getElementById("inactiveUsers").innerText = "Inactive Users: " + inactive;
+  } catch (error) {
+    console.error('Error loading dashboard:', error);
+    document.getElementById("totalUsers").innerText = "Total Users: Error";
+    document.getElementById("activeUsers").innerText = "Active Users: Error";
+    document.getElementById("inactiveUsers").innerText = "Inactive Users: Error";
+  }
+}
+
+async function loadAnalytics() {
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.admin.users));
+    if (!res.ok) throw new Error('Failed to fetch analytics');
+    const users = await res.json();
+
+    const sidebarCount = document.getElementById("sidebarUserCount");
+    if (sidebarCount) sidebarCount.textContent = Array.isArray(users) ? users.length : 0;
+
+    if (!Array.isArray(users)) {
+      console.error('Invalid users data');
+      return;
+    }
+
+    const total = users.length;
+    const active = users.filter(u => u.status === "Active").length;
+    const inactive = users.filter(u => u.status === "Inactive" || u.status === "Blocked").length;
+    const male = users.filter(u => u.gender === "Male").length;
+    const female = users.filter(u => u.gender === "Female").length;
+
+    if (document.getElementById("activeRate")) {
+      document.getElementById("activeRate").innerText = total ? Math.round((active / total) * 100) + "%" : "0%";
+      document.getElementById("blockRate").innerText = total ? Math.round((inactive / total) * 100) + "%" : "0%";
+      document.getElementById("growthRate").innerText = "+" + total;
+      document.getElementById("maleCount").innerText = male;
+      document.getElementById("femaleCount").innerText = female;
+      document.getElementById("totalActive").innerText = active;
+      document.getElementById("totalBlocked").innerText = inactive;
+    }
+  } catch (error) {
+    console.error('Error loading analytics:', error);
+    if (document.getElementById("activeRate")) {
+      document.getElementById("activeRate").innerText = "Error";
+      document.getElementById("blockRate").innerText = "Error";
+      document.getElementById("growthRate").innerText = "Error";
+      document.getElementById("maleCount").innerText = "0";
+      document.getElementById("femaleCount").innerText = "0";
+      document.getElementById("totalActive").innerText = "0";
+      document.getElementById("totalBlocked").innerText = "0";
+    }
+  }
+}
+
+async function loadSettings() {
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.admin.users));
+    if (!res.ok) throw new Error('Failed to fetch settings');
+    const users = await res.json();
+
+    const sidebarCount = document.getElementById("sidebarUserCount");
+    if (sidebarCount) sidebarCount.textContent = Array.isArray(users) ? users.length : 0;
+
+    if (document.getElementById("totalRecords")) {
+      document.getElementById("totalRecords").innerText = Array.isArray(users) ? users.length : 0;
+    }
+  } catch (error) {
+    console.error('Error loading settings:', error);
+    if (document.getElementById("totalRecords")) {
+      document.getElementById("totalRecords").innerText = "Error";
+    }
+  }
+}
+
+function refreshData() {
+  location.reload();
+}
+
+function exportData() {
+  alert("Export functionality - Coming soon!");
+}
+
+async function loadPurchaseStatistics() {
+  const shimmerStats = document.getElementById('shimmerStats');
+  const statsOverview = document.getElementById('statsOverview');
+  const tbody = document.getElementById('purchaseTableBody');
+
+  // Show shimmer, hide actual content
+  shimmerStats.style.display = 'grid';
+  statsOverview.style.display = 'none';
+
+  try {
+    // Get current user email
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const userEmail = currentUser.email;
+
+    if (!userEmail) {
+      throw new Error('Please login to view statistics');
+    }
+
+    console.log('Loading statistics for user:', userEmail);
+
+    // Use user-specific statistics endpoint
+    const res = await fetch(API_CONFIG.getURL(`${API_CONFIG.endpoints.userStatistics}/${encodeURIComponent(userEmail)}`));
+
+    if (!res.ok) {
+      throw new Error('Failed to load statistics. Please try again.');
+    }
+
+    const data = await res.json();
+
+    console.log('Statistics data:', data);
+
+    // Hide shimmer, show actual content
+    shimmerStats.style.display = 'none';
+    statsOverview.style.display = 'grid';
+
+    // Store full data globally for filtering
+    window.fullStatsData = data;
+
+    // Update stats cards with user-specific data
+    statsOverview.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          ðŸ“¦
+        </div>
+        <div class="stat-content">
+          <h3>My Sales</h3>
+          <div class="stat-number" id="totalPurchases">${data.totalPurchases || 0}</div>
+          <div class="stat-label">Total sales of my resources</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          ðŸ’°
+        </div>
+        <div class="stat-content">
+          <h3>My Revenue</h3>
+          <div class="stat-number" id="totalRevenue">â‚¹${data.totalRevenue || 0}</div>
+          <div class="stat-label">Total earnings from my resources</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          ðŸ‘¥
+        </div>
+        <div class="stat-content">
+          <h3>My Customers</h3>
+          <div class="stat-number" id="totalCustomers">${data.totalCustomers || 0}</div>
+          <div class="stat-label">People who bought my resources</div>
+        </div>
+      </div>
+    `;
+
+    if (!data.userStats || data.userStats.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 40px; color: #666;">No sales data available yet.<br><small>Sales will appear here when customers purchase your resources.</small></td></tr>';
+      return;
+    }
+
+    // Show customer purchase data (people who bought from this user)
+    tbody.innerHTML = data.userStats.map(customer => `
+      <tr>
+        <td>${customer.email}</td>
+        <td>${customer.totalPurchases}</td>
+        <td>â‚¹${customer.totalAmount.toFixed(2)}</td>
+        <td>${customer.resources.join(', ')}</td>
+      </tr>
+    `).join('');
+  } catch (error) {
+    console.error('Error loading purchase statistics:', error);
+
+    // Hide shimmer on error
+    shimmerStats.style.display = 'none';
+    statsOverview.style.display = 'grid';
+
+    statsOverview.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+          ðŸ“¦
+        </div>
+        <div class="stat-content">
+          <h3>My Sales</h3>
+          <div class="stat-number" id="totalPurchases">0</div>
+          <div class="stat-label">Total sales of my resources</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+          ðŸ’°
+        </div>
+        <div class="stat-content">
+          <h3>My Revenue</h3>
+          <div class="stat-number" id="totalRevenue">â‚¹0</div>
+          <div class="stat-label">Total earnings from my resources</div>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+          ðŸ‘¥
+        </div>
+        <div class="stat-content">
+          <h3>My Customers</h3>
+          <div class="stat-number" id="totalCustomers">0</div>
+          <div class="stat-label">People who bought my resources</div>
+        </div>
+      </div>
+    `;
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 40px; color: #ef4444;">
+      âš ï¸ ${error.message}<br><br>
+      <small>Make sure you are logged in and have created some resources.</small>
+    </td></tr>`;
+  }
+}
+
+function filterStatsByType(type) {
+  // Update active tab
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  event.target.closest('.tab-btn').classList.add('active');
+
+  const data = window.fullStatsData;
+  if (!data || !data.userStats) return;
+
+  const tbody = document.getElementById('purchaseTableBody');
+  const statsOverview = document.getElementById('statsOverview');
+
+  let filteredStats = data.userStats;
+  let totalPurchases = 0;
+  let totalRevenue = 0;
+  let totalCustomers = 0;
+
+  if (type !== 'all') {
+    // Filter user stats by resource type
+    filteredStats = data.userStats.map(user => {
+      const filteredResources = user.resources.filter(r => r.toLowerCase().includes(type));
+      if (filteredResources.length === 0) return null;
+
+      return {
+        email: user.email,
+        totalPurchases: filteredResources.length,
+        totalAmount: user.totalAmount * (filteredResources.length / user.resources.length),
+        resources: filteredResources
+      };
+    }).filter(u => u !== null);
+
+    // Calculate filtered totals
+    totalPurchases = filteredStats.reduce((sum, u) => sum + u.totalPurchases, 0);
+    totalRevenue = filteredStats.reduce((sum, u) => sum + u.totalAmount, 0);
+    totalCustomers = filteredStats.length;
+  } else {
+    totalPurchases = data.totalPurchases || 0;
+    totalRevenue = data.totalRevenue || 0;
+    totalCustomers = data.totalCustomers || 0;
+  }
+
+  // Update stats cards
+  statsOverview.innerHTML = `
+    <div class="stat-card">
+      <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        ðŸ“¦
+      </div>
+      <div class="stat-content">
+        <h3>Total Purchases</h3>
+        <div class="stat-number">${totalPurchases}</div>
+        <div class="stat-label">${type === 'all' ? 'All time purchases' : type.toUpperCase() + ' purchases'}</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+        ðŸ’°
+      </div>
+      <div class="stat-content">
+        <h3>Total Revenue</h3>
+        <div class="stat-number">â‚¹${totalRevenue.toFixed(2)}</div>
+        <div class="stat-label">Total earnings</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+        ðŸ‘¥
+      </div>
+      <div class="stat-content">
+        <h3>Total Customers</h3>
+        <div class="stat-number">${totalCustomers}</div>
+        <div class="stat-label">Unique buyers</div>
+      </div>
+    </div>
+  `;
+
+  // Update table
+  if (filteredStats.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 40px; color: #666;">No ${type === 'all' ? '' : type.toUpperCase() + ' '}purchase data available</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = filteredStats.map(user => `
+    <tr>
+      <td>${user.email}</td>
+      <td>${user.totalPurchases}</td>
+      <td>â‚¹${user.totalAmount.toFixed(2)}</td>
+      <td>${user.resources.join(', ')}</td>
+    </tr>
+  `).join('');
+}
+
+
+
+let currentType = 'all';
+
+function showTab(type) {
+  currentType = type;
+  document.querySelectorAll('.tab-content').forEach(t => {
+    t.classList.remove('active');
+    t.style.display = ''; // clear any inline override
+  });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(type).classList.add('active');
+
+  // Find and activate the correct button
+  const buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => {
+    if (btn.textContent.toLowerCase().includes(type) ||
+      (type === 'all' && btn.textContent.includes('All Resources'))) {
+      btn.classList.add('active');
+    }
+  });
+
+  loadResources(type);
+}
+
+function getFilterEl(type) {
+  const grid = document.getElementById(type + 'Grid');
+  return grid ? grid.closest('.resource-section').querySelector('.resource-filter') : null;
+}
+
+function showSelectSkeleton(filterEl) {}
+
+function hideSelectSkeleton(filterEl) {}
+
+async function loadResources(type) {
+  const grid = document.getElementById(type + 'Grid');
+  if (!grid) return;
+  const filterEl = getFilterEl(type);
+  showSelectSkeleton(filterEl);
+
+  const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+  const userEmail = currentUser.email;
+
+  if (!userEmail) {
+    hideSelectSkeleton(filterEl);
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon"><img src="/file/logo1.jpeg" style="width:52px;height:52px;border-radius:50%;object-fit:cover;"></div>
+        <h3>Login Required</h3>
+        <p>Please login to view resources</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Show shimmer loading — row-shaped skeletons matching .row layout
+  const skRow = `
+    <div class="row skeleton-row">
+      <div class="table-title">
+        <span class="icon"><div class="sk-row-icon"></div></span>
+        <div style="flex:1;min-width:0;">
+          <div class="sk-row-title"></div>
+          <div class="sk-row-desc"></div>
+        </div>
+      </div>
+      <div class="sk-row-price"></div>
+      <div class="actions">
+        <div class="sk-row-btn"></div>
+        <div class="sk-row-btn"></div>
+        <div class="sk-row-btn"></div>
+      </div>
+    </div>`;
+  grid.innerHTML = skRow + skRow + skRow;
+
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources), {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    if (!res.ok) {
+      throw new Error(`Server error: ${res.status}`);
+    }
+
+    const allResources = await res.json();
+
+    // Filter by user email and type
+    let resources = allResources.filter(r => r.user_email === userEmail);
+    if (type !== 'all') {
+      resources = resources.filter(r => r.type === type);
+    }
+
+    const countElement = document.getElementById(type + 'Count');
+    if (countElement) {
+      const n = resources.length;
+      countElement.textContent = `${n} item${n !== 1 ? 's' : ''}`;
+      countElement.setAttribute('data-num', n);
+    }
+
+    if (resources.length === 0) {
+      const emptyStates = {
+        all:       { icon: '<img src="/file/empty-resources.png" style="width:80px;height:80px;object-fit:contain;">', title: 'No Resources Yet', text: 'Click the buttons above to add your first resource!' },
+        pdf:       { icon: '<img src="/file/pdf.jpg" style="width:52px;height:52px;border-radius:10px;object-fit:cover;">', title: 'No PDF Notes', text: 'Go to "All Resources" tab to add PDF notes' },
+        excel:     { icon: '<img src="/file/excel.jpg" style="width:52px;height:52px;border-radius:10px;object-fit:cover;">', title: 'No Excel Templates', text: 'Go to "All Resources" tab to add Excel templates' },
+        exam:      { icon: '<img src="/file/exam.jpg" style="width:52px;height:52px;border-radius:10px;object-fit:cover;">', title: 'No Exam Materials', text: 'Go to "All Resources" tab to add exam materials' },
+        freelance: { icon: '<img src="/file/service.jpg" style="width:52px;height:52px;border-radius:10px;object-fit:cover;">', title: 'No Freelance Services', text: 'Go to "All Resources" tab to add freelance services' }
+      };
+      const state = emptyStates[type];
+      hideSelectSkeleton(filterEl);
+      grid.innerHTML = `
+        <div class="empty-state">
+          <div class="empty-icon">${state.icon}</div>
+          <h3>${state.title}</h3>
+          <p>${state.text}</p>
+        </div>
+      `;
+      return;
+    }
+
+    //   grid.innerHTML = resources.map(r => `
+    //      <div class="resource-card">
+    //   <div class="resource-icon">
+    //     ${getIcon(r.type)}
+    //   </div>
+    //   <h3>${r.title}</h3>
+    //   <p>${r.description}</p>
+    //   <div class="resource-price">&#8377;${r.price}</div>
+    //   <div class="resource-actions">
+    //     <button onclick="openFile(${r.id})" class="btn-view">Open</button>
+    //     <button onclick="editResource(${r.id})" class="btn-edit"> Edit</button>
+    //     <button onclick="deleteResource(${r.id})" class="btn-delete"> Delete</button>
+    //   </div>
+    // </div>
+    //   `).join('');
+    hideSelectSkeleton(filterEl);
+    if (type === 'all') {
+      window._resAllData = resources;
+      window._resPage = 1;
+      window._renderResPage();
+    } else {
+      grid.innerHTML = resources.map((r, index) => `
+<div class="row">
+
+  <div class="table-title">
+    <span class="icon">${getIcon(r.type)}</span>
+    <div>
+      <h4>${r.title}</h4>
+      <p>${r.description}</p>
+    </div>
+  </div>
+
+  <div class="price">₹${r.price}</div>
+
+  <div class="actions">
+    <button class="btn-view" onclick="openFile(${r.id})">Open</button>
+    <button class="btn-edit" onclick="editResource(${r.id})">Edit</button>
+    <button class="btn-delete" onclick="deleteResource(${r.id})">Delete</button>
+  </div>
+
+</div>
+`).join('');
+    }
+  } catch (error) {
+    hideSelectSkeleton(filterEl);
+    console.error('Error loading resources:', error);
+    grid.innerHTML = `
+      <div class="empty-state">
+        <div class="empty-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+          </svg>
+        </div>
+        <h3>Server Connection Error</h3>
+        <p>Please make sure the server is running at <strong>http://localhost:5000</strong></p>
+        <p style="margin-top: 10px; font-size: 12px; color: #ef4444;">${error.message}</p>
+      </div>
+    `;
+  }
+}
+
+function getIcon(type) {
+  switch (type) {
+    case 'pdf':
+      return '<img src="/file/pdf.jpg" style="width:40px;height:40px;">';
+
+    case 'excel':
+      return '<img src="/file/excel.jpg" style="width:40px;height:40px;">';
+
+    case 'exam':
+      return '<img src="/file/exam.jpg" style="width:40px;height:40px;">';
+
+    case 'freelance':
+      return '<img src="/file/service.jpg" style="width:40px;height:40px;">';
+
+    default:
+      return '<img src="/file/default.jpg" style="width:40px;height:40px;">';
+  }
+}
+
+function setupRealtimeResources() {
+  if (typeof supabaseClient === 'undefined') {
+    console.log('Realtime disabled - using local mode');
+    return;
+  }
+  const channel = supabaseClient
+    .channel('resources-changes')
+    .on('postgres_changes',
+      { event: '*', schema: 'public', table: 'resources' },
+      (payload) => {
+        if (document.getElementById('pdfGrid')) {
+          loadResources(currentType);
+        }
+      }
+    )
+    .subscribe();
+}
+
+function showAddModal(type) {
+  console.log('showAddModal called with type:', type);
+  currentType = type;
+  const modal = document.getElementById('addModal');
+  const fileInput = document.getElementById('fileUpload');
+  const modalTitle = document.getElementById('modalTitle');
+
+  if (!modal) {
+    console.error('Modal element not found');
+    return;
+  }
+
+  // Set file input accept attribute based on type
+  switch (type) {
+    case 'pdf':
+      fileInput.accept = '.pdf';
+      modalTitle.textContent = 'Add PDF Resource';
+      break;
+    case 'excel':
+      fileInput.accept = '.xlsx,.xls';
+      modalTitle.textContent = 'Add Excel Resource';
+      break;
+    case 'exam':
+      fileInput.accept = '.pdf,.doc,.docx';
+      modalTitle.textContent = 'Add Exam Material';
+      break;
+    case 'freelance':
+      fileInput.accept = '.pdf,.doc,.docx,.xlsx,.xls';
+      modalTitle.textContent = 'Add Freelance Service';
+      break;
+    default:
+      fileInput.accept = '.pdf,.xlsx,.xls,.doc,.docx';
+      modalTitle.textContent = 'Add Resource';
+  }
+
+  // Important: when user switches type (e.g. PDF -> Excel),
+  // clear any previously selected file so wrong file does not carry over.
+  if (fileInput) {
+    fileInput.value = '';
+  }
+
+  modal.style.display = 'flex';
+  console.log('Modal display set to flex');
+}
+
+function closeModal() {
+  console.log('closeModal called');
+  const modal = document.getElementById('addModal');
+  if (modal) {
+    modal.style.display = 'none';
+    // Reset form
+    const form = document.getElementById('resourceForm');
+    if (form) form.reset();
+    // Reset type selector
+    document.getElementById('addStep2').style.display = 'none';
+    document.getElementById('addStep2').style.visibility = 'visible';
+    document.getElementById('addStep1').style.display = 'block';
+    document.getElementById('addStep1').style.visibility = 'visible';
+    document.getElementById('typeText').textContent = 'Select Type...';
+    document.getElementById('typeIcon').src = '/file/pdf.jpg';
+    document.getElementById('typeDropdown').style.display = 'none';
+    document.getElementById('typeDropdown').style.visibility = 'visible';
+  }
+}
+
+function closeViewModal() {
+  document.getElementById('viewModal').style.display = 'none';
+}
+
+function closeEditModal() {
+  document.getElementById('editModal').style.display = 'none';
+}
+
+async function openFile(id) {
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources));
+    const resources = await res.json();
+    const resource = resources.find(r => r.id === id);
+
+    console.log('Resource data:', resource);
+
+    if (!resource) {
+      alert('Resource not found');
+      return;
+    }
+
+    // Check both fileUrl and fileurl (case sensitivity)
+    const url = resource.fileUrl || resource.fileurl;
+
+    if (url && url !== '#' && url !== 'null') {
+      window.open(url, '_blank');
+    } else {
+      alert('No file uploaded yet. Click Edit to upload a file for this resource.');
+    }
+  } catch (error) {
+    console.error('Error opening file:', error);
+    alert('Error opening file');
+  }
+}
+
+async function viewResource(id) {
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources));
+    const resources = await res.json();
+    const resource = resources.find(r => r.id === id);
+
+    if (resource) {
+      document.getElementById('viewTitle').textContent = resource.title;
+      document.getElementById('viewDescription').textContent = resource.description;
+      document.getElementById('viewPrice').textContent = resource.price;
+      document.getElementById('viewType').textContent = resource.type;
+      document.getElementById('viewFileName').textContent = 'File uploaded';
+      document.getElementById('viewModal').style.display = 'flex';
+    }
+  } catch (error) {
+    alert('Error loading resource details');
+  }
+}
+
+async function editResource(id) {
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources));
+    const resources = await res.json();
+    const resource = resources.find(r => r.id === id);
+
+    if (resource) {
+      document.getElementById('editId').value = resource.id;
+      document.getElementById('editTitle').value = resource.title;
+      document.getElementById('editDescription').value = resource.description;
+      document.getElementById('editPrice').value = resource.price;
+
+      // Show last uploaded file based on resource type
+      const fileTypes = {
+        pdf: 'PDF file',
+        excel: 'Excel file',
+        exam: 'Exam material',
+        freelance: 'Service file'
+      };
+      document.getElementById('lastFileName').textContent = fileTypes[resource.type] || 'File uploaded';
+
+      document.getElementById('editModal').style.display = 'flex';
+    }
+  } catch (error) {
+    alert('Error loading resource for editing');
+  }
+}
+
+let _deleteId = null;
+let _undoTimer = null;
+let _undoResource = null;
+
+function deleteResource(id) {
+  _deleteId = id;
+  document.getElementById('deleteModal').style.display = 'flex';
+}
+
+function closeDeleteModal() {
+  _deleteId = null;
+  document.getElementById('deleteModal').style.display = 'none';
+}
+
+async function confirmDelete() {
+  if (!_deleteId) return;
+  const btn = document.getElementById('confirmDeleteBtn');
+  btn.disabled = true;
+  btn.textContent = 'Deleting...';
+
+  // Fetch resource data before deleting for undo
+  try {
+    const res = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources));
+    const all = await res.json();
+    _undoResource = all.find(r => r.id === _deleteId) || null;
+  } catch(e) { _undoResource = null; }
+
+  await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources) + '/' + _deleteId, { method: 'DELETE' });
+  closeDeleteModal();
+  loadResources(currentType);
+  showUndoToast();
+}
+
+function showUndoToast() {
+  const toast = document.getElementById('undoToast');
+  const bar   = document.getElementById('undoBar');
+  clearTimeout(_undoTimer);
+  toast.style.display = 'flex';
+  bar.style.transition = 'none';
+  bar.style.width = '100%';
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      bar.style.transition = 'width 5s linear';
+      bar.style.width = '0%';
+    });
+  });
+  _undoTimer = setTimeout(() => {
+    toast.style.display = 'none';
+    _undoResource = null;
+  }, 5000);
+}
+
+async function undoDelete() {
+  clearTimeout(_undoTimer);
+  document.getElementById('undoToast').style.display = 'none';
+  if (!_undoResource) return;
+  try {
+    const formData = new FormData();
+    formData.append('type',        _undoResource.type);
+    formData.append('title',       _undoResource.title);
+    formData.append('description', _undoResource.description);
+    formData.append('price',       _undoResource.price);
+    formData.append('user_email',  _undoResource.user_email);
+    await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources), { method: 'POST', body: formData });
+    loadResources(currentType);
+  } catch(e) { console.error('Undo failed', e); }
+  _undoResource = null;
+}
+
+if (document.getElementById('resourceForm')) {
+  document.getElementById('resourceForm').onsubmit = async (e) => {
+    e.preventDefault();
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    const userEmail = currentUser.email;
+
+    if (!userEmail) {
+      alert('Please login to add resources');
+      return;
+    }
+
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = submitBtn ? submitBtn.innerHTML : '';
+
+    // Show loading state
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <span style="display:inline-flex;align-items:center;gap:8px;">
+          <svg style="animation:spin 0.8s linear infinite;width:18px;height:18px;flex-shrink:0;" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="rgba(255,255,255,0.3)" stroke-width="3"/>
+            <path d="M12 2a10 10 0 0 1 10 10" stroke="white" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+          Uploading...
+        </span>`;
+    }
+
+    document.getElementById('uploadProgress').style.display = 'block';
+
+    const formData = new FormData();
+    formData.append('type', currentType);
+    formData.append('title', document.getElementById('title').value);
+    formData.append('description', document.getElementById('description').value);
+    formData.append('price', document.getElementById('price').value);
+    formData.append('file', document.getElementById('fileUpload').files[0]);
+    formData.append('user_email', userEmail);
+
+    try {
+      const response = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources), {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Upload failed');
+      }
+
+      // Success state
+      if (submitBtn) {
+        submitBtn.innerHTML = `
+          <span style="display:inline-flex;align-items:center;gap:8px;">
+            <svg style="width:18px;height:18px;flex-shrink:0;" viewBox="0 0 24 24" fill="none">
+              <path d="M20 6L9 17l-5-5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Added!
+          </span>`;
+        submitBtn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
+      }
+
+      document.getElementById('uploadProgress').style.display = 'none';
+
+      setTimeout(() => {
+        loadResources(currentType);
+        closeModal();
+        e.target.reset();
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+          submitBtn.style.background = '';
+        }
+      }, 800);
+
+    } catch (error) {
+      document.getElementById('uploadProgress').style.display = 'none';
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalText;
+        submitBtn.style.background = '';
+      }
+      alert('Error: ' + error.message);
+      console.error('Upload error:', error);
+    }
+  };
+}
+
+if (document.getElementById('editForm')) {
+  document.getElementById('editForm').onsubmit = async (e) => {
+    e.preventDefault();
+
+    const id = document.getElementById('editId').value;
+    const file = document.getElementById('editFileUpload').files[0];
+
+    if (file) {
+      // If file is selected, use FormData for file upload
+      const formData = new FormData();
+      formData.append('title', document.getElementById('editTitle').value);
+      formData.append('description', document.getElementById('editDescription').value);
+      formData.append('price', document.getElementById('editPrice').value);
+      formData.append('file', file);
+
+      try {
+        const response = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources) + '/' + id, {
+          method: 'PUT',
+          body: formData
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Update failed');
+        }
+
+        loadResources(currentType);
+        closeEditModal();
+        alert('Resource updated successfully!');
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    } else {
+      // If no file, use JSON for text-only update
+      const updateData = {
+        title: document.getElementById('editTitle').value,
+        description: document.getElementById('editDescription').value,
+        price: document.getElementById('editPrice').value
+      };
+
+      try {
+        const response = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources) + '/' + id, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(updateData)
+        });
+
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || 'Update failed');
+        }
+
+        loadResources(currentType);
+        closeEditModal();
+        alert('Resource updated successfully!');
+      } catch (error) {
+        alert('Error: ' + error.message);
+      }
+    }
+  };
+}
+
+if (document.getElementById('allGrid')) loadResources('all');
+if (document.getElementById('pdfGrid')) setupRealtimeResources();
+
+if (document.getElementById("userTable")) loadUsers();
+if (document.getElementById("totalUsers")) loadDashboard();
+if (document.getElementById("activeRate")) loadAnalytics();
+if (document.getElementById("totalRecords")) loadSettings();
+if (document.getElementById("purchaseTableBody")) loadPurchaseStatistics();
+
+
+
+

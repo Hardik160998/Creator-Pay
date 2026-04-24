@@ -1,0 +1,654 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>!function () { var d = localStorage.getItem('earnify_dark_mode') === '1'; document.documentElement.classList.toggle('dark-mode', d); if (d) { document.documentElement.style.background = '#0d1117'; document.documentElement.style.colorScheme = 'dark'; } var s = document.createElement('style'); s.id = 'mob-nav-flash-fix'; s.textContent = d ? '.mob-nav{background:#0d1117!important;border-top-color:#30363d!important;transition:none!important}.mob-nav-item{color:#8b949e!important;transition:none!important}.mob-nav-item svg{stroke:#8b949e!important;transition:none!important}' : '.mob-nav{background:#ffffff!important;border-top-color:#e8edf5!important;transition:none!important}.mob-nav-item{color:#94a3b8!important;transition:none!important}'; document.head.appendChild(s); document.addEventListener('DOMContentLoaded', function () { document.body.classList.toggle('dark-mode', d); var k=document.getElementById('sbNmKnob'); if(k) k.textContent=d?'☀️':'🌙'; var mk=document.getElementById('mobileNmKnob'); if(mk) mk.textContent=d?'☀️':'🌙'; setTimeout(function () { var el = document.getElementById('mob-nav-flash-fix'); if (el) el.remove(); }, 400); }); }();</script>
+  <!-- Auth flash-fix: inject CSS before first paint -->
+  <script>!function(){var li=localStorage.getItem('userLoggedIn')==='true'||localStorage.getItem('adminToken')!==null;if(li){var s=document.createElement('style');s.id='blog-auth-flash-fix';s.textContent='#loginBtn,#signupBtn{display:none!important}#userMenu{display:flex!important}';document.head.appendChild(s);}}();</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog - Earnify</title>
+  <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="../landing.css">
+  <link rel="stylesheet" href="../auth-modal.css">
+  <link rel="stylesheet" href="./blog.css">
+  <link rel="stylesheet" href="../dark-theme.css">
+  <style>
+    #navNmWrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .sb-nm-toggle {
+      position: relative;
+      width: 80px;
+      height: 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      font-family: inherit;
+      background: white;
+      box-shadow: 4px 4px 8px #b8bec7, -4px -4px 8px #ffffff;
+      transition: background .4s, box-shadow .4s;
+      outline: none;
+    }
+
+    body.dark-mode .sb-nm-toggle,
+    html.dark-mode .sb-nm-toggle {
+      background: #1e2535;
+      box-shadow: 4px 4px 8px #0d1117, -3px -3px 7px #2d3a4a;
+    }
+
+    .sb-nm-knob {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      box-shadow: 2px 2px 5px #b8bec7, -1px -1px 4px #ffffff;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      transition: left .4s cubic-bezier(.4, 0, .2, 1), background .4s, box-shadow .4s;
+      z-index: 2;
+    }
+
+    body.dark-mode .sb-nm-knob,
+    html.dark-mode .sb-nm-knob {
+      left: 52px;
+      background: linear-gradient(135deg, #3a4a5c, #2d3748);
+      box-shadow: 2px 2px 5px #0d1117, -1px -1px 4px #3a4a5c;
+    }
+
+    .sb-nm-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity .3s;
+      white-space: nowrap;
+    }
+
+    .sb-nm-label-light {
+      right: 9px;
+      color: #64748b;
+      opacity: 1;
+    }
+
+    .sb-nm-label-dark {
+      left: 9px;
+      color: #a78bfa;
+      opacity: 0;
+    }
+
+    body.dark-mode .sb-nm-label-light,
+    html.dark-mode .sb-nm-label-light {
+      opacity: 0;
+    }
+
+    body.dark-mode .sb-nm-label-dark,
+    html.dark-mode .sb-nm-label-dark {
+      opacity: 1;
+    }
+
+    @media(max-width:768px) {
+      #navNmWrap {
+        display: none !important;
+      }
+
+      #mobileNmToggle {
+        display: flex !important;
+      }
+    }
+  </style>
+
+<!-- mob-nav-theme-fix -->
+  <style>
+    html:not(.dark-mode) .mob-nav, body:not(.dark-mode) .mob-nav {
+      background: #ffffff !important;
+      border-top: 1px solid #e8edf5 !important;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.08) !important;
+    }
+    html.dark-mode .mob-nav, body.dark-mode .mob-nav {
+      background: #0d1117 !important;
+      border-top: 1px solid #30363d !important;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.6) !important;
+    }
+    .mob-nav, .mob-nav * { transition: none !important; }
+  </style>
+<!-- /mob-nav-theme-fix -->
+</head>
+
+<body>
+
+  <!-- -- NAVBAR (same as index.html) -- -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-header">
+        <a href="../" style="text-decoration:none;color:inherit;">
+          <h1 class="logo">💰<span class="logo-text">Earnify</span></h1>
+        </a>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div id="mobileNmToggle" style="display:none;align-items:center;">
+            <button class="sb-nm-toggle" id="mobileNmBtn" onclick="toggleDarkMode()"
+              title="Toggle dark/light mode"><span class="sb-nm-knob" id="mobileNmKnob"
+                style="display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;">🌙</span><span
+                class="sb-nm-label sb-nm-label-light">LIGHT</span><span
+                class="sb-nm-label sb-nm-label-dark">DARK</span></button>
+          </div>
+          <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+            <span class="hamburger"></span>
+          </button>
+        </div>
+      </div>
+      <div class="search-box" style="visibility:hidden;"></div>
+      <div class="nav-links" id="navLinks">
+        <a href="../">Home</a>
+        <a href="../#resources">Resources</a>
+        <a href="../About/">About</a>
+        <a href="../Blog/" class="nav-active">Blog</a>
+        <a href="../Dashboard/" onclick="goToDashboard(event)">Dashboard</a>
+        <button id="loginBtn" class="admin-btn" onclick="showLoginModal()">Login</button>
+        <button id="signupBtn" class="admin-btn" onclick="showSignupModal()">Sign Up</button>
+        <div id="navNmWrap" style="display:flex;align-items:center;"><button class="sb-nm-toggle" id="sbNmToggle"
+            onclick="toggleDarkMode()" title="Toggle dark/light mode"><span class="sb-nm-knob"
+              id="sbNmKnob">🌙</span><span class="sb-nm-label sb-nm-label-light">LIGHT</span><span
+              class="sb-nm-label sb-nm-label-dark">DARK</span></button></div>
+        <div id="userMenu" class="user-menu" style="display:none;">
+          <button class="user-menu-btn" onclick="toggleUserDropdown()">
+            <span class="user-avatar">👤</span>
+            <span id="userName">User</span>
+            <span style="font-size:10px;">▾</span>
+          </button>
+          <div id="userDropdown" class="user-dropdown">
+            <div class="user-dropdown-header">
+              <div class="udh-avatar" id="userAvatarInitial">U</div>
+              <div class="udh-info">
+                <div class="udh-name" id="userDisplayName">User</div>
+                <div class="udh-badge">Member</div>
+                <div class="udh-email" id="userEmail">user@email.com</div>
+              </div>
+            </div>
+            <a href="../admin/Statistics/"><i class="fas fa-chart-bar"></i> My Statistics</a>
+            <a href="../admin/Resources/"><i class="fas fa-plus"></i> Add Resources</a>
+            <a href="../admin/Profile/"><i class="fas fa-user"></i> View Profile</a>
+            <div class="udh-divider"></div>
+            <a onclick="logout()" class="udh-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Mobile Sidebar -->
+    <div class="mobile-sidebar" id="mobileSidebar">
+      <div class="mobile-sidebar-header">
+        <h2>💰 Earnify</h2>
+        <button class="close-sidebar" onclick="toggleMobileMenu()">&times;</button>
+      </div>
+      <div class="mobile-sidebar-content">
+        <a href="../" onclick="toggleMobileMenu()">🏠 Home</a>
+        <a href="../#resources" onclick="toggleMobileMenu()">📚 Resources</a>
+        <a href="../About/" onclick="toggleMobileMenu()">ℹ️ About</a>
+        <a href="../Blog/" onclick="toggleMobileMenu()">✍️ Blog</a>
+        <a href="../Dashboard/" onclick="toggleMobileMenu(); goToDashboard(event)">📊 Dashboard</a>
+        <div class="mobile-sidebar-divider"></div>
+        <button id="mobileLoginBtn" class="mobile-sidebar-btn" onclick="showLoginModal(); toggleMobileMenu();">🔐
+          Login</button>
+        <button id="mobileSignupBtn" class="mobile-sidebar-btn" onclick="showSignupModal(); toggleMobileMenu();">✨ Sign
+          Up</button>
+        <div id="mobileUserMenu" class="mobile-user-section" style="display:none;">
+          <div class="mobile-user-info">
+            <div class="mobile-user-avatar">👤</div>
+            <div>
+              <div class="mobile-user-name" id="mobileUserName">User</div>
+              <div class="mobile-user-email" id="mobileUserEmail">user@email.com</div>
+            </div>
+          </div>
+          <a href="../admin/Statistics/" onclick="toggleMobileMenu()">📈 My Statistics</a>
+          <a href="../admin/Profile/" onclick="toggleMobileMenu()">👤 View Profile</a>
+          <a href="../admin/Resources/" onclick="toggleMobileMenu()">➕ Add Resources</a>
+          <a onclick="logout(); toggleMobileMenu();">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay" onclick="toggleMobileMenu()"></div>
+  </nav>
+
+  <!-- Navbar auth state: runs synchronously after nav HTML exists in DOM -->
+  <script>
+    !function() {
+      try {
+        var loggedIn = localStorage.getItem('userLoggedIn') === 'true' || localStorage.getItem('adminToken') !== null;
+        var loginBtn  = document.getElementById('loginBtn');
+        var signupBtn = document.getElementById('signupBtn');
+        var userMenu  = document.getElementById('userMenu');
+        if (loggedIn) {
+          if (loginBtn)  loginBtn.style.display  = 'none';
+          if (signupBtn) signupBtn.style.display = 'none';
+          if (userMenu)  userMenu.style.display  = 'flex';
+          var cu    = JSON.parse(localStorage.getItem('currentUser') || '{}');
+          var name  = (cu.user_metadata && cu.user_metadata.name) || (cu.email && cu.email.split('@')[0]) || 'User';
+          var email = cu.email || '';
+          var el;
+          el = document.getElementById('userName');         if (el) el.textContent = name;
+          el = document.getElementById('userDisplayName');  if (el) el.textContent = name;
+          el = document.getElementById('userEmail');        if (el) el.textContent = email;
+          el = document.getElementById('userAvatarInitial');if (el) el.textContent = name.charAt(0).toUpperCase();
+          el = document.getElementById('mobileUserName');   if (el) el.textContent = name;
+          el = document.getElementById('mobileUserEmail');  if (el) el.textContent = email;
+          var mobileLoginBtn  = document.getElementById('mobileLoginBtn');
+          var mobileSignupBtn = document.getElementById('mobileSignupBtn');
+          var mobileUserMenu  = document.getElementById('mobileUserMenu');
+          if (mobileLoginBtn)  mobileLoginBtn.style.display  = 'none';
+          if (mobileSignupBtn) mobileSignupBtn.style.display = 'none';
+          if (mobileUserMenu)  mobileUserMenu.style.display  = 'block';
+        } else {
+          if (loginBtn)  loginBtn.style.display  = 'inline-block';
+          if (signupBtn) signupBtn.style.display = 'inline-block';
+          if (userMenu)  userMenu.style.display  = 'none';
+        }
+        /* Remove head CSS flash-fix now that inline styles are applied */
+        var fix = document.getElementById('blog-auth-flash-fix');
+        if (fix) fix.remove();
+      } catch(e) {}
+    }();
+  </script>
+
+  <!-- -- BLOG CONTENT -- -->
+  <div class="blog-page">
+
+    <!-- Hero Banner -->
+    <div class="hero-wrapper">
+      <section class="hero blog-hero">
+        <img src="../file/hero.png" alt="">
+        <div class="container">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            <span>Earnify Blog</span>
+          </div>
+          <h1>Insights, Tips &amp; <span class="hero-gradient-text">Stories</span></h1>
+          <p>Expert articles on earning, learning, and growing your financial future.</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- Main Article -->
+    <div id="mainArticleWrap">
+      <!-- Hero Skeleton -->
+      <div class="skel-hero"></div>
+    </div>
+    <!-- Grid -->
+    <div id="gridWrap" class="gridWrap">
+      <div class="blog-grid">
+        <div class="skel-card">
+          <div class="skel-card-img"></div>
+          <div class="skel-card-body">
+            <div class="skel-line skel-w60"></div>
+            <div class="skel-line skel-w100"></div>
+            <div class="skel-line skel-w80"></div>
+            <div class="skel-line skel-w40"></div>
+          </div>
+        </div>
+        <div class="skel-card">
+          <div class="skel-card-img"></div>
+          <div class="skel-card-body">
+            <div class="skel-line skel-w60"></div>
+            <div class="skel-line skel-w100"></div>
+            <div class="skel-line skel-w80"></div>
+            <div class="skel-line skel-w40"></div>
+          </div>
+        </div>
+        <div class="skel-card">
+          <div class="skel-card-img"></div>
+          <div class="skel-card-body">
+            <div class="skel-line skel-w60"></div>
+            <div class="skel-line skel-w100"></div>
+            <div class="skel-line skel-w80"></div>
+            <div class="skel-line skel-w40"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- -- FOOTER (same as index.html) -- -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3 class="footer-logo"><a href="/" class="footer-logo-link">💰 <span
+                class="footer-logo-text">Earnify</span></a></h3>
+          <p class="footer-desc">Your trusted learning marketplace for premium study materials, templates, and
+            professional services. Learn, grow, and earn with us.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="../About/">About Us</a></li>
+            <li><a href="../FAQ/">FAQ's</a></li>
+            <li><a href="../Blog/">Blog</a></li>
+            <li><a href="../Terms/">Terms &amp; Conditions</a></li>
+            <li><a href="../Privacy/">Privacy Policy</a></li>
+            <li><a href="../Contact/">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <p class="footer-contact">📧 support@earnify.com</p>
+          <p class="footer-contact">📞 +11 60464 53263</p>
+          <div class="social-icons">
+            <a title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Earnify. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- -- READ MODAL -- -->
+  <div id="readModal" class="read-modal" onclick="if(event.target===this)closeRead()">
+    <div class="read-modal-content">
+      <div class="read-modal-topbar">
+        <button class="read-modal-close" onclick="closeRead()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 12H5M12 5l-7 7 7 7" />
+          </svg>
+          Back
+        </button>
+        <span id="readCategory"
+          style="display:inline-block;padding:2px 10px;background:linear-gradient(135deg,rgba(102,126,234,0.1),rgba(118,75,162,0.1));color:#667eea;border-radius:5px;font-size:11px;font-weight:700;text-transform:uppercase;"></span>
+      </div>
+      <div class="read-modal-body">
+        <div class="read-modal-inner">
+          <img id="readCover" src="" alt="" class="read-cover">
+          <h1 id="readTitle" class="read-title"></h1>
+          <div class="read-meta">
+            <span id="readAuthor"></span>
+            <span id="readDate"></span>
+          </div>
+          <div id="readContent" class="read-content"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="loginModal" class="auth-modal-overlay">
+    <div class="auth-modal-box">
+      <div class="am-left">
+        <div class="am-brand"><div class="am-logo-box">💰</div><span class="am-brand-name">Earnify</span></div>
+        <div class="am-left-body">
+          <div class="am-headline"><h2>Turn Skills into Income 🚀</h2><p>Sell notes, templates &amp; services. Buy what you need. All in one place.</p></div>
+          <div class="am-stats"><div class="am-stat"><div class="am-stat-num">500+</div><div class="am-stat-lbl">Resources</div></div><div class="am-stat"><div class="am-stat-num">1,200+</div><div class="am-stat-lbl">Buyers</div></div><div class="am-stat"><div class="am-stat-num">5%</div><div class="am-stat-lbl">Fee Only</div></div></div>
+          <div class="am-features"><div class="am-feature"><div class="am-feature-icon">✅</div><div class="am-feature-text"><strong>Free to list your resources</strong></div></div><div class="am-feature"><div class="am-feature-icon">⚡</div><div class="am-feature-text"><strong>Instant access after purchase</strong></div></div><div class="am-feature"><div class="am-feature-icon">🔒</div><div class="am-feature-text"><strong>Secure payments via Razorpay</strong></div></div><div class="am-feature"><div class="am-feature-icon">💸</div><div class="am-feature-text"><strong>Only 5% fee on withdrawal</strong></div></div></div>
+          <div class="am-testimonial"><div class="am-stars">★★★★★</div><p class="am-quote">&ldquo;Earned my first ₹5,000 in two weeks selling my notes!&rdquo;</p><div class="am-author"><div class="am-avatar">B</div><div class="am-author-info"><strong>Bhaliya Yash</strong><span>Student &bull; Verified Seller</span></div></div></div>
+        </div>
+        <div class="am-trust"><div class="am-trust-item">🔒 AES-256 Encrypted</div><div class="am-trust-item">✅ 1,200+ Users</div><div class="am-trust-item">🏦 Razorpay Secured</div><div class="am-trust-item">⚡ Instant Delivery</div></div>
+      </div>
+      <div class="am-right">
+        <button class="am-close" onclick="closeLoginModal()">&times;</button>
+        <div class="am-form-inner">
+          <div class="am-tabs">
+            <button class="am-tab active" id="amTabLogin" onclick="_amTab('login')">Login</button>
+            <button class="am-tab" id="amTabSignup" onclick="_amTab('signup')">Sign Up</button>
+          </div>
+          <div id="amErr" class="am-msg error"></div>
+          <div id="amOk" class="am-msg success"></div>
+          <div id="amLoginForm">
+            <div class="am-header"><h2>Welcome back 👋</h2><p>Login to access your resources, earnings &amp; dashboard.</p></div>
+            <form onsubmit="handleLogin(event)">
+              <div class="am-input-group"><label>Email Address</label><input class="am-input" type="email" id="loginEmail" placeholder="you@example.com" required autocomplete="email"></div>
+              <div class="am-input-group"><div class="am-label-row"><label>Password</label><a href="#" class="am-forgot">Forgot password?</a></div><div class="am-pw-wrap"><input class="am-input" type="password" id="loginPassword" placeholder="Enter your password" required autocomplete="current-password"><button type="button" class="am-toggle-pass" onclick="_amTogglePw('loginPassword',this)"><svg class="eye-on" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div></div>
+              <button type="submit" class="am-submit-btn">🚀 Log In to Earnify</button>
+            </form>
+            <p class="am-switch">New to Earnify? <a onclick="_amTab('signup')">Create a free account</a></p>
+          </div>
+          <div id="amSignupForm" style="display:none;">
+            <div class="am-header"><h2>Join Earnify 🎉</h2><p>Free account. Start earning from your knowledge today.</p></div>
+            <form onsubmit="handleSignup(event)">
+              <div class="am-input-group"><label>Full Name</label><input class="am-input" type="text" id="signupName" placeholder="Your full name" required autocomplete="name"></div>
+              <div class="am-input-group"><label>Email Address</label><input class="am-input" type="email" id="signupEmail" placeholder="you@example.com" required autocomplete="email"></div>
+              <div class="am-input-group"><label>Password</label><div class="am-pw-wrap"><input class="am-input" type="password" id="signupPassword" placeholder="Min 6 characters" required autocomplete="new-password"><button type="button" class="am-toggle-pass" onclick="_amTogglePw('signupPassword',this)"><svg class="eye-on" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div></div>
+              <div class="am-input-group"><label>Confirm Password</label><input class="am-input" type="password" id="signupConfirmPassword" placeholder="Re-enter your password" required autocomplete="new-password"></div>
+              <button type="submit" class="am-submit-btn">✨ Create Free Account</button>
+            </form>
+            <p class="am-switch">Already have an account? <a onclick="_amTab('login')">Log in here</a></p>
+          </div>
+          <div class="am-security">🔒 Secured with AES-256 encryption</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="signupModal" style="display:none;"></div>
+
+  <nav class="mob-nav">
+    <a href="../" class="mob-nav-item" id="mnHome">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
+      <span>Home</span>
+    </a>
+    <a href="../#resources" class="mob-nav-item" id="mnResources">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15" />
+      </svg>
+      <span>Resources</span>
+    </a>
+    <a href="../admin/Resources/" class="mob-nav-add" id="mnAdd">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="12" y1="5" x2="12" y2="19" />
+        <line x1="5" y1="12" x2="19" y2="12" />
+      </svg>
+    </a>
+    <a href="../Blog/" class="mob-nav-item active" id="mnBlog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <path d="M12 20h9" />
+        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z" />
+      </svg>
+      <span>Blog</span>
+    </a>
+    <a href="../Dashboard/" class="mob-nav-item" id="mnDash">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round">
+        <rect x="3" y="3" width="7" height="7" />
+        <rect x="14" y="3" width="7" height="7" />
+        <rect x="3" y="14" width="7" height="7" />
+        <rect x="14" y="14" width="7" height="7" />
+      </svg>
+      <span>Dashboard</span>
+    </a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../api-config.js"></script>
+  <script src="../toast.js"></script>
+  <script src="../landing.js"></script>
+  <script src="../dark-theme.js"></script>
+  <script>
+    const SUPABASE_URL = 'https://emnrgsgerfjvndexomro.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MjAyMTAsImV4cCI6MjA4Nzk5NjIxMH0.uXr8lipxLbB4D_5JwQkpLzc-HudQw23tOFBfV4C6hqY';
+    const supabaseClient = (window.supabase || window.supabaseJs).createClient(SUPABASE_URL, SUPABASE_KEY);
+    const _blogStore = {};
+
+    function getExcerpt(b) {
+      const tmp = document.createElement('div');
+      tmp.innerHTML = b.excerpt || b.content || '';
+      return (tmp.innerText || tmp.textContent || '').trim().substring(0, 150);
+    }
+
+    function cardHtml(b) {
+      return `
+        <div class="blog-card" onclick="openRead(${b.id})">
+          <div class="blog-card-img">
+            ${b.image_url ? `<img src="${b.image_url}" alt="">` : ''}
+            ${b.category ? `<span class="blog-card-category">${b.category}</span>` : ''}
+          </div>
+          <div class="blog-card-body">
+            <h3 class="blog-card-title">${b.title}</h3>
+            <p class="blog-card-excerpt">${getExcerpt(b)}</p>
+            <div class="blog-card-footer-meta">
+              <span class="blog-card-date">📅 ${fmtDate(b.created_at)}</span>
+              <span class="blog-card-author">By: Earnify Admin</span>
+            </div>
+            <div class="blog-card-footer">
+              <button class="blog-card-read" onclick="event.stopPropagation();openRead(${b.id})">Read More →</button>
+            </div>
+          </div>
+        </div>`;
+    }
+
+    function generateSlug(title) {
+      return title
+        .toLowerCase()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .trim();
+    }
+
+    function openRead(id) {
+      const blog = _blogStore[id];
+      if (!blog) return;
+      const slug = blog.slug || generateSlug(blog.title);
+      window.location.href = `./post/?permalink=${slug}`;
+    }
+
+    function closeRead() {
+      document.getElementById('readModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function fmtDate(d) {
+      return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+    }
+
+    async function loadBlog() {
+      const mainWrap = document.getElementById('mainArticleWrap');
+      const gridWrap = document.getElementById('gridWrap');
+      const fromPost = new URLSearchParams(window.location.search).get('from') === 'post';
+
+      // Coming back from a post OR cache exists � render instantly, no skeleton, no fetch
+      try {
+        const c = JSON.parse(sessionStorage.getItem('earnify_blog_v1'));
+        if (c && Date.now() - c.ts < 300000) {
+          renderBlogs(c.blogs, mainWrap, gridWrap);
+          // Clean URL without reloading
+          if (fromPost) history.replaceState(null, '', window.location.pathname);
+          return;
+        }
+      } catch (e) { }
+
+      // No cache � skeletons already visible in HTML, just fetch
+      const { data: blogs, error } = await supabaseClient
+        .from('blogs')
+        .select('*')
+        .eq('is_published', true)
+        .order('created_at', { ascending: false });
+
+      if (error || !blogs || blogs.length === 0) {
+        mainWrap.innerHTML = '';
+        gridWrap.innerHTML = '<div class="blog-empty"><div class="ei">\u270d\ufe0f</div><p>No published posts yet. Check back soon!</p></div>';
+        return;
+      }
+
+      try { sessionStorage.setItem('earnify_blog_v1', JSON.stringify({ ts: Date.now(), blogs })); } catch (e) { }
+      renderBlogs(blogs, mainWrap, gridWrap);
+    }
+
+    function renderBlogs(blogs, mainWrap, gridWrap) {
+      blogs.forEach(b => { _blogStore[b.id] = b; });
+      // Clear skeletons
+      mainWrap.innerHTML = '';
+      gridWrap.innerHTML = '';
+      const mainArticles = blogs.filter(b => b.main_article === true);
+      const rest = blogs.filter(b => b.main_article !== true);
+
+      if (mainArticles.length > 0) {
+        mainWrap.innerHTML = `
+          <div class="hero-slider" id="heroSlider">
+            <div class="hero-track" id="heroTrack">
+              ${mainArticles.map(b => `
+                <div class="hero-slide" onclick="openRead(${b.id})">
+                  ${b.image_url ? `<img class="hero-slide-bg" src="${b.image_url}" alt="">` : ''}
+                  <div class="hero-slide-overlay"></div>
+                  <div class="hero-slide-content">
+                    <span class="hero-slide-badge">${b.category || 'Main Article'}</span>
+                    <div class="hero-slide-title">${b.title}</div>
+                    <div class="hero-slide-bottom">
+                      <div class="hero-slide-left">
+                        <span class="hero-slide-label">Main Article</span>
+                        <span class="hero-slide-date">📅 ${fmtDate(b.created_at)}</span>
+                      </div>
+                      <div class="hero-slide-right">
+                        <span class="hero-slide-author">✍️ Earnify Admin</span>
+                        <button class="hero-slide-btn" onclick="event.stopPropagation();openRead(${b.id})">Read More &rarr;</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>`).join('')}
+            </div>
+            ${mainArticles.length > 1 ? `
+              <button class="hero-arrow hero-prev" onclick="sliderMove(-1)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+              </button>
+              <button class="hero-arrow hero-next" onclick="sliderMove(1)">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+              </button>
+              <div class="hero-dots" id="heroDots">
+                ${mainArticles.map((_, i) => `<span class="hero-dot ${i === 0 ? 'active' : ''}" onclick="sliderGo(${i})"></span>`).join('')}
+              </div>` : ''}
+          </div>`;
+
+        let cur = 0;
+        const total = mainArticles.length;
+        const track = document.getElementById('heroTrack');
+        const dots = document.querySelectorAll('.hero-dot');
+        function sliderUpdate() {
+          track.style.transform = `translateX(-${cur * 100}%)`;
+          dots.forEach((d, i) => d.classList.toggle('active', i === cur));
+        }
+        window.sliderMove = function (dir) { cur = (cur + dir + total) % total; sliderUpdate(); resetAuto(); };
+        window.sliderGo = function (idx) { cur = idx; sliderUpdate(); resetAuto(); };
+        let autoTimer = setInterval(() => { cur = (cur + 1) % total; sliderUpdate(); }, 4000);
+        function resetAuto() { clearInterval(autoTimer); autoTimer = setInterval(() => { cur = (cur + 1) % total; sliderUpdate(); }, 4000); }
+
+        gridWrap.innerHTML = rest.length === 0 ? '' : `<div class="blog-grid-title">More Posts</div><div class="blog-grid">${rest.map(cardHtml).join('')}</div>`;
+
+      } else {
+        mainWrap.innerHTML = '';
+        gridWrap.innerHTML = `<div class="blog-grid">${blogs.map(cardHtml).join('')}</div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadBlog);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRead(); });
+  </script>
+</body>
+
+</html>

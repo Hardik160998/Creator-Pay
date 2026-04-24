@@ -1,0 +1,1565 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Withdrawal - Earnify Admin</title>
+  <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../mobile-responsive.css">
+  <link rel="stylesheet" href="../admin-bottom-nav.css">
+  <link rel="stylesheet" href="../admin-dark.css">
+  <script>
+    !function(){
+      var d = localStorage.getItem("earnify_dark_mode") === "1";
+      document.documentElement.classList.toggle("dark-mode", d);
+      if (d) document.documentElement.style.background = "#0d1117";
+      else document.documentElement.style.background = "";
+      document.addEventListener("DOMContentLoaded", function(){
+        document.body.classList.toggle("dark-mode", d);
+        if (!d) document.documentElement.style.background = "";
+      });
+    }();
+  </script>
+  <style>
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px 30px;
+      border-bottom: 2px solid rgba(59, 130, 246, 0.2);
+    }
+
+    .sidebar-header h2 {
+      padding: 0;
+      border-bottom: none;
+      margin: 0;
+    }
+
+    .sidebar-close-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      color: #64748b;
+      padding: 2px 6px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: none !important;
+    }
+
+    .sidebar-close-btn:hover {
+      background: #f1f5f9;
+      color: #ef4444;
+    }
+
+    .logout-link {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      width: 100% !important;
+      padding: 12px 16px !important;
+      background: white !important;
+      color: #1e293b !important;
+      border: 2px solid #ef4444 !important;
+      border-radius: 10px !important;
+      font-weight: 600 !important;
+      font-size: 14px !important;
+      cursor: pointer !important;
+      text-decoration: none !important;
+      text-align: center !important;
+      box-sizing: border-box !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .logout-link:hover {
+      background: rgb(251, 156, 156) !important;
+      color: white !important;
+      border-color: #dc2626 !important;
+      transform: translateY(-2px) !important;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3) !important;
+    }
+
+    .super-admin-btn.logout-link,
+    .super-admin-btn.logout-link:hover {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+      color: #fff !important;
+      border: none !important;
+      box-shadow: 0 4px 14px rgba(102, 126, 234, 0.35) !important;
+      transform: none !important;
+    }
+
+    .sidebar.active .sidebar-close-btn {
+      display: block;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color:  white;
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    @media (min-width: 769px) {
+      .sidebar-close-btn {
+        display: none !important;
+      }
+    }
+
+    /* ── Hero balance banner ── */
+    .hero-banner {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 24px;
+      padding: 40px;
+      margin-bottom: 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-banner::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 260px; height: 260px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50%;
+    }
+    .hero-banner::after {
+      content: '';
+      position: absolute; bottom: -80px; left: 30%;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+    }
+    .hero-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; flex-wrap: wrap; gap: 20px;
+      position: relative; z-index: 1;
+    }
+    .hero-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase; color: rgba(255,255,255,.7); margin-bottom: 8px;
+    }
+    .hero-amount {
+      font-size: 52px; font-weight: 900; color: #fff; line-height: 1;
+      margin-bottom: 6px; letter-spacing: -1px;
+    }
+    .hero-sub { font-size: 14px; color: rgba(255,255,255,.65); }
+    .hero-cta {
+      padding: 14px 30px;
+      background: rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255,255,255,.35);
+      color: #fff; border-radius: 14px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: all .3s; white-space: nowrap; align-self: center;
+    }
+    .hero-cta:hover {
+      background: rgba(255,255,255,.28);
+      transform: translateY(-2px);
+    }
+    .hero-stats {
+      display: flex; gap: 32px; margin-top: 28px;
+      position: relative; z-index: 1; flex-wrap: wrap;
+    }
+    .hero-stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .hero-stat-val {
+      font-size: 22px; font-weight: 800; color: #fff;
+    }
+    .hero-stat-lbl {
+      font-size: 11px; font-weight: 600; letter-spacing: 1px;
+      text-transform: uppercase; color: rgba(255,255,255,.6);
+    }
+    .hero-divider {
+      width: 1px; background: rgba(255,255,255,.2); align-self: stretch;
+    }
+
+    /* ── Section card ── */
+    .w-card {
+      background: #fff; border-radius: 20px; padding: 32px;
+      margin-bottom: 24px; border: 1px solid #f1f5f9;
+    }
+    .w-card-title {
+      font-size: 17px; font-weight: 700; color: #1e293b;
+      margin-bottom: 24px; padding-bottom: 16px;
+      border-bottom: 2px solid #f8fafc;
+      display: flex; align-items: center; gap: 10px;
+    }
+
+    /* ── Form ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      font-size: 12px; font-weight: 700; color: #64748b;
+      text-transform: uppercase; letter-spacing: .6px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      padding: 13px 16px; border: 2px solid #e8edf5;
+      border-radius: 12px; font-size: 14px; font-family: inherit;
+      background: #f8fafc; color: #1e293b;
+      transition: all .25s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none; border-color: #667eea; background: #fff;
+    }
+    .form-group textarea { resize: none; min-height: 80px; }
+
+    /* payment method pills */
+    .method-pills { display: flex; gap: 10px; flex-wrap: wrap; }
+    .method-pill {
+      padding: 10px 18px; border: 2px solid #e8edf5;
+      border-radius: 50px; font-size: 13px; font-weight: 600;
+      color: #64748b; cursor: pointer; transition: all .2s;
+      background: #f8fafc; user-select: none;
+    }
+    .method-pill.active {
+      border-color: #667eea; background: linear-gradient(135deg,#667eea,#764ba2);
+      color: #fff;
+    }
+    .method-pill:hover:not(.active) { border-color: #667eea; color: #667eea; }
+
+    /* submit btn */
+    .submit-btn {
+      width: 100%; padding: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #fff; border: none; border-radius: 14px;
+      font-size: 16px; font-weight: 700; cursor: pointer;
+      margin-top: 8px; transition: all .3s; letter-spacing: .3px;
+    }
+    .submit-btn:hover { opacity: .92; transform: translateY(-2px); }
+
+    /* ── Field inline error ── */
+    .field-error {
+      font-size: 12px; font-weight: 600; color: #ef4444;
+      margin-top: 5px; display: none;
+    }
+    .form-group input.input-error,
+    .form-group textarea.input-error {
+      border-color: #ef4444 !important;
+      background: #fff5f5 !important;
+    }
+    html.dark-mode .form-group input.input-error,
+    html.dark-mode .form-group textarea.input-error,
+    body.dark-mode .form-group input.input-error,
+    body.dark-mode .form-group textarea.input-error {
+      border-color: #f87171 !important;
+      background: rgba(239,68,68,0.08) !important;
+    }
+    html.dark-mode .field-error,
+    body.dark-mode .field-error { color: #f87171 !important; }
+
+    /* ── History table ── */
+    .history-wrap { overflow-x: auto; }
+    .history-table { width: 100%; border-collapse: collapse; min-width: 520px; }
+    .history-table thead tr {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .history-table th {
+      padding: 14px 18px; text-align: left; color: #fff;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .8px; border-right: 1px solid #e4eaf0;
+    }
+    .history-table th:first-child { border-radius: 12px 0 0 0; }
+    .history-table th:last-child  { border-radius: 0 12px 0 0; }
+    .history-table td {
+      padding: 15px 18px; border-bottom: 1px solid #f1f5f9; border-right: 1px solid #e4eaf0;
+      color: #475569; font-size: 14px;
+    }
+    .history-table tbody tr:hover { background: #fafbff; }
+    .history-table tbody tr:last-child td { border-bottom: 1px solid #e4eaf0; }
+    .amount-cell { font-weight: 800; color: #1e293b; font-size: 15px; }
+
+    /* status badges */
+    .badge {
+      padding: 5px 13px; border-radius: 50px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px;
+    }
+    .badge-pending  { background: #fef9ec; color: #b45309; border: 1px solid #fde68a; }
+    .badge-approved { background: #ecfdf5; color: #065f46; border: 1px solid #a7f3d0; }
+    .badge-rejected { background: #fef2f2; color: #991b1b; border: 1px solid #fecaca; }
+
+    /* method chip */
+    .method-chip {
+      display: inline-flex; align-items: center; gap: 5px;
+      padding: 4px 10px; border-radius: 8px;
+      background: #f1f5f9; color: #475569;
+      font-size: 12px; font-weight: 600; text-transform: uppercase;
+    }
+
+    /* empty state */
+    .empty-state {
+      text-align: center; padding: 60px 20px;
+    }
+    .empty-icon { font-size: 56px; margin-bottom: 14px; }
+    .empty-icon img { width:80px;height:80px;object-fit:contain; }
+    body.dark-mode .empty-icon img { filter: invert(1) brightness(2); }
+    .empty-state h3 { font-size: 18px; color: #1e293b; margin-bottom: 6px; }
+    .empty-state p  { color: #94a3b8; font-size: 14px; }
+
+    /* toast */
+    .toast {
+      position: fixed; bottom: 28px; right: 28px;
+      padding: 14px 22px; border-radius: 14px; color: #fff;
+      font-weight: 600; font-size: 14px; z-index: 9999;
+      display: none; animation: toastIn .3s ease;
+    }
+    .toast.success { background: linear-gradient(135deg,#10b981,#059669); }
+    .toast.error   { background: linear-gradient(135deg,#ef4444,#dc2626); }
+    @keyframes toastIn { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* ── Shimmer ── */
+    @keyframes shimmerSlide {
+      0%   { background-position: -600px 0; }
+      100% { background-position:  600px 0; }
+    }
+    .shimmer-box {
+      background: linear-gradient(90deg, rgba(255,255,255,.12) 25%, rgba(255,255,255,.28) 50%, rgba(255,255,255,.12) 75%);
+      background-size: 600px 100%;
+      animation: shimmerSlide 1.4s infinite linear;
+      border-radius: 10px;
+    }
+    .shimmer-card-header {
+      border-bottom: 2px solid #e2e8f0;
+    }
+    .shimmer-dark {
+      background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+      background-size: 600px 100%;
+      animation: shimmerSlide 1.4s infinite linear;
+      border-radius: 6px;
+    }
+    body.dark-mode .shimmer-dark,
+    html.dark-mode body .shimmer-dark {
+      background: linear-gradient(90deg, #1c2333 25%, #21293d 50%, #1c2333 75%) !important;
+      background-size: 600px 100% !important;
+    }
+    body.dark-mode .shimmer-card-header,
+    html.dark-mode body .shimmer-card-header {
+      border-bottom-color: #30363d !important;
+    }
+    @media (max-width: 768px) {
+      .hero-banner { padding: 28px 22px; }
+      .hero-amount { font-size: 38px; }
+      .hero-stats  { gap: 10px; }
+      .hero-top    { flex-direction: column; }
+      .hero-cta    { width: 100%; text-align: center; }
+      .form-grid   { grid-template-columns: 1fr; }
+      .w-card      { padding: 22px 18px; }
+
+      /* History table mobile: show only Date (with status), Net Amount, View */
+      .col-amount, .col-method, .col-reason, .col-status { display: none !important; }
+      .col-view { display: table-cell !important; }
+      .mobile-status { display: inline-block !important; }
+      .history-table th, .history-table td { padding: 11px 10px !important; font-size: 12px !important; }
+      .history-wrap { overflow-x: unset !important; }
+      .history-table { min-width: unset !important; width: 100% !important; }
+    }
+    @media (min-width: 769px) {
+      .col-view { display: none !important; }
+      .mobile-status { display: none !important; }
+    }
+
+    /* View button */
+    .view-btn {
+      background: white;
+      border: 1.5px solid #667eea;
+      border-radius: 8px;
+      width: 58px; height: 28px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      margin: 0 auto;
+      padding: 0;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: none;
+    }
+    .view-btn span {
+      display: block;
+      font-size: 11px; font-weight: 700; letter-spacing: 0.3px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: transparent;
+      line-height: 1;
+    }
+    .view-btn:first-child, .view-btn:last-child, .view-btn:nth-child(2) {
+      background: white;
+      color: transparent;
+      box-shadow: none !important;
+    }
+    .view-btn:hover { transform: scale(1.05); box-shadow: 0 3px 10px rgba(102,126,234,0.2) !important; }
+
+    /* Reason popup modal */
+    #reasonPopup {
+      display: none; position: fixed; inset: 0; z-index: 10001;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.45);
+      padding: 20px;
+    }
+    #reasonPopup.open { display: flex; }
+    .reason-box {
+      background: white; border-radius: 20px;
+      padding: 28px 24px; width: 100%; max-width: 400px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+      animation: toastIn .25s ease;
+    }
+    .reason-box-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 16px; padding-bottom: 14px;
+      border-bottom: 2px solid #f1f5f9;
+    }
+    .reason-box-title {
+      font-size: 16px; font-weight: 800;
+      background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .reason-box-close {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: #f8fafc; border: none; font-size: 18px;
+      color: #64748b; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .reason-box-close:hover { background: #fee2e2; color: #dc2626; }
+    .reason-box-body {
+      padding: 14px 16px; background: #f8fafc;
+      border: 1.5px solid #e2e8f0; border-radius: 12px;
+      font-size: 14px; font-weight: 600; color: #1e293b;
+      line-height: 1.6; margin-bottom: 20px;
+    }
+    .reason-box-btn {
+      width: 100%; padding: 13px;
+      background: linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+      color: white; border: none; border-radius: 12px;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+      font-family: inherit; transition: opacity .2s;
+    }
+    .reason-box-btn:hover { opacity: .9; }
+    #withdrawalDetailModal {
+      display: none; position: fixed; inset: 0; z-index: 9999;
+      align-items: flex-end; justify-content: center;
+      background: rgba(0,0,0,0.45);
+    }
+    #withdrawalDetailModal.open { display: flex; }
+    .wd-sheet {
+      background: white; border-radius: 20px 20px 0 0;
+      padding: 24px 20px 32px; width: 100%; max-width: 480px;
+      max-height: 85vh; overflow-y: auto;
+      animation: wdSlideUp 0.3s ease;
+    }
+    @keyframes wdSlideUp {
+      from { transform: translateY(100%); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+    .wd-handle {
+      width: 40px; height: 4px; background: #e2e8f0;
+      border-radius: 2px; margin: 0 auto 20px;
+    }
+    .wd-sheet h3 {
+      font-size: 17px; font-weight: 700; color: #1e293b;
+      margin: 0 0 18px; text-align: center;
+    }
+    .wd-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid #f1f5f9; gap: 12px;
+    }
+    .wd-row:last-child { border-bottom: none; }
+    .wd-label {
+      font-size: 12px; font-weight: 600; color: #64748b;
+      text-transform: uppercase; letter-spacing: 0.5px; flex-shrink: 0;
+    }
+    .wd-value {
+      font-size: 14px; font-weight: 600; color: #1e293b;
+      text-align: right; word-break: break-word;
+      white-space: pre-line;
+      line-height: 1.6;
+    }
+    .wd-close-btn {
+      width: 100%; margin-top: 20px; padding: 14px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white; border: none; border-radius: 12px;
+      font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .wd-close-btn:hover { opacity: 0.9; }
+    .wd-close-btn:first-child, .wd-close-btn:last-child, .wd-close-btn:nth-child(2) {
+      background: linear-gradient(135deg, #667eea, #764ba2) !important;
+      color: white !important;
+    }
+    @media (max-width: 768px) {
+      .mobile-menu-toggle:not(.page-header-toggle) { display: none !important; }
+      .page-header-toggle {
+        display: flex !important;
+        position: static !important;
+        width: 44px !important; height: 44px !important; min-width: 44px !important;
+        padding: 8px !important; border-radius: 10px !important;
+        flex-shrink: 0 !important; box-shadow: none !important;
+        background: rgba(255,255,255,0.25) !important;
+        border: 2px solid rgba(255,255,255,0.5) !important;
+        align-items: center !important; justify-content: center !important;
+        flex-direction: column !important; gap: 5px !important;
+      }
+      .page-header-toggle .hamburger {
+        width: 22px !important; height: 2px !important;
+        background: #ffffff !important; border-radius: 2px !important;
+        display: block !important; margin: 0 !important;
+      }
+    }
+    @media (min-width: 769px) {
+      .page-header-toggle { display: none !important; }
+    }
+
+    /* ── Neumorphic Theme Toggle ── */
+    .sb-nm-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px 8px 26px;
+      border-top: 1px solid #e2e8f0;
+      /* margin-bottom: 4px; */
+    }
+    body.dark-mode .sb-nm-wrap { border-bottom-color: #30363d; }
+    .sb-nm-wrap-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+    }
+    body.dark-mode .sb-nm-wrap-label { color: #8b949e; }
+     .sb-nm-toggle {
+      position: relative;
+      width: 80px;
+      height: 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      font-family: inherit;
+      background: white;
+      box-shadow: 4px 4px 8px #b8bec7, -4px -4px 8px #ffffff;
+      transition: background 0.4s;
+    }
+    html.dark-mode .sb-nm-toggle,
+    body.dark-mode .sb-nm-toggle {
+      background: #1e2535 !important;
+      box-shadow: 4px 4px 8px #0d1117, -3px -3px 7px #2d3a4a !important;
+    }
+    .sb-nm-knob {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 2px 2px 5px #b8bec7, -1px -1px 4px #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      pointer-events: none;
+      transition: left 0.4s cubic-bezier(.4,0,.2,1), background 0.4s;
+      z-index: 2;
+    }
+    html.dark-mode .sb-nm-knob,
+    body.dark-mode .sb-nm-knob {
+      left: 52px !important;
+      background: #2d3748 !important;
+      box-shadow: 2px 2px 5px #0d1117, -1px -1px 4px #3a4a5c !important;
+    }
+    .sb-nm-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity 0.3s;
+      white-space: nowrap;
+    }
+    .sb-nm-label-light { right: 9px; color: #64748b; opacity: 1; }
+    .sb-nm-label-dark  { left: 9px;  color: #a78bfa; opacity: 0; }
+    body.dark-mode .sb-nm-label-light { opacity: 0; }
+    body.dark-mode .sb-nm-label-dark  { opacity: 1; }
+  </style>
+  <link rel="stylesheet" href="../dark-theme.css">
+  <script src="/admin/dark-theme.js"></script>
+</head>
+<body>
+
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <div class="hamburger"></div>
+    <div class="hamburger"></div>
+    <div class="hamburger"></div>
+  </button>
+
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+
+  <div class="sidebar">
+    <div class="sidebar-header" onclick="window.location.href='https://earnify-gamma.vercel.app/'" style="cursor:pointer;">
+      <h2>Earnify Admin</h2>
+      <button class="sidebar-close-btn" onclick="event.stopPropagation();toggleSidebar()">&times;</button>
+    </div>
+    <a href="/admin/Resources/" class="nav-link">📚 Resources</a>
+    <a href="/admin/Statistics/" class="nav-link">📈 Statistics</a>
+    <a href="/admin/Profile/" class="nav-link">👤 Profile</a>
+    <a href="/admin/Withdrawal/" class="nav-link active-link">💸 Withdrawal</a>
+    <!-- Neumorphic Theme Toggle -->
+    <div class="sb-nm-wrap">
+      <button class="sb-nm-toggle" id="sbNmToggle" onclick="toggleDarkMode()" title="Toggle dark/light mode">
+        <span class="sb-nm-knob" id="sbNmKnob"></span>
+        <span class="sb-nm-label sb-nm-label-light">LIGHT</span>
+        <span class="sb-nm-label sb-nm-label-dark">DARK</span>
+      </button>
+    </div>
+    <a href="/" class="nav-link nav-link-divider">🏠 Main Site</a>
+    <a onclick="logout()" class="nav-link nav-link-logout"><span>🚪</span> Logout</a>
+
+    
+
+    <!-- User Profile Section -->
+    <div class="sidebar-user" id="sidebarUser" style="display: none;">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebarAvatar">👤</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebarUserName">User</div>
+          <div class="user-email" id="sidebarUserEmail">user@email.com</div>
+        </div>
+      </div>
+      <a onclick="logout()" class="logout-link">🚪 Logout</a>
+    </div>
+  </div>
+<script>!function(){var k=document.getElementById('sbNmKnob');if(k)k.textContent=localStorage.getItem('earnify_dark_mode')==='1'?'🌙':'☀️';}();</script>
+
+  <div class="main">
+
+    <!-- ── Hero Balance Banner ── -->
+    <div class="hero-banner" id="heroBanner" style="display:none;">
+      <div class="hero-top">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <button class="mobile-menu-toggle page-header-toggle" onclick="toggleSidebar()" style="display:none;margin-top:4px;">
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+          </button>
+          <div>
+            <div class="hero-label">Available Balance</div>
+            <div class="hero-amount" id="availableBalance">₹0</div>
+            <div class="hero-sub">Ready to withdraw to your account</div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+         
+          <button class="hero-cta" onclick="scrollToForm()">💸 Request Withdrawal</button>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat-item">
+          <div class="hero-stat-val" id="totalEarned">₹0</div>
+          <div class="hero-stat-lbl">Total Earned</div>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val" id="totalWithdrawn">₹0</div>
+          <div class="hero-stat-lbl">Withdrawn (Net)</div>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val" id="platformFees">₹0</div>
+          <div class="hero-stat-lbl">Platform Fees</div>
+        </div>
+        <div class="hero-divider"></div>
+        <div class="hero-stat-item">
+          <div class="hero-stat-val" id="pendingAmount">₹0</div>
+          <div class="hero-stat-lbl">Pending (Net)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Hero Shimmer ── -->
+    <div class="hero-banner" id="heroShimmer">
+      <div class="hero-top">
+        <div style="display:flex;align-items:flex-start;gap:14px;">
+          <button class="mobile-menu-toggle page-header-toggle" onclick="toggleSidebar()" style="display:none;margin-top:4px;">
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+          </button>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div class="shimmer-box" style="width:120px;height:11px;"></div>
+            <div class="shimmer-box" style="width:180px;height:44px;border-radius:8px;"></div>
+            <div class="shimmer-box" style="width:200px;height:11px;"></div>
+          </div>
+        </div>
+        <div class="shimmer-box" style="width:180px;height:48px;border-radius:14px;align-self:center;"></div>
+      </div>
+      <div class="hero-stats" style="margin-top:28px;">
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div class="shimmer-box" style="width:70px;height:20px;"></div>
+          <div class="shimmer-box" style="width:80px;height:10px;"></div>
+        </div>
+        <div class="hero-divider"></div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div class="shimmer-box" style="width:70px;height:20px;"></div>
+          <div class="shimmer-box" style="width:80px;height:10px;"></div>
+        </div>
+        <div class="hero-divider"></div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div class="shimmer-box" style="width:70px;height:20px;"></div>
+          <div class="shimmer-box" style="width:80px;height:10px;"></div>
+        </div>
+        <div class="hero-divider"></div>
+        <div style="display:flex;flex-direction:column;gap:6px;">
+          <div class="shimmer-box" style="width:70px;height:20px;"></div>
+          <div class="shimmer-box" style="width:80px;height:10px;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Withdrawal Form Shimmer ── -->
+    <div class="w-card" id="withdrawalFormShimmer">
+      <div class="shimmer-card-header" style="display:flex;align-items:center;gap:10px;margin-bottom:24px;padding-bottom:16px;">
+        <div class="shimmer-dark" style="width:24px;height:24px;border-radius:6px;"></div>
+        <div class="shimmer-dark" style="width:200px;height:18px;"></div>
+      </div>
+      <div class="shimmer-dark" style="width:80px;height:11px;margin-bottom:8px;"></div>
+      <div class="shimmer-dark" style="width:100%;height:46px;border-radius:12px;margin-bottom:20px;"></div>
+      <div class="shimmer-dark" style="width:100px;height:11px;margin-bottom:10px;"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;">
+        <div class="shimmer-dark" style="width:80px;height:38px;border-radius:50px;"></div>
+        <div class="shimmer-dark" style="width:110px;height:38px;border-radius:50px;"></div>
+        <div class="shimmer-dark" style="width:80px;height:38px;border-radius:50px;"></div>
+        <div class="shimmer-dark" style="width:80px;height:38px;border-radius:50px;"></div>
+      </div>
+      <div class="shimmer-dark" style="width:60px;height:11px;margin-bottom:8px;"></div>
+      <div class="shimmer-dark" style="width:100%;height:46px;border-radius:12px;margin-bottom:20px;"></div>
+      <div class="shimmer-dark" style="width:80px;height:11px;margin-bottom:8px;"></div>
+      <div class="shimmer-dark" style="width:100%;height:80px;border-radius:12px;margin-bottom:20px;"></div>
+      <div class="shimmer-dark" style="width:100%;height:52px;border-radius:14px;"></div>
+    </div>
+
+    <!-- ── Withdrawal Form ── -->
+    <div class="w-card" id="withdrawalForm" style="display:none;">
+      <div class="w-card-title" style="justify-content:space-between;">
+        <span style="display:flex;align-items:center;gap:10px;"><span>📝</span> New Withdrawal Request</span>
+        <a href="/admin/Profile/" style="display:inline-flex;align-items:center;gap:6px;padding:7px 14px;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;border-radius:10px;font-size:12px;font-weight:700;text-decoration:none;white-space:nowrap;transition:opacity .2s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">💳 Withdrawal Info</a>
+      </div>
+      <form onsubmit="submitWithdrawal(event)" novalidate>
+
+        <div class="form-group" style="margin-bottom:16px;">
+          <label>Amount (₹)</label>
+          <input type="number" id="withdrawAmount" placeholder="Min ₹100" min="100" oninput="updateAmountPreview();clearFieldError('withdrawAmount')">
+          <div id="amountPreview" style="display:none; margin-top:8px; background:#f8fafc; border:1px solid #e8edf5; border-radius:12px; padding:14px; font-size:13px; font-family:monospace;"></div>
+          <div id="amountError" style="display:none; margin-top:6px; font-size:12px; color:#ef4444; font-weight:600;"></div>
+          <div class="field-error" id="err-withdrawAmount"></div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:16px;">
+          <label>Payment Method</label>
+          <div class="method-pills">
+            <div class="method-pill active" data-val="upi"     onclick="selectMethod(this)">🔗 UPI</div>
+            <div class="method-pill"        data-val="bank"    onclick="selectMethod(this)">🏦 Bank Transfer</div>
+            <div class="method-pill"        data-val="paytm"   onclick="selectMethod(this)">💙 Paytm</div>
+            <div class="method-pill"        data-val="gpay"    onclick="selectMethod(this)">💚 GPay</div>
+          </div>
+          <input type="hidden" id="paymentMethod" value="upi">
+        </div>
+
+        <!-- UPI fields -->
+        <div id="fields-upi" class="form-group" style="margin-bottom:16px;">
+          <label>UPI ID</label>
+          <input type="text" id="upi_id" placeholder="yourname@upi" oninput="clearFieldError('upi_id')">
+          <div class="field-error" id="err-upi_id"></div>
+        </div>
+
+        <!-- Bank Transfer fields -->
+        <div id="fields-bank" style="display:none; margin-bottom:16px;">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Account Number</label>
+              <input type="text" id="bank_account" placeholder="Enter account number" oninput="clearFieldError('bank_account')">
+              <div class="field-error" id="err-bank_account"></div>
+            </div>
+            <div class="form-group">
+              <label>IFSC Code</label>
+              <input type="text" id="bank_ifsc" placeholder="e.g. SBIN0001234" oninput="clearFieldError('bank_ifsc')">
+              <div class="field-error" id="err-bank_ifsc"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Paytm / GPay fields -->
+        <div id="fields-paytm" class="form-group" style="display:none; margin-bottom:16px;">
+          <label>Mobile Number / UPI ID</label>
+          <input type="text" id="paytm_id" placeholder="10-digit mobile or UPI ID" oninput="clearFieldError('paytm_id')">
+          <div class="field-error" id="err-paytm_id"></div>
+        </div>
+        <div id="fields-gpay" class="form-group" style="display:none; margin-bottom:16px;">
+          <label>Mobile Number / UPI ID</label>
+          <input type="text" id="gpay_id" placeholder="10-digit mobile or UPI ID" oninput="clearFieldError('gpay_id')">
+          <div class="field-error" id="err-gpay_id"></div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:20px;">
+          <label>Note (optional)</label>
+          <textarea id="withdrawNote" placeholder="Any additional note for this request…"></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">💸 Submit Withdrawal Request</button>
+      </form>
+    </div>
+
+    <!-- ── History ── -->
+    <div class="w-card">
+      <div class="w-card-title" style="justify-content:space-between;">
+        <span style="display:flex;align-items:center;gap:10px;"><span>📋</span> Withdrawal History</span>
+        <div class="cd-wrap" id="cdWrap-wdPageSize">
+          <button class="cd-btn" onclick="cdToggle('wdPageSize')" type="button">
+            <span class="cd-label" id="cdLabel-wdPageSize">10 / page</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cd-list" id="cdList-wdPageSize" style="display:none;">
+            <div class="cd-item selected" onclick="cdWdPageSize('10','10 / page')">10 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdWdPageSize('30','30 / page')">30 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdWdPageSize('50','50 / page')">50 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdWdPageSize('100','100 / page')">100 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdWdPageSize('all','All')">All<span class="cd-check">&#10003;</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- History Shimmer -->
+      <div id="historyShimmer">
+        <div style="display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #e2e8f0;align-items:center;" class="shimmer-row-border">
+          <div class="shimmer-dark" style="width:80px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:70px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:70px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:60px;height:22px;border-radius:20px;"></div>
+          <div class="shimmer-dark" style="width:90px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:60px;height:22px;border-radius:20px;"></div>
+        </div>
+        <div style="display:flex;gap:16px;padding:16px 0;border-bottom:1px solid #e2e8f0;align-items:center;" class="shimmer-row-border">
+          <div class="shimmer-dark" style="width:80px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:70px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:70px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:60px;height:22px;border-radius:20px;"></div>
+          <div class="shimmer-dark" style="width:90px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:60px;height:22px;border-radius:20px;"></div>
+        </div>
+        <div style="display:flex;gap:16px;padding:16px 0;align-items:center;">
+          <div class="shimmer-dark" style="width:80px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:70px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:70px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:60px;height:22px;border-radius:20px;"></div>
+          <div class="shimmer-dark" style="width:90px;height:14px;"></div>
+          <div class="shimmer-dark" style="width:60px;height:22px;border-radius:20px;"></div>
+        </div>
+      </div>
+      <div id="historyContainer" style="display:none;">
+        <div class="empty-state">
+          <div class="empty-icon"><img src="/file/empty-withdrwal.png" class="empty-state-img" style="width:80px;height:80px;object-fit:contain;"></div>
+          <h3>No Withdrawals Yet</h3>
+          <p>Your withdrawal requests will appear here</p>
+        </div>
+      </div>
+    </div>
+
+      <div id="wdPagination" style="font-family:inherit;margin-top:16px;"></div>
+    </div>
+
+  </div><!-- /main -->
+
+  <!-- Reason Popup -->
+  <div id="reasonPopup" onclick="if(event.target===this)closeReasonPopup()">
+    <div class="reason-box">
+      <div class="reason-box-header">
+        <span class="reason-box-title">&#9888; Rejection Reason</span>
+        <button class="reason-box-close" onclick="closeReasonPopup()">&times;</button>
+      </div>
+      <div class="reason-box-body" id="reasonPopupText"></div>
+      <button class="reason-box-btn" onclick="closeReasonPopup()">Close</button>
+    </div>
+  </div>
+
+  <!-- Confirmation Popup -->
+  <div id="confirmOverlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:10000; align-items:center; justify-content:center;">
+    <div id="confirmBox" style="background:#fff; border-radius:24px; padding:36px 32px; max-width:420px; width:90%; box-shadow:0 20px 60px rgba(0,0,0,.2); animation:toastIn .25s ease;">
+      <div style="font-size:48px; text-align:center; margin-bottom:12px;">💸</div>
+      <h3 style="text-align:center; font-size:20px; font-weight:800; color:#1e293b; margin-bottom:6px;">Confirm Withdrawal</h3>
+      <p style="text-align:center; color:#64748b; font-size:14px; margin-bottom:24px;">Please review your withdrawal details before submitting.</p>
+      <div id="confirmDetails" style="background:#f8fafc; border-radius:14px; padding:18px; margin-bottom:24px; display:flex; flex-direction:column; gap:10px;"></div>
+      <div style="display:flex; gap:12px;">
+        <button onclick="closeConfirm()" class="confirm-cancel-btn" style="flex:1; padding:14px; border:2px solid #e8edf5; background:#fff; border-radius:12px; font-size:15px; font-weight:700; color:#64748b; cursor:pointer;">Cancel</button>
+        <button onclick="confirmSubmit()" style="flex:1; padding:14px; background:linear-gradient(135deg,#667eea,#764ba2); border:none; border-radius:12px; font-size:15px; font-weight:700; color:#fff; cursor:pointer;">✅ Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Withdrawal Detail Modal (mobile) -->
+  <div id="withdrawalDetailModal" onclick="if(event.target===this)closeWithdrawalDetail()">
+    <div class="wd-sheet">
+      <div class="wd-handle"></div>
+      <h3>💸 Withdrawal Details</h3>
+      <div id="withdrawalDetailBody"></div>
+      <button class="wd-close-btn" onclick="closeWithdrawalDetail()">Close</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Mobile Bottom Nav -->
+  <nav class="admin-mob-nav">
+    <a href="/admin/Resources/" class="amn-item">
+      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Resources</span>
+    </a>
+    <a href="/admin/Statistics/" class="amn-item">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Statistics</span>
+    </a>
+    <a href="/" class="amn-item amn-home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="/admin/Profile/" class="amn-item">
+      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </a>
+    <a href="/admin/Withdrawal/" class="amn-item active">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <span>Withdraw</span>
+    </a>
+  </nav>
+
+  <script src="../api-config.js"></script>
+  <script src="../auth-guard.js"></script>
+  <script>
+    const SUPA_URL = 'https://emnrgsgerfjvndexomro.supabase.co';
+    const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MjAyMTAsImV4cCI6MjA4Nzk5NjIxMH0.uXr8lipxLbB4D_5JwQkpLzc-HudQw23tOFBfV4C6hqY';
+    const SUPA_SVC  = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjQyMDIxMCwiZXhwIjoyMDg3OTk2MjEwfQ.mr4k_GsJ14CC1mqvEZgf9cTaNiLMlnj_sZxFjJud67k';
+
+    // anon client for auth session, service client bypasses RLS for reads
+    const _supa     = window.supabase.createClient(SUPA_URL, SUPA_ANON);
+    const _supaAdmin = window.supabase.createClient(SUPA_URL, SUPA_SVC, {
+      auth: { persistSession: false, autoRefreshToken: false }
+    });
+
+    async function getCurrentUser() {
+      // 1. Live Supabase session (most reliable)
+      try {
+        const { data: { user } } = await _supa.auth.getUser();
+        if (user?.email) return user;
+      } catch(e) {}
+      // 2. JWT stored by auth-guard
+      const token = localStorage.getItem('adminToken');
+      if (token) {
+        try {
+          const p = JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
+          if (p?.email) return { email: p.email, id: p.sub || p.id };
+        } catch(e) {}
+      }
+      // 3. currentUser object stored by auth-guard
+      try {
+        const cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        if (cu?.email) return cu;
+      } catch(e) {}
+      return null;
+    }
+
+    // Use service-role client so RLS never blocks earnings/payments reads
+    async function loadEarnings(userEmail) {
+      const { data: userResources } = await _supaAdmin
+        .from('resources').select('id, price').eq('user_email', userEmail);
+      if (!userResources?.length) return 0;
+      const priceMap = Object.fromEntries(userResources.map(r => [r.id, parseFloat(r.price || 0)]));
+      const { data: payments } = await _supaAdmin
+        .from('payments').select('resource_id')
+        .eq('status', 'completed')
+        .in('resource_id', userResources.map(r => r.id));
+      return (payments || []).reduce((s, p) => s + (priceMap[p.resource_id] || 0), 0);
+    }
+
+    async function submitWithdrawalDirect(payload) {
+      const { data, error } = await _supaAdmin.from('withdrawals')
+        .insert([{ ...payload, status: 'pending' }]).select().single();
+      if (error) throw new Error(error.message);
+      return data;
+    }
+
+    // Save payment details to profiles table if not already stored
+    async function saveWiInfoFromWithdrawal(user, method, account) {
+      if (!user?.id) return;
+      const update = {};
+      if (method === 'upi'   && account && !_wiInfo.upi)   update.wi_upi   = account;
+      if (method === 'gpay'  && account && !_wiInfo.gpay)  update.wi_gpay  = account;
+      if (method === 'paytm' && account && !_wiInfo.paytm) update.wi_paytm = account;
+      if (method === 'bank') {
+        const acVal   = document.getElementById('bank_account').value.trim();
+        const ifscVal = document.getElementById('bank_ifsc').value.trim().toUpperCase();
+        if (acVal   && !_wiInfo.bank) update.wi_bank = acVal;
+        if (ifscVal && !_wiInfo.ifsc) update.wi_ifsc = ifscVal;
+      }
+      if (!Object.keys(update).length) return; // nothing new to save
+      try {
+        await _supaAdmin.from('profiles').upsert({ id: user.id, ...update }, { onConflict: 'id' });
+        // update local cache
+        Object.assign(_wiInfo, {
+          upi:   update.wi_upi   ?? _wiInfo.upi,
+          bank:  update.wi_bank  ?? _wiInfo.bank,
+          ifsc:  update.wi_ifsc  ?? _wiInfo.ifsc,
+          gpay:  update.wi_gpay  ?? _wiInfo.gpay,
+          paytm: update.wi_paytm ?? _wiInfo.paytm,
+        });
+        showToast('💳 Payment info saved to your profile!');
+      } catch(e) { console.warn('saveWiInfoFromWithdrawal:', e); }
+    }
+
+    function showToast(msg, type = 'success') {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.className = `toast ${type}`;
+      t.style.display = 'block';
+      setTimeout(() => t.style.display = 'none', 3200);
+    }
+
+    function openReasonPopup(reason) {
+      document.getElementById('reasonPopupText').textContent = reason;
+      document.getElementById('reasonPopup').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeReasonPopup() {
+      document.getElementById('reasonPopup').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function scrollToForm() {
+      document.getElementById('withdrawalForm').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function selectMethod(el) {
+      document.querySelectorAll('.method-pill').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      const val = el.dataset.val;
+      document.getElementById('paymentMethod').value = val;
+      ['upi','bank','paytm','gpay'].forEach(m => {
+        document.getElementById('fields-' + m).style.display = (m === val) ? '' : 'none';
+      });
+      autoFillMethod(val);
+    }
+
+    const PLATFORM_FEE = 0.05;
+    let _availableBalance = 0;
+    let _wiInfo = {}; // cached withdrawal info from profiles
+
+    async function loadWiInfo(userId) {
+      try {
+        const { data } = await _supaAdmin
+          .from('profiles')
+          .select('wi_upi, wi_bank, wi_ifsc, wi_gpay, wi_paytm')
+          .eq('id', userId)
+          .single();
+        if (data) _wiInfo = { upi: data.wi_upi||'', bank: data.wi_bank||'', ifsc: data.wi_ifsc||'', gpay: data.wi_gpay||'', paytm: data.wi_paytm||'' };
+      } catch(e) { console.warn('loadWiInfo:', e); }
+    }
+
+    function autoFillMethod(method) {
+      if (method === 'upi'   && _wiInfo.upi)   document.getElementById('upi_id').value    = _wiInfo.upi;
+      if (method === 'gpay'  && _wiInfo.gpay)  document.getElementById('gpay_id').value   = _wiInfo.gpay;
+      if (method === 'paytm' && _wiInfo.paytm) document.getElementById('paytm_id').value  = _wiInfo.paytm;
+      if (method === 'bank') {
+        if (_wiInfo.bank) document.getElementById('bank_account').value = _wiInfo.bank;
+        if (_wiInfo.ifsc) document.getElementById('bank_ifsc').value    = _wiInfo.ifsc;
+      }
+    }
+
+    function updateAmountPreview() {
+      const amt    = parseFloat(document.getElementById('withdrawAmount').value);
+      const preview = document.getElementById('amountPreview');
+      const errEl   = document.getElementById('amountError');
+      errEl.style.display = 'none';
+      if (!amt || amt <= 0) { preview.style.display = 'none'; return; }
+      if (amt < 100) {
+        preview.style.display = 'none';
+        errEl.textContent = 'Minimum withdrawal amount is ₹100';
+        errEl.style.display = 'block';
+        return;
+      }
+      if (amt > _availableBalance) {
+        preview.style.display = 'none';
+        errEl.textContent = `Amount exceeds available balance of ₹${_availableBalance.toFixed(0)}`;
+        errEl.style.display = 'block';
+        return;
+      }
+      const fee = +(amt * PLATFORM_FEE).toFixed(2);
+      const net = +(amt - fee).toFixed(2);
+      const line = (label, val, color) =>
+        `<div style="display:flex;justify-content:space-between;padding:3px 0;color:${color};font-weight:600;font-size:13px;">`+
+        `<span>${label}</span><span>${val}</span></div>`;
+      document.getElementById('amountPreview').innerHTML =
+        line('Withdrawal Amount', `₹${amt.toLocaleString('en-IN')}`, '#1e293b') +
+        line('− Platform Fee (5%)', `-₹${fee.toLocaleString('en-IN')}`, '#ef4444') +
+        `<div style="border-top:1px dashed #cbd5e1;margin:6px 0;"></div>` +
+        line('You Receive', `₹${net.toLocaleString('en-IN')}`, '#667eea');
+      preview.style.display = 'block';
+    }
+
+    async function loadStats() {
+      try {
+        const user = await getCurrentUser();
+        if (!user) { console.warn('[loadStats] no user'); return; }
+
+        const [totalGross, wdResult] = await Promise.all([
+          loadEarnings(user.email),
+          _supaAdmin.from('withdrawals').select('amount, status').eq('user_email', user.email)
+        ]);
+
+        if (user.id) await loadWiInfo(user.id);
+        autoFillMethod('upi'); // auto-fill default method on load
+
+        const wdList = wdResult.data || [];
+        const approved = wdList.filter(w => w.status === 'approved' || w.status === 'completed');
+        const pending  = wdList.filter(w => w.status === 'pending');
+        const totalWithdrawnGross = approved.reduce((s, w) => s + parseFloat(w.amount || 0), 0);
+        const totalPendingGross   = pending.reduce((s, w)  => s + parseFloat(w.amount || 0), 0);
+        const totalWithdrawn = totalWithdrawnGross * 0.95;
+        const totalPending   = totalPendingGross   * 0.95;
+        const platformFees   = (totalWithdrawnGross + totalPendingGross) * 0.05;
+        const available      = Math.max(0, totalGross - totalWithdrawnGross - totalPendingGross);
+        _availableBalance    = available;
+
+        document.getElementById('availableBalance').textContent = `₹${available.toFixed(0)}`;
+        document.getElementById('totalEarned').textContent      = `₹${totalGross.toFixed(0)}`;
+        document.getElementById('totalWithdrawn').textContent   = `₹${totalWithdrawn.toFixed(0)}`;
+        document.getElementById('platformFees').textContent     = `₹${platformFees.toFixed(0)}`;
+        document.getElementById('pendingAmount').textContent    = `₹${totalPending.toFixed(0)}`;
+      } catch (e) {
+        console.error('loadStats error:', e);
+      } finally {
+        document.getElementById('heroShimmer').style.display = 'none';
+        document.getElementById('heroBanner').style.display = '';
+        document.getElementById('withdrawalFormShimmer').style.display = 'none';
+        document.getElementById('withdrawalForm').style.display = '';
+      }
+    }
+
+    const METHOD_ICONS = { upi: '🔗', bank: '🏦', paytm: '💙', phonepe: '💜' };
+
+    async function renderHistory() {
+      const user = await getCurrentUser();
+      const container = document.getElementById('historyContainer');
+      let list = [];
+      try {
+        if (!user) throw new Error('not logged in');
+        const { data, error } = await _supaAdmin
+          .from('withdrawals')
+          .select('*')
+          .eq('user_email', user.email)
+          .order('created_at', { ascending: false });
+        if (error) throw error;
+        list = data || [];
+      } catch (e) {
+        console.error('renderHistory error:', e);
+      }
+
+      document.getElementById('historyShimmer').style.display = 'none';
+      container.style.display = '';
+
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/empty-withdrwal.png" class="empty-state-img" style="width:80px;height:80px;object-fit:contain;"></div>
+            <h3>No Withdrawals Yet</h3>
+            <p>Your withdrawal requests will appear here</p>
+          </div>`;
+        return;
+      }
+
+      window._withdrawalList = list;
+      window._wdPage = 1;
+      _renderWdPage();
+    }
+
+    function _renderWdPage() {
+      const list = window._withdrawalList || [];
+      const container = document.getElementById('historyContainer');
+      const pagEl = document.getElementById('wdPagination');
+      if (!list.length) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/empty-withdrwal.png" class="empty-state-img" style="width:80px;height:80px;object-fit:contain;"></div>
+            <h3>No Withdrawals Yet</h3>
+            <p>Your withdrawal requests will appear here</p>
+          </div>`;
+        if (pagEl) pagEl.innerHTML = '';
+        return;
+      }
+      const total = list.length;
+      const ps = window._wdPageSize === 'all' ? total : (window._wdPageSize || 10);
+      const totalPages = Math.ceil(total / ps) || 1;
+      window._wdPage = Math.min(window._wdPage, totalPages);
+      const start = (window._wdPage - 1) * ps;
+      const slice = window._wdPageSize === 'all' ? list : list.slice(start, start + ps);
+      container.innerHTML = `
+        <div class="history-wrap">
+          <table class="history-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th class="col-amount">Amount</th>
+                <th>Net Amount</th>
+                <th class="col-method">Method</th>
+                <th class="col-status">Status</th>
+                <th class="col-reason">Reason</th>
+                <th class="col-view">Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${list.map((w, i) => {
+                const isApproved = w.status === 'approved' || w.status === 'completed';
+                const dateVal = isApproved && w.approved_at ? w.approved_at : w.created_at;
+                const dateLabel = isApproved && w.approved_at ? 'Approved' : 'Submitted';
+                const dateStr = new Date(dateVal).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+                return `
+                <tr>
+                  <td>
+                    <div style="font-size:13px;font-weight:700;color:#1e293b;">${dateStr}</div>
+                    <div style="font-size:10px;font-weight:600;color:#94a3b8;text-transform:uppercase;letter-spacing:.5px;margin-top:2px;">${dateLabel}</div>
+                    <span class="badge badge-${w.status} mobile-status" style="margin-top:5px;font-size:10px;padding:3px 9px;">${w.status}</span>
+                  </td>
+                  <td class="col-amount"><span class="amount-cell">&#8377;${parseFloat(w.amount).toLocaleString('en-IN')}</span></td>
+                  <td><span class="amount-cell" style="color:#667eea;">&#8377;${(parseFloat(w.amount)*0.95).toLocaleString('en-IN',{maximumFractionDigits:2})}</span></td>
+                  <td class="col-method"><span class="method-chip">${METHOD_ICONS[w.method]||''} ${w.method.toUpperCase()}</span></td>
+                  <td class="col-status"><span class="badge badge-${w.status}">${w.status}</span></td>
+                  <td class="col-reason">${w.reject_reason
+                    ? `<button onclick="openReasonPopup('${w.reject_reason.replace(/'/g,"&#39;").replace(/"/g,'&quot;')}')" style="padding:4px 12px;background:white;border:1.5px solid #667eea;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">View</button>`
+                    : '<span style="color:#cbd5e1;font-size:13px;">—</span>'}
+                  </td>
+                  <td class="col-view"><button class="view-btn" onclick="openWithdrawalDetail(${i})" title="View Details"><span>View</span></button></td>
+                </tr>`;
+              }).join('')}
+            </tbody>
+          </table>
+        </div>`;
+    }
+
+    function openWithdrawalDetail(i) {
+      const w = window._withdrawalList && window._withdrawalList[i];
+      if (!w) return;
+      const net = (parseFloat(w.amount) * 0.95).toLocaleString('en-IN', {maximumFractionDigits:2});
+      const date = new Date(w.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+      const statusColors = { pending:'#b45309', approved:'#065f46', rejected:'#991b1b' };
+      
+      let accountDisplay = w.account || '—';
+      if (w.method === 'bank' && w.account && w.account.includes('AC:') && w.account.includes('IFSC:')) {
+        const parts = w.account.split(' ');
+        const acPart = parts.find(p => p.startsWith('AC:'));
+        const ifscPart = parts.find(p => p.startsWith('IFSC:'));
+        if (acPart && ifscPart) {
+          const acNum = acPart.replace('AC:', '');
+          const ifscCode = ifscPart.replace('IFSC:', '');
+          accountDisplay = `Account: ${acNum}\nIFSC: ${ifscCode}`;
+        }
+      }
+      
+      const isApproved = w.status === 'approved' || w.status === 'completed';
+      const submittedDate = new Date(w.created_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'});
+      const approvedDate = w.approved_at ? new Date(w.approved_at).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : null;
+      document.getElementById('withdrawalDetailBody').innerHTML = `
+        <div class="wd-row"><span class="wd-label">Submitted</span><span class="wd-value">${submittedDate}</span></div>
+        ${approvedDate ? `<div class="wd-row"><span class="wd-label">Approved On</span><span class="wd-value" style="color:#065f46;">${approvedDate}</span></div>` : ''}
+        <div class="wd-row"><span class="wd-label">Amount</span><span class="wd-value">₹${parseFloat(w.amount).toLocaleString('en-IN')}</span></div>
+        <div class="wd-row"><span class="wd-label">Net Amount</span><span class="wd-value" style="color:#667eea;font-size:17px;">₹${net}</span></div>
+        <div class="wd-row"><span class="wd-label">Platform Fee</span><span class="wd-value" style="color:#ef4444;">₹${(parseFloat(w.amount)*0.05).toLocaleString('en-IN',{maximumFractionDigits:2})} (5%)</span></div>
+        <div class="wd-row"><span class="wd-label">Method</span><span class="wd-value">${METHOD_ICONS[w.method]||''} ${w.method.toUpperCase()}</span></div>
+        <div class="wd-row"><span class="wd-label">Account</span><span class="wd-value">${accountDisplay}</span></div>
+        <div class="wd-row"><span class="wd-label">Status</span><span class="wd-value" style="color:${statusColors[w.status]||'#1e293b'};text-transform:capitalize;">${w.status}</span></div>
+        ${w.reject_reason ? `<div class="wd-row" style="border:none;"><div style="width:100%;padding:12px 14px;background:#fef2f2;border:1.5px solid #fecaca;border-radius:12px;"><div style="font-size:11px;font-weight:700;color:#991b1b;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;">&#9888; Rejection Reason</div><div style="font-size:13px;font-weight:600;color:#991b1b;line-height:1.5;">${w.reject_reason}</div></div></div>` : ''}
+        ${w.note ? `<div class="wd-row"><span class="wd-label">Note</span><span class="wd-value">${w.note}</span></div>` : ''}`;
+      document.getElementById('withdrawalDetailModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeWithdrawalDetail() {
+      document.getElementById('withdrawalDetailModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    let _pendingPayload = null;
+
+    function showFieldError(inputId, msg) {
+      const input = document.getElementById(inputId);
+      const errEl = document.getElementById('err-' + inputId);
+      if (input) input.classList.add('input-error');
+      if (errEl) { errEl.textContent = msg; errEl.style.display = 'block'; }
+    }
+    function clearFieldError(inputId) {
+      const input = document.getElementById(inputId);
+      const errEl = document.getElementById('err-' + inputId);
+      if (input) input.classList.remove('input-error');
+      if (errEl) { errEl.textContent = ''; errEl.style.display = 'none'; }
+    }
+    function clearAllFieldErrors() {
+      ['withdrawAmount','upi_id','bank_account','bank_ifsc','paytm_id','gpay_id'].forEach(clearFieldError);
+      const ae = document.getElementById('amountError');
+      if (ae) ae.style.display = 'none';
+    }
+
+    async function submitWithdrawal(e) {
+      e.preventDefault();
+      clearAllFieldErrors();
+
+      const amtRaw = document.getElementById('withdrawAmount').value.trim();
+      const amount = parseFloat(amtRaw);
+      const method = document.getElementById('paymentMethod').value;
+      const note   = document.getElementById('withdrawNote').value.trim();
+      const user   = await getCurrentUser();
+
+      let hasError = false;
+
+      if (!amtRaw) {
+        showFieldError('withdrawAmount', 'Amount is required');
+        hasError = true;
+      } else if (isNaN(amount) || amount <= 0) {
+        showFieldError('withdrawAmount', 'Please enter a valid amount');
+        hasError = true;
+      } else if (amount < 100) {
+        showFieldError('withdrawAmount', 'Minimum withdrawal amount is ₹100');
+        hasError = true;
+      } else if (amount > _availableBalance) {
+        showFieldError('withdrawAmount', `Amount exceeds available balance of ₹${_availableBalance.toFixed(0)}`);
+        hasError = true;
+      }
+
+      if (method === 'upi') {
+        if (!document.getElementById('upi_id').value.trim()) {
+          showFieldError('upi_id', 'UPI ID is required'); hasError = true;
+        }
+      } else if (method === 'bank') {
+        if (!document.getElementById('bank_account').value.trim()) {
+          showFieldError('bank_account', 'Account number is required'); hasError = true;
+        }
+        if (!document.getElementById('bank_ifsc').value.trim()) {
+          showFieldError('bank_ifsc', 'IFSC code is required'); hasError = true;
+        }
+      } else if (method === 'paytm') {
+        if (!document.getElementById('paytm_id').value.trim()) {
+          showFieldError('paytm_id', 'Paytm number / UPI ID is required'); hasError = true;
+        }
+      } else if (method === 'gpay') {
+        if (!document.getElementById('gpay_id').value.trim()) {
+          showFieldError('gpay_id', 'GPay number / UPI ID is required'); hasError = true;
+        }
+      }
+
+      if (hasError) return;
+      if (!user) { showToast('User not logged in', 'error'); return; }
+
+      let account = '';
+      if (method === 'upi')   account = document.getElementById('upi_id').value.trim();
+      if (method === 'bank')  account = `AC:${document.getElementById('bank_account').value.trim()} IFSC:${document.getElementById('bank_ifsc').value.trim()}`;
+      if (method === 'paytm') account = document.getElementById('paytm_id').value.trim();
+      if (method === 'gpay')  account = document.getElementById('gpay_id').value.trim();
+
+      const fee       = +(amount * PLATFORM_FEE).toFixed(2);
+      const netAmount = +(amount - fee).toFixed(2);
+      _pendingPayload = { user_email: user.email, amount: parseFloat(amount), method, account, note };
+
+      const methodLabels = { upi: '🔗 UPI', bank: '🏦 Bank Transfer', paytm: '💙 Paytm', gpay: '💚 GPay' };
+      const row = (k, v, color) => `<div style="display:flex;justify-content:space-between;font-size:14px;padding:5px 0;">
+        <span style="color:#64748b;font-weight:600;">${k}</span>
+        <span style="color:${color};font-weight:700;">${v}</span></div>`;
+      document.getElementById('confirmDetails').innerHTML =
+        row('Withdrawal Amount', `₹${amount.toLocaleString('en-IN')}`, '#1e293b') +
+        row('− Platform Fee (5%)', `-₹${fee.toLocaleString('en-IN')}`, '#ef4444') +
+        `<div style="height:1px;background:#e8edf5;margin:4px 0;"></div>` +
+        row('You Receive', `₹${netAmount.toLocaleString('en-IN')}`, '#667eea') +
+        row('Payment Method', methodLabels[method] || method, '#1e293b') +
+        row('Account', account, '#1e293b') +
+        (note ? row('Note', note, '#1e293b') : '');
+
+      const overlay = document.getElementById('confirmOverlay');
+      overlay.style.display = 'flex';
+    }
+
+    function closeConfirm() {
+      document.getElementById('confirmOverlay').style.display = 'none';
+      _pendingPayload = null;
+    }
+
+    async function confirmSubmit() {
+      if (!_pendingPayload) return;
+      const btn = document.querySelector('#confirmOverlay button:last-child');
+      btn.textContent = '⏳ Submitting...';
+      btn.disabled = true;
+      try {
+        const user = await getCurrentUser();
+        await submitWithdrawalDirect(_pendingPayload);
+        // Save payment info to profile if first time
+        await saveWiInfoFromWithdrawal(user, _pendingPayload.method, _pendingPayload.account);
+        closeConfirm();
+        showToast('✅ Withdrawal request submitted!');
+        document.querySelector('#withdrawalForm form').reset();
+        clearAllFieldErrors();
+        document.querySelectorAll('.method-pill').forEach((p,i) => p.classList.toggle('active', i===0));
+        document.getElementById('paymentMethod').value = 'upi';
+        ['upi','bank','paytm','gpay'].forEach(m => {
+          document.getElementById('fields-' + m).style.display = (m === 'upi') ? '' : 'none';
+        });
+        autoFillMethod('upi');
+        renderHistory();
+        await loadStats();
+        document.getElementById('amountPreview').style.display = 'none';
+        document.getElementById('amountError').style.display = 'none';
+      } catch (err) {
+        closeConfirm();
+        showToast('❌ ' + (err.message || 'Failed to submit request'), 'error');
+      }
+    }
+
+    async function logout() {
+      if (typeof _supa !== 'undefined') await _supa.auth.signOut().catch(() => {});
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = '../../index.html';
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      const body = document.body;
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      body.classList.toggle('sidebar-open');
+    }
+
+    function closeMobileSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      const body = document.body;
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        body.classList.remove('sidebar-open');
+      }
+    }
+
+    (async function () {
+      // Pre-populate sidebar user synchronously from localStorage (no flash)
+      const _cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const _token = localStorage.getItem('adminToken');
+      let _preEmail = _cu.email || '';
+      if (!_preEmail && _token) {
+        try { const p = JSON.parse(atob(_token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))); _preEmail = p.email || ''; } catch(e) {}
+      }
+      if (_preEmail) {
+        const _preName = _cu.user_metadata?.name || _cu.user_metadata?.full_name || _cu.name || _preEmail.split('@')[0];
+        const sidebarUser = document.getElementById('sidebarUser');
+        if (sidebarUser) { sidebarUser.style.display = 'flex'; sidebarUser.style.flexDirection = 'column'; sidebarUser.style.gap = '5px'; }
+        const el_name = document.getElementById('sidebarUserName');
+        const el_email = document.getElementById('sidebarUserEmail');
+        const el_avatar = document.getElementById('sidebarAvatar');
+        if (el_name) el_name.textContent = _preName;
+        if (el_email) el_email.textContent = _preEmail;
+        if (el_avatar) el_avatar.textContent = _preName.charAt(0).toUpperCase();
+      }
+
+      const user = await getCurrentUser();
+      if (!user) return;
+      const sidebarUser = document.getElementById('sidebarUser');
+      if (sidebarUser) {
+        sidebarUser.style.display = 'flex';
+        sidebarUser.style.flexDirection = 'column';
+        sidebarUser.style.gap = '5px';
+      }
+      const userName = user.user_metadata?.name || user.user_metadata?.full_name || user.name || user.email.split('@')[0];
+      const userEmail = user.email;
+      const sidebarUserName = document.getElementById('sidebarUserName');
+      const sidebarUserEmail = document.getElementById('sidebarUserEmail');
+      const sidebarAvatar = document.getElementById('sidebarAvatar');
+      if (sidebarUserName) sidebarUserName.textContent = userName;
+      if (sidebarUserEmail) sidebarUserEmail.textContent = userEmail;
+      if (sidebarAvatar) sidebarAvatar.textContent = userName.charAt(0).toUpperCase();
+
+      // Super Admin button injected by super-admin-btn.js
+    })();
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadStats();
+      renderHistory();
+    });
+  </script>
+  
+  <script src="../super-admin-btn.js"></script>
+  <style>
+    .cd-wrap { position: relative; display: inline-flex; align-items: center; font-family: inherit; }
+    .cd-btn { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px; min-width: 100px; background: #fff !important; border: 1.5px solid #e2e8f0 !important; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; outline: none; user-select: none; box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important; transition: border-color .18s, box-shadow .18s, color .18s; white-space: nowrap; color: #334155 !important; transform: none !important; }
+    .cd-btn:hover { border-color: #a5b4fc !important; color: #667eea !important; box-shadow: 0 2px 8px rgba(102,126,234,0.12) !important; transform: none !important; }
+    .cd-btn.open { border-color: #667eea !important; color: #667eea !important; box-shadow: 0 0 0 3px rgba(102,126,234,0.15) !important; }
+    .cd-btn svg { flex-shrink: 0; transition: transform .22s; color: inherit; }
+    .cd-btn.open svg { transform: rotate(180deg); }
+    .cd-label { flex: 1; text-align: left; color: inherit; }
+    .cd-list { position: fixed; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px; box-shadow: 0 8px 32px rgba(102,126,234,0.14), 0 2px 8px rgba(0,0,0,0.08); z-index: 99999; overflow: hidden; padding: 4px; animation: cdDrop .18s cubic-bezier(.22,1,.36,1); }
+    @keyframes cdDrop { from { opacity:0; transform:translateY(-6px) scale(.97); } to { opacity:1; transform:none; } }
+    .cd-item { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 500; color: #334155; cursor: pointer; transition: background .14s, color .14s; white-space: nowrap; }
+    .cd-item:hover { background: #f0f4ff; color: #667eea; }
+    .cd-item.selected { background: linear-gradient(135deg,#667eea,#764ba2); color: #fff; font-weight: 700; }
+    .cd-item.selected:hover { background: linear-gradient(135deg,#5a6fd6,#6a3f96); }
+    .cd-check { margin-left: auto; opacity: 0; font-size: 11px; }
+    .cd-item.selected .cd-check { opacity: 1; }
+    body.dark-mode .cd-btn, html.dark-mode .cd-btn { background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important; box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important; transform: none !important; }
+    body.dark-mode .cd-btn:hover, html.dark-mode .cd-btn:hover { border-color: #7c6af7 !important; color: #a78bfa !important; transform: none !important; }
+    body.dark-mode .cd-btn.open, html.dark-mode .cd-btn.open { border-color: #7c6af7 !important; color: #a78bfa !important; box-shadow: 0 0 0 3px rgba(124,106,247,0.18) !important; }
+    body.dark-mode .cd-list, html.dark-mode .cd-list { background: #1c2333 !important; border-color: #30363d !important; box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important; }
+    body.dark-mode .cd-item, html.dark-mode .cd-item { color: #c9d1d9 !important; }
+    body.dark-mode .cd-item:hover, html.dark-mode .cd-item:hover { background: #21293d !important; color: #a78bfa !important; }
+    body.dark-mode .cd-item.selected, html.dark-mode .cd-item.selected { background: linear-gradient(135deg,#4c3d9e,#3d2f7a) !important; color: #e2d9f3 !important; }
+  </style>
+  <script>
+    window._wdPageSize = 10;
+    window._wdPage = 1;
+    function cdToggle(id) {
+      const list = document.getElementById('cdList-' + id);
+      const btn  = document.querySelector('#cdWrap-' + id + ' .cd-btn');
+      const open = list.style.display !== 'none';
+      document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+      document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      if (!open) {
+        if (list.parentNode !== document.body) document.body.appendChild(list);
+        const rect = btn.getBoundingClientRect();
+        list.style.position = 'fixed';
+        list.style.left = 'auto';
+        list.style.right = (window.innerWidth - rect.right) + 'px';
+        list.style.top = (rect.bottom + 6) + 'px';
+        list.style.minWidth = rect.width + 'px';
+        list.style.display = '';
+        btn.classList.add('open');
+      }
+    }
+    function cdWdPageSize(value, label) {
+      document.getElementById('cdLabel-wdPageSize').textContent = label;
+      document.querySelectorAll('#cdList-wdPageSize .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-wdPageSize').style.display = 'none';
+      document.querySelector('#cdWrap-wdPageSize .cd-btn').classList.remove('open');
+      window._wdPageSize = value === 'all' ? 'all' : parseInt(value);
+      window._wdPage = 1;
+      _renderWdPage();
+    }
+    function _cdCloseAll() {
+      document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+      document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.cd-wrap') && !e.target.closest('.cd-list')) _cdCloseAll();
+    });
+    document.querySelector('.main').addEventListener('scroll', _cdCloseAll, { passive: true });
+    window.addEventListener('scroll', _cdCloseAll, { passive: true });
+    document.addEventListener('touchmove', _cdCloseAll, { passive: true });
+  </script>
+</body>
+</html>

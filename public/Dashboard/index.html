@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script>!function () { var d = localStorage.getItem('earnify_dark_mode') === '1'; document.documentElement.classList.toggle('dark-mode', d); if(d){document.documentElement.style.background='#0d1117';document.documentElement.style.colorScheme='dark';} var s=document.createElement('style');s.id='mob-nav-flash-fix';s.textContent=d?'.mob-nav{background:#0d1117!important;border-top-color:#30363d!important;transition:none!important}.mob-nav-item{color:#8b949e!important;transition:none!important}.mob-nav-item svg{stroke:#8b949e!important;transition:none!important}.cd-btn{background:#1c2333!important;border-color:#30363d!important;color:#8b949e!important;transition:none!important}':'.mob-nav{background:#ffffff!important;border-top-color:#e8edf5!important;transition:none!important}.mob-nav-item{color:#94a3b8!important;transition:none!important}.cd-btn{background:#fff!important;border-color:#e2e8f0!important;color:#475569!important;transition:none!important}';document.head.appendChild(s);document.addEventListener('DOMContentLoaded', function () { document.body.classList.toggle('dark-mode', d); setTimeout(function(){var el=document.getElementById('mob-nav-flash-fix');if(el)el.remove();},400); }); }();</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Dashboard - Earnify</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="landing.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="../dark-theme.css">
+  <style>
+    #navNmWrap {
+      display: flex;
+      align-items: center;
+    }
+
+    .sb-nm-toggle {
+      position: relative;
+      width: 80px;
+      height: 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      font-family: inherit;
+      background: white;
+      box-shadow: 4px 4px 8px #b8bec7, -4px -4px 8px #ffffff;
+      transition: background .4s, box-shadow .4s;
+      outline: none;
+    }
+
+    body.dark-mode .sb-nm-toggle,
+    html.dark-mode .sb-nm-toggle {
+      background: #1e2535;
+      box-shadow: 4px 4px 8px #0d1117, -3px -3px 7px #2d3a4a;
+    }
+
+    .sb-nm-knob {
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      box-shadow: 2px 2px 5px #b8bec7, -1px -1px 4px #ffffff;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      line-height: 1;
+      transition: left .4s cubic-bezier(.4, 0, .2, 1), background .4s, box-shadow .4s;
+      z-index: 2;
+    }
+
+    body.dark-mode .sb-nm-knob,
+    html.dark-mode .sb-nm-knob {
+      left: 52px;
+      background: linear-gradient(135deg, #3a4a5c, #2d3748);
+      box-shadow: 2px 2px 5px #0d1117, -1px -1px 4px #3a4a5c;
+    }
+
+    .sb-nm-label {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      pointer-events: none;
+      z-index: 1;
+      transition: opacity .3s;
+      white-space: nowrap;
+    }
+
+    .sb-nm-label-light {
+      right: 9px;
+      color: #64748b;
+      opacity: 1;
+    }
+
+    .sb-nm-label-dark {
+      left: 9px;
+      color: #a78bfa;
+      opacity: 0;
+    }
+
+    body.dark-mode .sb-nm-label-light,
+    html.dark-mode .sb-nm-label-light {
+      opacity: 0;
+    }
+
+    body.dark-mode .sb-nm-label-dark,
+    html.dark-mode .sb-nm-label-dark {
+      opacity: 1;
+    }
+
+    @media (max-width:768px) {
+      #navNmWrap {
+        display: none;
+      }
+      #mobileNmToggle {
+        display: flex !important;
+      }
+    }
+
+    /* ── cd-btn dropdown ── */
+    .cd-wrap { position: relative; display: inline-flex; align-items: center; font-family: inherit; }
+    .cd-btn {
+      display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; min-width: 110px;
+      background: #fff; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 12px; font-weight: 600;
+      color: #475569; cursor: pointer; font-family: inherit; outline: none; user-select: none;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      transition: border-color .18s, box-shadow .18s, color .18s, background .18s;
+      white-space: nowrap;
+    }
+    .cd-btn:hover { border-color: #a5b4fc; color: #667eea !important; box-shadow: 0 2px 8px rgba(102,126,234,0.12); }
+    .cd-btn.open { border-color: #667eea; color: #667eea !important; box-shadow: 0 0 0 3px rgba(102,126,234,0.15); }
+    .cd-btn svg { flex-shrink: 0; transition: transform .22s; }
+    .cd-btn.open svg { transform: rotate(180deg); }
+    .cd-label { flex: 1; text-align: left; }
+    .cd-list {
+      position: fixed; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(102,126,234,0.14), 0 2px 8px rgba(0,0,0,0.08);
+      z-index: 99999; overflow-y: auto; padding: 4px; max-height: calc(100vh - 80px);
+      animation: cdDrop .18s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes cdDrop { from { opacity:0; transform:translateY(-6px) scale(.97); } to { opacity:1; transform:none; } }
+    .cd-item {
+      display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px;
+      font-size: 13px; font-weight: 500; color: #334155;
+      cursor: pointer; transition: background .14s, color .14s; white-space: nowrap;
+    }
+    .cd-item:hover { background: #f0f4ff; color: #667eea; }
+    .cd-item.selected { background: linear-gradient(135deg,#667eea,#764ba2); color: #fff; font-weight: 700; }
+    .cd-check { margin-left: auto; opacity: 0; font-size: 11px; }
+    .cd-item.selected .cd-check { opacity: 1; }
+    html.dark-mode .cd-btn, body.dark-mode .cd-btn { background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important; box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important; }
+    html.dark-mode .cd-btn:hover, body.dark-mode .cd-btn:hover { border-color: #7c6af7 !important; color: #a78bfa !important; }
+    html.dark-mode .cd-btn.open, body.dark-mode .cd-btn.open { border-color: #7c6af7 !important; color: #a78bfa !important; box-shadow: 0 0 0 3px rgba(124,106,247,0.18) !important; }
+    html.dark-mode .cd-list, body.dark-mode .cd-list { background: #1c2333 !important; border-color: #30363d !important; box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important; }
+    html.dark-mode .cd-item, body.dark-mode .cd-item { color: #c9d1d9 !important; }
+    html.dark-mode .cd-item:hover, body.dark-mode .cd-item:hover { background: #21293d !important; color: #a78bfa !important; }
+    html.dark-mode .cd-item.selected, body.dark-mode .cd-item.selected { background: linear-gradient(135deg,#4c3d9e,#3d2f7a) !important; color: #e2d9f3 !important; }
+    /* dash-section-head layout */
+    .dash-section-head h2 { flex: 1; min-width: 0; }
+    /* pagination */
+    #dashPagination > div {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 16px; background: white; border-radius: 12px;
+      border: 1px solid rgba(0,0,0,0.06); flex-wrap: wrap; gap: 8px;
+    }
+    #dashPagination > div > div { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+    #dashPagination button:hover:not([disabled]) { border-color: #667eea !important; color: #667eea !important; }
+    html.dark-mode #dashPagination > div, body.dark-mode #dashPagination > div { background: #161b22 !important; border-color: rgba(124,106,247,0.25) !important; }
+    html.dark-mode #dashPagination button:not([style*='linear-gradient']), body.dark-mode #dashPagination button:not([style*='linear-gradient']) { background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important; }
+    html.dark-mode #dashPagination span, body.dark-mode #dashPagination span { color: #484f58 !important; }
+  </style>
+<!-- mob-nav-theme-fix -->
+  <style>
+    html:not(.dark-mode) .mob-nav, body:not(.dark-mode) .mob-nav {
+      background: #ffffff !important;
+      border-top: 1px solid #e8edf5 !important;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.08) !important;
+    }
+    html.dark-mode .mob-nav, body.dark-mode .mob-nav {
+      background: #0d1117 !important;
+      border-top: 1px solid #30363d !important;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.6) !important;
+    }
+    .mob-nav, .mob-nav * { transition: none !important; }
+  </style>
+<!-- /mob-nav-theme-fix -->
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-header">
+        <a href="../" style="text-decoration:none;color:inherit;">
+          <h1 class="logo">💰 <span class="logo-text">Earnify</span></h1>
+        </a>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div id="mobileNmToggle" style="display:none;align-items:center;">
+            <button class="sb-nm-toggle" id="mobileNmBtn" onclick="toggleDarkMode()" title="Toggle dark/light mode">
+              <span class="sb-nm-knob" id="mobileNmKnob" style="display:flex;align-items:center;justify-content:center;font-size:14px;line-height:1;"></span>
+              <span class="sb-nm-label sb-nm-label-light">LIGHT</span>
+              <span class="sb-nm-label sb-nm-label-dark">DARK</span>
+            </button>
+          </div>
+          <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <span class="hamburger"></span><span class="hamburger"></span><span class="hamburger"></span>
+          </button>
+        </div>
+      </div>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="🔍 Search purchases..." oninput="searchPurchases()">
+      </div>
+      <div class="nav-links">
+        <a href="../#resources">Resources</a>
+        <a href="../About/">About</a>
+        <a href="../Dashboard/" class="nav-active">Dashboard</a>
+        <div class="sb-nm-wrap" id="navNmWrap">
+          <button class="sb-nm-toggle" id="sbNmToggle" onclick="toggleDarkMode()" title="Toggle dark/light mode">
+            <span class="sb-nm-knob" id="sbNmKnob"></span>
+            <span class="sb-nm-label sb-nm-label-light">LIGHT</span>
+            <span class="sb-nm-label sb-nm-label-dark">DARK</span>
+          </button>
+        </div>
+        <div id="userMenu" class="user-menu" style="display:flex;">
+          <button class="user-menu-btn" onclick="toggleUserDropdown()">
+            <span class="user-avatar">👤</span>
+            <span id="userName">User</span>
+            <span style="font-size:10px;">▼</span>
+          </button>
+          <div id="userDropdown" class="user-dropdown">
+            <div class="user-dropdown-header">
+              <div class="udh-avatar" id="userAvatarInitial">U</div>
+              <div class="udh-info">
+                <div class="udh-name" id="userDisplayName">User</div>
+                <div class="udh-badge">Member</div>
+                <div class="udh-email" id="userEmail">user@email.com</div>
+              </div>
+            </div>
+            <a href="../admin/Statistics/"><i class="fas fa-chart-bar"></i> My Statistics</a>
+            <a href="../admin/Resources/"><i class="fas fa-plus"></i> Add Resources</a>
+            <a href="../admin/Profile/"><i class="fas fa-user"></i> View Profile</a>
+            <div class="udh-divider"></div>
+            <a onclick="logout()" class="udh-logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-sidebar" id="mobileSidebar">
+      <div class="mobile-sidebar-header">
+        <h2>💰 Earnify</h2>
+        <button class="close-sidebar" onclick="toggleMobileMenu()">&times;</button>
+      </div>
+      <div class="mobile-sidebar-content">
+        <a href="../" onclick="toggleMobileMenu()">🏠 Home</a>
+        <a href="../#resources" onclick="toggleMobileMenu()">📚 Resources</a>
+        <a href="../Dashboard/" onclick="toggleMobileMenu()">📊 Dashboard</a>
+        <div class="mobile-sidebar-divider"></div>
+        <div id="mobileUserMenu" class="mobile-user-section" style="display:block;">
+          <div class="mobile-user-info">
+            <div class="mobile-user-avatar">👤</div>
+            <div>
+              <div class="mobile-user-name" id="mobileUserName">User</div>
+              <div class="mobile-user-email" id="mobileUserEmail">user@email.com</div>
+            </div>
+          </div>
+          <a href="../admin/Profile/" onclick="toggleMobileMenu()">👤 View Profile</a>
+          <a href="../admin/Resources/" onclick="toggleMobileMenu()">➕ Add Resources</a>
+          <a onclick="logout();toggleMobileMenu()">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+    <div class="mobile-sidebar-overlay" id="mobileSidebarOverlay" onclick="toggleMobileMenu()"></div>
+  </nav>
+
+  <!-- Navbar auth state: populate user info synchronously after nav exists -->
+  <script>
+    !function() {
+      try {
+        var cu   = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        var name = (cu.user_metadata && cu.user_metadata.name) || (cu.email && cu.email.split('@')[0]) || 'User';
+        var email = cu.email || '';
+        var el;
+        el = document.getElementById('userName');         if (el) el.textContent = name;
+        el = document.getElementById('userDisplayName');  if (el) el.textContent = name;
+        el = document.getElementById('userEmail');        if (el) el.textContent = email;
+        el = document.getElementById('userAvatarInitial');if (el) el.textContent = name.charAt(0).toUpperCase();
+        el = document.getElementById('mobileUserName');   if (el) el.textContent = name;
+        el = document.getElementById('mobileUserEmail');  if (el) el.textContent = email;
+        el = document.getElementById('bannerName');       if (el) el.textContent = name;
+      } catch(e) {}
+    }();
+  </script>
+
+  <div class="dashboard-wrapper">
+
+    <!-- Banner -->
+    <div class="dash-banner">
+      <div class="dash-banner-inner">
+        <div class="dash-banner-left">
+          <h1>Welcome back, <span id="bannerName">there</span> 👋</h1>
+          <p>All your purchased resources are here — download anytime.</p>
+        </div>
+        <div class="dash-banner-actions">
+          <a href="../#resources" class="dash-action-btn primary"><i class="fas fa-shopping-bag"></i> Browse
+            Resources</a>
+          <a href="../admin/Resources/" class="dash-action-btn secondary"><i class="fas fa-plus"></i> Sell a
+            Resource</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="dash-content">
+
+      <!-- Stats -->
+      <div class="dash-stats" id="dashStats">
+        <div class="stat-card">
+          <div class="shimmer-wrap" style="width:100%">
+            <div class="sh sh-title"></div>
+            <div class="sh sh-badge"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="shimmer-wrap" style="width:100%">
+            <div class="sh sh-title"></div>
+            <div class="sh sh-badge"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="shimmer-wrap" style="width:100%">
+            <div class="sh sh-title"></div>
+            <div class="sh sh-badge"></div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="shimmer-wrap" style="width:100%">
+            <div class="sh sh-title"></div>
+            <div class="sh sh-badge"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Search (hidden on desktop) -->
+      <div class="dash-mobile-search">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInputMobile" placeholder="Search purchases..." oninput="searchPurchases()">
+      </div>
+
+      <!-- Section head + filters -->
+      <div class="dash-section-head">
+        <h2><i class="fas fa-box-open"></i> My Purchases</h2>
+        <div class="cd-wrap" id="cdWrap-dashPageSize">
+          <button class="cd-btn" onclick="cdToggle('dashPageSize')" type="button">
+            <span class="cd-label" id="cdLabel-dashPageSize">10 / page</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cd-list" id="cdList-dashPageSize" style="display:none;" data-align="right">
+            <div class="cd-item selected" onclick="cdDashPageSize('10','10 / page')">10 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashPageSize('30','30 / page')">30 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashPageSize('50','50 / page')">50 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashPageSize('100','100 / page')">100 / page<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashPageSize('all','All')">All<span class="cd-check">&#10003;</span></div>
+          </div>
+        </div>
+        <div class="dash-filters">
+          <button class="dash-filter-btn active" onclick="filterPurchases('all',this)">All</button>
+          <button class="dash-filter-btn" onclick="filterPurchases('pdf',this)">📄 PDF</button>
+          <button class="dash-filter-btn" onclick="filterPurchases('excel',this)">📊 Excel</button>
+          <button class="dash-filter-btn" onclick="filterPurchases('exam',this)">📝 Exam</button>
+          <button class="dash-filter-btn" onclick="filterPurchases('freelance',this)">💼 Services</button>
+        </div>
+        <div class="cd-wrap" id="cdWrap-dashFilter">
+          <button class="cd-btn" onclick="cdToggle('dashFilter')" type="button">
+            <i class="fas fa-filter" style="font-size:0.78rem;color:#667eea;"></i>
+            <span class="cd-label" id="cdLabel-dashFilter">All Types</span>
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="cd-list" id="cdList-dashFilter" style="display:none;" data-align="left">
+            <div class="cd-item selected" onclick="cdDashFilter('all','All Types')">All Types<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashFilter('pdf','📄 PDF')">📄 PDF<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashFilter('excel','📊 Excel')">📊 Excel<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashFilter('exam','📝 Exam')">📝 Exam<span class="cd-check">&#10003;</span></div>
+            <div class="cd-item" onclick="cdDashFilter('freelance','💼 Services')">💼 Services<span class="cd-check">&#10003;</span></div>
+          </div>
+          <!-- hidden select kept for JS filterBySelect sync -->
+          <select class="dash-filter-select" style="display:none;" onchange="filterBySelect(this.value)">
+            <option value="all">All Types</option>
+            <option value="pdf">📄 PDF</option>
+            <option value="excel">📊 Excel</option>
+            <option value="exam">📝 Exam</option>
+            <option value="freelance">💼 Services</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table -->
+      <div class="purchases-grid" id="purchases"></div>
+      <div id="dashPagination" style="font-family:inherit;margin-top:16px;"></div>
+
+    </div>
+  </div>
+
+  <!-- Detail Modal -->
+  <div class="detail-modal-overlay" id="detailOverlay" onclick="closeModal()">
+    <div class="detail-modal" onclick="event.stopPropagation()">
+      <button class="detail-modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      <div class="detail-modal-body" id="detailModalBody"></div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3 class="footer-logo"><a href="../" class="footer-logo-link">💰 <span
+                class="footer-logo-text">Earnify</span></a></h3>
+          <p class="footer-desc">Your trusted learning marketplace for premium study materials, templates, and
+            professional services.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="../About/">About Us</a></li>
+            <li><a href="../Blog/">Blog</a></li>
+            <li><a href="../FAQ/">FAQ's</a></li>
+            <li><a href="../Terms/">Terms & Conditions</a></li>
+            <li><a href="../Privacy/">Privacy Policy</a></li>
+            <li><a href="../Contact/">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Info</h4>
+          <p class="footer-contact">📧 support@earnify.com</p>
+          <p class="footer-contact">📞 +11 60464 53263</p>
+          <div class="social-icons">
+            <a title="Facebook"><i class="fab fa-facebook"></i></a>
+            <a title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 Earnify. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="mob-nav">
+    <a href="../" class="mob-nav-item" id="mnHome">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="../#resources" class="mob-nav-item" id="mnResources">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15"/></svg>
+      <span>Resources</span>
+    </a>
+    <a href="../admin/Resources/" class="mob-nav-add" id="mnAdd">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </a>
+    <a href="../Blog/" class="mob-nav-item" id="mnBlog">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4z"/></svg>
+      <span>Blog</span>
+    </a>
+    <a href="../Dashboard/" class="mob-nav-item active" id="mnDash">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      <span>Dashboard</span>
+    </a>
+  </nav>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const supabaseUrl = 'https://emnrgsgerfjvndexomro.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MjAyMTAsImV4cCI6MjA4Nzk5NjIxMH0.uXr8lipxLbB4D_5JwQkpLzc-HudQw23tOFBfV4C6hqY';
+    const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+  </script>
+  <script src="api-config.js"></script>
+  <script src="../admin/toast.js"></script>
+  <script src="../admin/auth-guard.js"></script>
+  <script src="landing.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../dark-theme.js"></script>
+
+  <script>
+    window._dashPageSize = 10;
+    window._dashPage = 1;
+    function cdToggle(id) {
+      const list = document.getElementById('cdList-' + id);
+      const btn  = document.querySelector('#cdWrap-' + id + ' .cd-btn');
+      const open = list.style.display !== 'none';
+      document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+      document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      if (!open) {
+        if (list.parentNode !== document.body) document.body.appendChild(list);
+        const rect = btn.getBoundingClientRect();
+        const alignRight = list.getAttribute('data-align') === 'right';
+        list.style.position = 'fixed';
+        list.style.left = alignRight ? 'auto' : rect.left + 'px';
+        list.style.right = alignRight ? (window.innerWidth - rect.right) + 'px' : 'auto';
+        list.style.minWidth = rect.width + 'px';
+        list.style.display = '';
+        const listH = list.offsetHeight;
+        const spaceBelow = window.innerHeight - rect.bottom - 8;
+        list.style.top = (spaceBelow < listH && rect.top > listH) ? 'auto' : (rect.bottom + 6) + 'px';
+        list.style.bottom = (spaceBelow < listH && rect.top > listH) ? (window.innerHeight - rect.top + 6) + 'px' : 'auto';
+        btn.classList.add('open');
+      }
+    }
+    function cdDashPageSize(value, label) {
+      document.getElementById('cdLabel-dashPageSize').textContent = label;
+      document.querySelectorAll('#cdList-dashPageSize .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-dashPageSize').style.display = 'none';
+      document.querySelector('#cdWrap-dashPageSize .cd-btn').classList.remove('open');
+      window._dashPageSize = value === 'all' ? 'all' : parseInt(value);
+      window._dashPage = 1;
+      _renderDashPage();
+    }
+    function cdDashFilter(value, label) {
+      document.getElementById('cdLabel-dashFilter').textContent = label;
+      document.querySelectorAll('#cdList-dashFilter .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-dashFilter').style.display = 'none';
+      document.querySelector('#cdWrap-dashFilter .cd-btn').classList.remove('open');
+      // Sync hidden select
+      const sel = document.querySelector('.dash-filter-select');
+      if (sel) sel.value = value;
+      // Trigger filter
+      filterBySelect(value);
+    }
+    document.addEventListener('click', function(e) {
+      if (!e.target.closest('.cd-wrap')) {
+        document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+        document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      }
+    });
+    window.addEventListener('scroll', function() {
+      document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+      document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+    }, { passive: true });
+  </script>
+
+
+</body>
+<script>
+  // Resolve user from currentUser or adminToken JWT or Supabase auth
+  function _jwtPay(t) { try { return JSON.parse(atob(t.split('.')[1].replace(/-/g, '+').replace(/_/g, '/'))); } catch (e) { return null; } }
+  let currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+  if (!currentUser) {
+    const tok = localStorage.getItem('adminToken');
+    if (tok) { const p = _jwtPay(tok); if (p?.email) currentUser = { email: p.email, id: p.sub, user_metadata: {} }; }
+  }
+  // If still no user, try Supabase session (async — will be resolved in loadPurchases)
+  if (!currentUser) {
+    supabaseClient.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        currentUser = user;
+        const dName = user.user_metadata?.name || user.email?.split('@')[0] || 'there';
+        const dEmail = user.email || '';
+    document.getElementById('bannerName').textContent = dName;
+        document.getElementById('userName').textContent = dName;
+        document.getElementById('userDisplayName').textContent = dName;
+        document.getElementById('userEmail').textContent = dEmail;
+        const avi1 = document.getElementById('userAvatarInitial'); if(avi1) avi1.textContent = dName.charAt(0).toUpperCase();
+        document.getElementById('mobileUserName').textContent = dName;
+        document.getElementById('mobileUserEmail').textContent = dEmail;
+        loadPurchases();
+      } else {
+        // auth-guard.js handles the login modal — do nothing
+      }
+    });
+  }
+
+  const dName = currentUser?.user_metadata?.name || currentUser?.email?.split('@')[0] || 'there';
+  const dEmail = currentUser?.email || '';
+  if (currentUser) {
+    document.getElementById('bannerName').textContent = dName;
+    document.getElementById('userName').textContent = dName;
+    document.getElementById('userDisplayName').textContent = dName;
+    document.getElementById('userEmail').textContent = dEmail;
+    const avi2 = document.getElementById('userAvatarInitial'); if (avi2) avi2.textContent = dName.charAt(0).toUpperCase();
+    document.getElementById('mobileUserName').textContent = dName;
+    document.getElementById('mobileUserEmail').textContent = dEmail;
+    loadPurchases();
+  }
+
+  let allPurchases = [];
+  const typeIcons = { pdf: '📄', excel: '📊', exam: '📝', freelance: '💼' };
+  const tc = t => ['pdf', 'excel', 'exam', 'freelance'].includes(t) ? t : 'default';
+
+  /* ── Search ── */
+  function searchPurchases() {
+    const desktopVal = document.getElementById('searchInput')?.value || '';
+    const mobileVal = document.getElementById('searchInputMobile')?.value || '';
+    const q = (desktopVal || mobileVal).toLowerCase();
+    renderPurchases(q ? allPurchases.filter(p => {
+      const r = p.resources;
+      return r && (r.title?.toLowerCase().includes(q) || r.type?.toLowerCase().includes(q) ||
+        p.payment_id?.toLowerCase().includes(q) || p.order_id?.toLowerCase().includes(q));
+    }) : allPurchases);
+  }
+
+  /* ── Filter ── */
+  function filterPurchases(type, btn) {
+    document.querySelectorAll('.dash-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelector('.dash-filter-select').value = type;
+    // Sync custom cd dropdown label
+    const labelMap = { all: 'All Types', pdf: '📄 PDF', excel: '📊 Excel', exam: '📝 Exam', freelance: '💼 Services' };
+    const cdLabel = document.getElementById('cdLabel-dashFilter');
+    if (cdLabel) cdLabel.textContent = labelMap[type] || 'All Types';
+    document.querySelectorAll('#cdList-dashFilter .cd-item').forEach(el => {
+      el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + type + "'"));
+    });
+    renderPurchases(type === 'all' ? allPurchases : allPurchases.filter(p => p.resources?.type === type));
+  }
+
+  function filterBySelect(type) {
+    const btn = [...document.querySelectorAll('.dash-filter-btn')].find(b =>
+      b.getAttribute('onclick').includes(`'${type}'`));
+    document.querySelectorAll('.dash-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderPurchases(type === 'all' ? allPurchases : allPurchases.filter(p => p.resources?.type === type));
+  }
+
+  /* ── Load ── */
+  async function loadPurchases() {
+    showShimmer();
+    try {
+      // Get real user ID from Supabase auth (most reliable)
+      let userId = currentUser?.id;
+      if (!userId || userId === 'undefined') {
+        const { data: { user } } = await supabaseClient.auth.getUser();
+        userId = user?.id;
+        if (userId && currentUser) currentUser.id = userId;
+      }
+      if (!userId) throw new Error('User ID not found');
+      const res = await fetch(API_CONFIG.getURL(`${API_CONFIG.endpoints.payments}/${userId}`));
+      allPurchases = res.ok ? await res.json() : [];
+    } catch (e) {
+      console.error('[Dashboard] loadPurchases error =>', e);
+      allPurchases = [];
+    }
+    hideShimmer();
+    renderStats(allPurchases);
+    renderPurchases(allPurchases);
+  }
+
+  /* ── Stats ── */
+  function renderStats(list) {
+    const total = list.length;
+    const spent = list.reduce((s, p) => s + parseFloat(p.resources?.price || 0), 0);
+    const types = [...new Set(list.map(p => p.resources?.type).filter(Boolean))].length;
+    const latest = list.length ? new Date(list[0].created_at).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }) : '—';
+    document.getElementById('dashStats').innerHTML = `
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fas fa-box-open"></i></div>
+          <div><div class="stat-num">${total}</div><div class="stat-label">Total Purchases</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fas fa-coins"></i></div>
+          <div><div class="stat-num">₹${spent.toLocaleString('en-IN')}</div><div class="stat-label">Total Spent</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fas fa-layer-group"></i></div>
+          <div><div class="stat-num">${types}</div><div class="stat-label">Resource Types</div></div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon amber"><i class="fas fa-calendar-check"></i></div>
+          <div><div class="stat-num">${latest}</div><div class="stat-label">Last Purchase</div></div>
+        </div>`;
+  }
+
+  /* ── Shimmer ── */
+  function showShimmer() {
+    const wrap = document.querySelector('.dash-filter-select-wrap');
+    if (wrap) wrap.style.visibility = 'hidden';
+    const skRow = () => `
+        <tr class="shimmer-row">
+          <td>
+            <div class="td-resource">
+              <div class="sh sh-icon"></div>
+              <div class="dash-skel-text">
+                <div class="sh" style="height:13px;width:120px;"></div>
+                <div class="sh" style="height:10px;width:60px;margin-top:6px;border-radius:50px;"></div>
+              </div>
+            </div>
+          </td>
+          <td><div class="sh" style="height:14px;width:50px;"></div></td>
+          <td><div class="sh" style="height:12px;width:80px;"></div></td>
+          <td>
+            <div class="td-actions">
+              <div class="sh" style="height:30px;width:90px;border-radius:8px;"></div>
+              <div class="sh" style="height:30px;width:60px;border-radius:8px;"></div>
+            </div>
+          </td>
+        </tr>`;
+    document.getElementById('purchases').innerHTML = `
+        <div class="shimmer-wrap">
+          <table class="purchases-table">
+            <thead><tr>
+              <th><i class="fas fa-box"></i> Resource</th>
+              <th>₹Price</th>
+              <th class="col-date"><i class="fas fa-calendar"></i> Date</th>
+              <th><i class="fas fa-bolt"></i> Actions</th>
+            </tr></thead>
+            <tbody>${skRow()}${skRow()}${skRow()}${skRow()}</tbody>
+          </table>
+        </div>`;
+  }
+
+  function hideShimmer() {
+    const wrap = document.querySelector('.dash-filter-select-wrap');
+    if (wrap) wrap.style.visibility = '';
+  }
+
+  /* ── Render Table ── */
+  function renderPurchases(list) {
+    const container = document.getElementById('purchases');
+    const valid = list.filter(p => p.resources && !p.resources.hidden_from_users);
+
+    if (!valid.length) {
+      container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon"><img src="/file/empty-cart.png" alt="empty cart" style="width:48px;height:48px;object-fit:contain;"></div>
+            <h2>No Purchases Yet</h2>
+            <p>You haven't made any purchases. Browse our resources to get started!</p>
+            <a href="../#resources" class="empty-cta"><i class="fas fa-shopping-bag"></i> Browse Resources</a>
+          </div>`;
+      const pagEl = document.getElementById('dashPagination');
+      if (pagEl) pagEl.innerHTML = '';
+      return;
+    }
+
+    window._dashAllPurchases = valid;
+    window._dashPage = 1;
+    _renderDashPage();
+  }
+
+  function _renderDashPage() {
+    const valid = window._dashAllPurchases || [];
+    const total = valid.length;
+    const ps = window._dashPageSize === 'all' ? total : window._dashPageSize;
+    const totalPages = Math.ceil(total / ps) || 1;
+    window._dashPage = Math.min(window._dashPage, totalPages);
+    const start = (window._dashPage - 1) * ps;
+    const slice = window._dashPageSize === 'all' ? valid : valid.slice(start, start + ps);
+
+    const rows = slice.map((p, i) => {
+      const r = p.resources;
+      const cls = tc(r.type);
+      const icon = typeIcons[r.type] || '📦';
+      const date = new Date(p.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' });
+      const globalIdx = start + i;
+      return `
+          <tr>
+            <td>
+              <div class="td-resource">
+                <div class="td-icon ${cls}">${icon}</div>
+                <div class="td-resource-top">
+                  <span class="td-title">${r.title || 'Resource'}</span>
+                  <span class="td-badge ${cls}">${r.type || '—'}</span>
+                </div>
+              </div>
+            </td>
+            <td><span class="td-price">₹${r.price || '—'}</span></td>
+            <td><span class="td-date">${date}</span></td>
+            <td>
+              <div class="td-actions">
+                ${r.fileurl
+          ? `<a href="${r.fileurl}" target="_blank" download class="pc-btn download"><i class="fas fa-download"></i> Download</a>`
+          : `<button disabled class="pc-btn download"><i class="fas fa-download"></i> Download</button>`}
+                <button onclick="openModal(${globalIdx})" class="pc-btn view"><i class="fas fa-eye"></i> View</button>
+              </div>
+            </td>
+          </tr>`;
+    }).join('');
+
+    document.getElementById('purchases').innerHTML = `
+        <table class="purchases-table">
+          <thead><tr>
+            <th><i class="fas fa-box"></i> Resource</th>
+            <th></i>₹Price</th>
+            <th class="col-date"><i class="fas fa-calendar"></i> Date</th>
+            <th><i class="fas fa-bolt"></i> Actions</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>`;
+
+    window._purchaseList = valid;
+
+    // Pagination
+    const pagEl = document.getElementById('dashPagination');
+    if (!pagEl) return;
+    if (window._dashPageSize === 'all' || totalPages <= 1) { pagEl.innerHTML = ''; return; }
+    const btnBase   = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid #e2e8f0;background:#f8fafc;color:#64748b;transition:all .2s;';
+    const btnActive = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;';
+    const range = 2; let pages = '';
+    for (let p = 1; p <= totalPages; p++) {
+      if (p===1||p===totalPages||(p>=window._dashPage-range&&p<=window._dashPage+range))
+        pages += `<button onclick="window._dashPage=${p};_renderDashPage()" style="${p===window._dashPage?btnActive:btnBase}">${p}</button>`;
+      else if (p===window._dashPage-range-1||p===window._dashPage+range+1)
+        pages += `<span style="padding:0 2px;color:#94a3b8;">…</span>`;
+    }
+    pagEl.innerHTML = `<div>
+      <span style="font-size:12px;color:#94a3b8;font-weight:500;">Showing ${start+1}–${Math.min(start+ps,total)} of ${total}</span>
+      <div>
+        <button onclick="window._dashPage=Math.max(1,window._dashPage-1);_renderDashPage()" ${window._dashPage===1?'disabled':''} style="${btnBase}opacity:${window._dashPage===1?'.4':'1'};">&#8249; Prev</button>
+        ${pages}
+        <button onclick="window._dashPage=Math.min(${totalPages},window._dashPage+1);_renderDashPage()" ${window._dashPage===totalPages?'disabled':''} style="${btnBase}opacity:${window._dashPage===totalPages?'.4':'1'};">Next &#8250;</button>
+      </div>
+    </div>`;
+  }
+
+  /* ── Modal ── */
+  function openModal(index) {
+    const p = window._purchaseList[index];
+    const r = p.resources;
+    const cls = tc(r.type);
+    const icon = typeIcons[r.type] || '📦';
+    const date = new Date(p.created_at).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+    const status = (p.status || 'completed').toLowerCase();
+    const safeTitle = (r.title || 'Resource').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+    document.getElementById('detailModalBody').innerHTML = `
+        <div class="dm-header">
+          <div class="dm-icon ${cls}">${icon}</div>
+          <div class="dm-title-wrap">
+            <h2 class="dm-title">${r.title || 'Resource'}</h2>
+            <div class="dm-badges">
+              <span class="td-badge ${cls}">${r.type || 'resource'}</span>
+              <span class="td-status ${status}">${status}</span>
+            </div>
+          </div>
+        </div>
+
+        ${r.description ? `<p class="dm-desc">${r.description}</p>` : ''}
+
+        <div class="dm-grid">
+          <div class="dm-field">
+            <div class="dm-field-label">₹ Price</div>
+            <div class="dm-field-val price">₹${r.price || '—'}</div>
+          </div>
+          <div class="dm-field">
+            <div class="dm-field-label"><i class="fas fa-calendar-alt"></i> Purchase Date</div>
+            <div class="dm-field-val">${date}</div>
+          </div>
+          <div class="dm-field">
+            <div class="dm-field-label"><i class="fas fa-receipt"></i> Payment ID</div>
+            <div class="dm-field-val mono">${p.payment_id}</div>
+          </div>
+          <div class="dm-field">
+            <div class="dm-field-label"><i class="fas fa-hashtag"></i> Order ID</div>
+            <div class="dm-field-val mono">${p.order_id || '—'}</div>
+          </div>
+        </div>
+
+        <div class="dm-actions">
+          <button onclick="downloadReceipt('${p.payment_id}','${p.order_id}','${safeTitle}','${r.price || 0}')" class="pc-btn receipt">
+            <i class="fas fa-file-invoice"></i> Download Receipt
+          </button>
+          ${r.fileurl
+        ? `<a href="${r.fileurl}" target="_blank" download class="pc-btn download"><i class="fas fa-download"></i> Download File</a>`
+        : `<button disabled class="pc-btn download"><i class="fas fa-download"></i> No File</button>`}
+          <a href="../Detail/?id=${r.id}" class="pc-btn view"><i class="fas fa-external-link-alt"></i> Full Details Page</a>
+        </div>
+      `;
+    document.getElementById('detailOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('detailOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  /* -- Logout -- */
+  function logout() {
+    ['currentUser', 'userLoggedIn', 'adminToken'].forEach(k => localStorage.removeItem(k));
+    window.location.href = '../';
+  }
+
+  /* ── Receipt PDF ── */
+  function downloadReceipt(paymentId, orderId, title, price) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    doc.setFontSize(22); doc.setTextColor(102, 126, 234);
+    doc.text('EARNIFY', 105, 22, { align: 'center' });
+    doc.setFontSize(13); doc.setTextColor(80, 80, 80);
+    doc.text('Payment Receipt', 105, 31, { align: 'center' });
+    doc.setDrawColor(102, 126, 234); doc.setLineWidth(0.6); doc.line(20, 36, 190, 36);
+    const row = (label, val, y, color) => {
+      doc.setFontSize(11); doc.setFont(undefined, 'normal'); doc.setTextColor(120, 120, 120);
+      doc.text(label, 22, y);
+      doc.setFont(undefined, 'bold');
+      if (color) doc.setTextColor(...color); else doc.setTextColor(40, 40, 40);
+      doc.text(String(val), 75, y);
+    };
+    row('Resource', title, 52);
+    row('Price', '₹' + price, 63, [16, 185, 129]);
+    row('Payment ID', paymentId, 74);
+    row('Order ID', orderId, 85);
+    row('Date', new Date().toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' }), 96);
+    row('Status', 'COMPLETED', 107, [16, 185, 129]);
+    doc.setFontSize(9); doc.setTextColor(160, 160, 160); doc.setFont(undefined, 'normal');
+    doc.text('Thank you for your purchase! — www.earnify.com', 105, 280, { align: 'center' });
+    doc.save(`Earnify_Receipt_${paymentId}.pdf`);
+  }
+
+  loadPurchases();
+</script>
+</body>
+
+</html>
