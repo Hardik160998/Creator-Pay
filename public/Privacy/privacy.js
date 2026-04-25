@@ -1,31 +1,33 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   loadPrivacyContent();
 });
 
 function loadPrivacyContent() {
   showShimmer();
-  setTimeout(() => { loadActualContent(); }, 1500);
+  setTimeout(() => {
+    loadActualContent();
+  }, 1500);
 }
 
 function showShimmer() {
-  const container = document.getElementById('privacyContainer');
+  const container = document.getElementById("privacyContainer");
 
   const patterns = [
-    ['', 'w85', 'w70'],
-    ['', 'w90', ''],
-    ['', '', 'w85', 'w60'],
-    ['', 'w70'],
-    ['', 'w90', 'w85'],
-    ['', '', 'w70'],
-    ['', 'w85'],
-    ['', 'w90', 'w60'],
+    ["", "w85", "w70"],
+    ["", "w90", ""],
+    ["", "", "w85", "w60"],
+    ["", "w70"],
+    ["", "w90", "w85"],
+    ["", "", "w70"],
+    ["", "w85"],
+    ["", "w90", "w60"],
   ];
 
-  let cards = '';
+  let cards = "";
   for (let i = 0; i < 8; i++) {
-    const lines = patterns[i].map(w =>
-      `<div class="shimmer-text${w ? ' ' + w : ''}"></div>`
-    ).join('');
+    const lines = patterns[i]
+      .map((w) => `<div class="shimmer-text${w ? " " + w : ""}"></div>`)
+      .join("");
     cards += `
       <div class="content-box shimmer-card">
         <div class="shimmer-icon"></div>
@@ -34,9 +36,26 @@ function showShimmer() {
       </div>`;
   }
 
-  const sidebarLines = ['w85','w70','w90','w60','w85','w70','w90','w60','w85','w70','w90','w60','w85'].map(w =>
-    `<div class="shimmer-text ${w}" style="height:11px;margin-bottom:9px"></div>`
-  ).join('');
+  const sidebarLines = [
+    "w85",
+    "w70",
+    "w90",
+    "w60",
+    "w85",
+    "w70",
+    "w90",
+    "w60",
+    "w85",
+    "w70",
+    "w90",
+    "w60",
+    "w85",
+  ]
+    .map(
+      (w) =>
+        `<div class="shimmer-text ${w}" style="height:11px;margin-bottom:9px"></div>`,
+    )
+    .join("");
 
   const sidebar = `
     <div class="shimmer-sidebar" style="width:230px;flex-shrink:0">
@@ -51,7 +70,7 @@ function showShimmer() {
 }
 
 function loadActualContent() {
-  const container = document.getElementById('privacyContainer');
+  const container = document.getElementById("privacyContainer");
   container.innerHTML = `
     <div class="privacy-layout">
 
@@ -74,7 +93,7 @@ function loadActualContent() {
             <a href="#p12" class="toc-link"><span class="toc-num">12</span> Policy Changes</a>
             <a href="#p13" class="toc-link"><span class="toc-num">13</span> Contact Us</a>
           </nav>
-          <a href="mailto:support@earnify.com" class="toc-cta"><i class="fas fa-envelope"></i> Privacy Query?</a>
+          <a href="mailto:support@creatorpay.com" class="toc-cta"><i class="fas fa-envelope"></i> Privacy Query?</a>
         </div>
       </aside>
 
@@ -84,8 +103,8 @@ function loadActualContent() {
         <div class="content-box" id="p1">
           <div class="section-icon-wrap"><i class="fas fa-file-shield"></i></div>
           <h2>1. Introduction</h2>
-          <p>At Earnify, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains what data we collect, how we use it, who we share it with, and what rights you have.</p>
-          <div class="info-box info-blue"><i class="fas fa-info-circle"></i> By using Earnify, you agree to the collection and use of information as described in this policy.</div>
+          <p>At Creator Pay, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains what data we collect, how we use it, who we share it with, and what rights you have.</p>
+          <div class="info-box info-blue"><i class="fas fa-info-circle"></i> By using Creator Pay, you agree to the collection and use of information as described in this policy.</div>
           <div class="privacy-stats">
             <div class="pstat-card"><i class="fas fa-ban"></i><span>No data selling</span></div>
             <div class="pstat-card"><i class="fas fa-lock"></i><span>Encrypted storage</span></div>
@@ -133,7 +152,7 @@ function loadActualContent() {
             <div class="use-item"><i class="fas fa-credit-card"></i><div><strong>Payment processing</strong><p>Verify and record transactions made through Razorpay.</p></div></div>
             <div class="use-item"><i class="fas fa-wallet"></i><div><strong>Withdrawal processing</strong><p>Review, approve, and transfer your earnings to your bank or UPI.</p></div></div>
             <div class="use-item"><i class="fas fa-download"></i><div><strong>Resource delivery</strong><p>Give you access to resources you have purchased.</p></div></div>
-            <div class="use-item"><i class="fas fa-chart-line"></i><div><strong>Platform improvement</strong><p>Understand how users interact with Earnify to improve the experience.</p></div></div>
+            <div class="use-item"><i class="fas fa-chart-line"></i><div><strong>Platform improvement</strong><p>Understand how users interact with Creator Pay to improve the experience.</p></div></div>
             <div class="use-item"><i class="fas fa-shield-alt"></i><div><strong>Security &amp; fraud prevention</strong><p>Detect and prevent fraudulent activity around withdrawals and payments.</p></div></div>
             <div class="use-item"><i class="fas fa-bell"></i><div><strong>Communication</strong><p>Send transaction confirmations, withdrawal updates, and platform notices.</p></div></div>
             <div class="use-item"><i class="fas fa-balance-scale"></i><div><strong>Legal compliance</strong><p>Meet applicable legal and regulatory obligations.</p></div></div>
@@ -146,8 +165,8 @@ function loadActualContent() {
           <h2>4. Payment Data &amp; Razorpay</h2>
           <div class="highlight-strip"><i class="fas fa-lock"></i> All payments are processed through <strong>Razorpay</strong> — an RBI-regulated, PCI-DSS compliant payment gateway.</div>
           <ul class="benefits-list">
-            <li><i class="fas fa-shield-alt"></i><span>Your card, UPI PIN, and net banking credentials are entered directly on Razorpay's secure interface — never on Earnify's servers.</span></li>
-            <li><i class="fas fa-shield-alt"></i><span>Earnify only receives a payment confirmation (order ID, payment ID, status) after a transaction completes.</span></li>
+            <li><i class="fas fa-shield-alt"></i><span>Your card, UPI PIN, and net banking credentials are entered directly on Razorpay's secure interface — never on Creator Pay's servers.</span></li>
+            <li><i class="fas fa-shield-alt"></i><span>Creator Pay only receives a payment confirmation (order ID, payment ID, status) after a transaction completes.</span></li>
             <li><i class="fas fa-shield-alt"></i><span>We store only the payment reference ID and status — not your financial credentials.</span></li>
             <li><i class="fas fa-external-link-alt"></i><span>Razorpay's privacy policy: <a href="https://razorpay.com/privacy/" target="_blank" rel="noopener" style="color:#667eea;font-weight:600;">razorpay.com/privacy</a></span></li>
           </ul>
@@ -163,7 +182,7 @@ function loadActualContent() {
             <li><i class="fas fa-info-circle"></i><span>The payment method selected and any note you include.</span></li>
             <li><i class="fas fa-info-circle"></i><span>Request status (pending, approved, rejected) and rejection reason if applicable.</span></li>
           </ul>
-          <div class="info-box info-blue"><i class="fas fa-user-lock"></i> This data is accessible only to the Earnify admin team and is never shared with any third party other than the payment processor used to transfer your funds.</div>
+          <div class="info-box info-blue"><i class="fas fa-user-lock"></i> This data is accessible only to the Creator Pay Admin team and is never shared with any third party other than the payment processor used to transfer your funds.</div>
         </div>
 
         <div class="content-box" id="p6">
@@ -194,7 +213,7 @@ function loadActualContent() {
         <div class="content-box" id="p8">
           <div class="section-icon-wrap"><i class="fas fa-cookie-bite"></i></div>
           <h2>8. Cookies</h2>
-          <p>Earnify uses minimal cookies to keep you logged in and remember your session. We do <strong>not</strong> use advertising or third-party tracking cookies.</p>
+          <p>Creator Pay uses minimal cookies to keep you logged in and remember your session. We do <strong>not</strong> use advertising or third-party tracking cookies.</p>
           <div class="cookie-row">
             <div class="cookie-card"><i class="fas fa-clock"></i><strong>Session Cookies</strong><p>Keep you logged in during your visit.</p></div>
             <div class="cookie-card"><i class="fas fa-key"></i><strong>Auth Tokens</strong><p>Stored in localStorage to maintain login state across sessions.</p></div>
@@ -212,7 +231,7 @@ function loadActualContent() {
             <div class="right-card"><i class="fas fa-history"></i><strong>Withdrawal History</strong><p>View all requests and statuses from your Dashboard anytime.</p></div>
             <div class="right-card"><i class="fas fa-bell-slash"></i><strong>Opt-out</strong><p>Unsubscribe from non-essential communications at any time.</p></div>
           </div>
-          <div class="info-box info-blue" style="margin-top:14px"><i class="fas fa-envelope"></i> To exercise any right, email <a href="mailto:support@earnify.com" style="color:#667eea;font-weight:600;">support@earnify.com</a>. We respond within <strong>5 business days</strong>.</div>
+          <div class="info-box info-blue" style="margin-top:14px"><i class="fas fa-envelope"></i> To exercise any right, email <a href="mailto:support@creatorpay.com" style="color:#667eea;font-weight:600;">support@creatorpay.com</a>. We respond within <strong>5 business days</strong>.</div>
         </div>
 
         <div class="content-box" id="p10">
@@ -237,15 +256,15 @@ function loadActualContent() {
         <div class="content-box" id="p11">
           <div class="section-icon-wrap"><i class="fas fa-child"></i></div>
           <h2>11. Children's Privacy</h2>
-          <div class="info-box info-warn"><i class="fas fa-exclamation-triangle"></i> Earnify is <strong>not intended for users under 13</strong>. We do not knowingly collect data from children under 13.</div>
-          <p>If you believe a child has created an account on our platform, please contact us immediately at <a href="mailto:support@earnify.com" style="color:#667eea;font-weight:600;">support@earnify.com</a> and we will delete the account promptly.</p>
+          <div class="info-box info-warn"><i class="fas fa-exclamation-triangle"></i> Creator Pay is <strong>not intended for users under 13</strong>. We do not knowingly collect data from children under 13.</div>
+          <p>If you believe a child has created an account on our platform, please contact us immediately at <a href="mailto:support@creatorpay.com" style="color:#667eea;font-weight:600;">support@creatorpay.com</a> and we will delete the account promptly.</p>
         </div>
 
         <div class="content-box" id="p12">
           <div class="section-icon-wrap"><i class="fas fa-sync-alt"></i></div>
           <h2>12. Changes to This Policy</h2>
           <p>We may update this Privacy Policy to reflect changes in our practices or legal requirements. When we make significant changes, we will notify you via email or a prominent notice on the platform.</p>
-          <div class="info-box info-blue"><i class="fas fa-info-circle"></i> The date of the last update is shown at the top of this page. Continued use of Earnify after changes are posted constitutes acceptance of the updated policy.</div>
+          <div class="info-box info-blue"><i class="fas fa-info-circle"></i> The date of the last update is shown at the top of this page. Continued use of Creator Pay after changes are posted constitutes acceptance of the updated policy.</div>
         </div>
 
         <div class="content-box" id="p13">
@@ -253,7 +272,7 @@ function loadActualContent() {
           <h2>13. Contact Us</h2>
           <p>For any questions, concerns, or requests regarding this Privacy Policy or how we handle your data:</p>
           <div class="contact-card">
-            <a href="mailto:support@earnify.com" class="contact-item"><i class="fas fa-envelope"></i><span>support@earnify.com</span></a>
+            <a href="mailto:support@creatorpay.com" class="contact-item"><i class="fas fa-envelope"></i><span>support@creatorpay.com</span></a>
             <div class="contact-item"><i class="fas fa-clock"></i><span>Response within 2 business days</span></div>
           </div>
         </div>
@@ -276,16 +295,19 @@ function loadActualContent() {
   `;
 
   // Active TOC on scroll
-  const sections = document.querySelectorAll('.content-box[id]');
-  const tocLinks = document.querySelectorAll('.toc-link');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        tocLinks.forEach(l => l.classList.remove('active'));
-        const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
-        if (a) a.classList.add('active');
-      }
-    });
-  }, { threshold: 0.35 });
-  sections.forEach(s => observer.observe(s));
+  const sections = document.querySelectorAll(".content-box[id]");
+  const tocLinks = document.querySelectorAll(".toc-link");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          tocLinks.forEach((l) => l.classList.remove("active"));
+          const a = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
+          if (a) a.classList.add("active");
+        }
+      });
+    },
+    { threshold: 0.35 },
+  );
+  sections.forEach((s) => observer.observe(s));
 }

@@ -3,17 +3,24 @@
 // Works on both local (currentUser) and Vercel (adminToken JWT).
 
 (function () {
-  const SUPA_URL = 'https://emnrgsgerfjvndexomro.supabase.co';
-  const SUPA_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MjAyMTAsImV4cCI6MjA4Nzk5NjIxMH0.uXr8lipxLbB4D_5JwQkpLzc-HudQw23tOFBfV4C6hqY';
+  const SUPA_URL = "https://emnrgsgerfjvndexomro.supabase.co";
+  const SUPA_ANON =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI0MjAyMTAsImV4cCI6MjA4Nzk5NjIxMH0.uXr8lipxLbB4D_5JwQkpLzc-HudQw23tOFBfV4C6hqY";
 
   // Decode base64url JWT
   function _jwt(token) {
-    try { return JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/'))); } catch(e) { return null; }
+    try {
+      return JSON.parse(
+        atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")),
+      );
+    } catch (e) {
+      return null;
+    }
   }
 
   // Check if user is logged in synchronously
   function isLoggedIn() {
-    const token = localStorage.getItem('adminToken');
+    const token = localStorage.getItem("adminToken");
     if (token) {
       const p = _jwt(token);
       // valid JWT with email and not expired
@@ -21,15 +28,18 @@
       // JWT exists but may be missing exp — still treat as logged in
       if (p?.email) return true;
     }
-    try { const cu = JSON.parse(localStorage.getItem('currentUser') || '{}'); if (cu?.email) return true; } catch(e) {}
-    if (localStorage.getItem('userLoggedIn') === 'true') return true;
+    try {
+      const cu = JSON.parse(localStorage.getItem("currentUser") || "{}");
+      if (cu?.email) return true;
+    } catch (e) {}
+    if (localStorage.getItem("userLoggedIn") === "true") return true;
     return false;
   }
 
   if (isLoggedIn()) return; // already logged in — let page load normally
 
   // Not logged in — inject full-screen login overlay
-  const style = document.createElement('style');
+  const style = document.createElement("style");
   style.textContent = `
     #_authGuardOverlay {
       position:fixed;inset:0;z-index:999998;
@@ -77,12 +87,12 @@
   `;
   document.head.appendChild(style);
 
-  const overlay = document.createElement('div');
-  overlay.id = '_authGuardOverlay';
+  const overlay = document.createElement("div");
+  overlay.id = "_authGuardOverlay";
   overlay.innerHTML = `
     <div id="_authGuardBox">
       <div class="_ag-logo">💰</div>
-      <h2>Earnify</h2>
+      <h2>Creator Pay</h2>
       <p>Please login to access this page</p>
       <div class="_ag-tabs">
         <button class="_ag-tab active" id="_agTabLogin" onclick="_agShowTab('login')">Login</button>
@@ -111,82 +121,125 @@
   document.body.appendChild(overlay);
 
   // Hide page content behind overlay
-  document.documentElement.style.overflow = 'hidden';
+  document.documentElement.style.overflow = "hidden";
 
-  window._agShowTab = function(tab) {
-    document.getElementById('_agLoginForm').style.display  = tab === 'login'  ? '' : 'none';
-    document.getElementById('_agSignupForm').style.display = tab === 'signup' ? '' : 'none';
-    document.getElementById('_agTabLogin').classList.toggle('active', tab === 'login');
-    document.getElementById('_agTabSignup').classList.toggle('active', tab === 'signup');
-    document.getElementById('_agErr').textContent = '';
-    document.getElementById('_agOk').textContent  = '';
+  window._agShowTab = function (tab) {
+    document.getElementById("_agLoginForm").style.display =
+      tab === "login" ? "" : "none";
+    document.getElementById("_agSignupForm").style.display =
+      tab === "signup" ? "" : "none";
+    document
+      .getElementById("_agTabLogin")
+      .classList.toggle("active", tab === "login");
+    document
+      .getElementById("_agTabSignup")
+      .classList.toggle("active", tab === "signup");
+    document.getElementById("_agErr").textContent = "";
+    document.getElementById("_agOk").textContent = "";
   };
 
-  function _agSetErr(msg) { document.getElementById('_agErr').textContent = msg; document.getElementById('_agOk').textContent = ''; }
-  function _agSetOk(msg)  { document.getElementById('_agOk').textContent  = msg; document.getElementById('_agErr').textContent = ''; }
+  function _agSetErr(msg) {
+    document.getElementById("_agErr").textContent = msg;
+    document.getElementById("_agOk").textContent = "";
+  }
+  function _agSetOk(msg) {
+    document.getElementById("_agOk").textContent = msg;
+    document.getElementById("_agErr").textContent = "";
+  }
 
   function _agDismiss(user, token) {
-    if (token) localStorage.setItem('adminToken', token);
-    if (user)  localStorage.setItem('currentUser', JSON.stringify(user));
-    localStorage.setItem('userLoggedIn', 'true');
-    document.getElementById('_authGuardOverlay').remove();
-    document.documentElement.style.overflow = '';
+    if (token) localStorage.setItem("adminToken", token);
+    if (user) localStorage.setItem("currentUser", JSON.stringify(user));
+    localStorage.setItem("userLoggedIn", "true");
+    document.getElementById("_authGuardOverlay").remove();
+    document.documentElement.style.overflow = "";
     // reload so page scripts re-run with auth in place
     window.location.reload();
   }
 
-  window._agLogin = async function() {
-    const email    = document.getElementById('_agEmail').value.trim();
-    const password = document.getElementById('_agPassword').value;
-    if (!email || !password) { _agSetErr('Please enter email and password.'); return; }
-    const btn = document.getElementById('_agLoginBtn');
-    btn.disabled = true; btn.textContent = 'Logging in…';
+  window._agLogin = async function () {
+    const email = document.getElementById("_agEmail").value.trim();
+    const password = document.getElementById("_agPassword").value;
+    if (!email || !password) {
+      _agSetErr("Please enter email and password.");
+      return;
+    }
+    const btn = document.getElementById("_agLoginBtn");
+    btn.disabled = true;
+    btn.textContent = "Logging in…";
     try {
       // Always try Supabase directly first — works without backend
-      const sc = window.supabase?.createClient(SUPA_URL, SUPA_ANON, { auth:{ storageKey:'ag-tmp', persistSession:false } });
-      if (!sc) throw new Error('no supabase');
-      const { data, error } = await sc.auth.signInWithPassword({ email, password });
+      const sc = window.supabase?.createClient(SUPA_URL, SUPA_ANON, {
+        auth: { storageKey: "ag-tmp", persistSession: false },
+      });
+      if (!sc) throw new Error("no supabase");
+      const { data, error } = await sc.auth.signInWithPassword({
+        email,
+        password,
+      });
       if (error) throw error;
-      _agSetOk('Login successful!');
+      _agSetOk("Login successful!");
       setTimeout(() => _agDismiss(data.user, data.session?.access_token), 600);
-    } catch(e) {
-      _agSetErr('Invalid email or password.');
-      btn.disabled = false; btn.textContent = 'Login';
+    } catch (e) {
+      _agSetErr("Invalid email or password.");
+      btn.disabled = false;
+      btn.textContent = "Login";
     }
   };
 
-  window._agSignup = async function() {
-    const name     = document.getElementById('_agSName').value.trim();
-    const email    = document.getElementById('_agSEmail').value.trim();
-    const password = document.getElementById('_agSPass').value;
-    const confirm  = document.getElementById('_agSConfirm').value;
-    if (!name || !email || !password) { _agSetErr('Please fill all fields.'); return; }
-    if (password.length < 6)          { _agSetErr('Password must be at least 6 characters.'); return; }
-    if (password !== confirm)          { _agSetErr('Passwords do not match.'); return; }
-    const btn = document.getElementById('_agSignupBtn');
-    btn.disabled = true; btn.textContent = 'Creating account…';
+  window._agSignup = async function () {
+    const name = document.getElementById("_agSName").value.trim();
+    const email = document.getElementById("_agSEmail").value.trim();
+    const password = document.getElementById("_agSPass").value;
+    const confirm = document.getElementById("_agSConfirm").value;
+    if (!name || !email || !password) {
+      _agSetErr("Please fill all fields.");
+      return;
+    }
+    if (password.length < 6) {
+      _agSetErr("Password must be at least 6 characters.");
+      return;
+    }
+    if (password !== confirm) {
+      _agSetErr("Passwords do not match.");
+      return;
+    }
+    const btn = document.getElementById("_agSignupBtn");
+    btn.disabled = true;
+    btn.textContent = "Creating account…";
     try {
-      const sc = window.supabase?.createClient(SUPA_URL, SUPA_ANON, { auth:{ storageKey:'ag-tmp', persistSession:false } });
-      if (!sc) throw new Error('no supabase');
-      const { data, error } = await sc.auth.signUp({ email, password, options:{ data:{ name } } });
+      const sc = window.supabase?.createClient(SUPA_URL, SUPA_ANON, {
+        auth: { storageKey: "ag-tmp", persistSession: false },
+      });
+      if (!sc) throw new Error("no supabase");
+      const { data, error } = await sc.auth.signUp({
+        email,
+        password,
+        options: { data: { name } },
+      });
       if (error) throw error;
       if (data.session) {
-        _agSetOk('Account created! Logging in…');
+        _agSetOk("Account created! Logging in…");
         setTimeout(() => _agDismiss(data.user, data.session.access_token), 600);
       } else {
-        _agSetOk('Account created! Please check your email to confirm, then login.');
-        setTimeout(() => _agShowTab('login'), 2000);
+        _agSetOk(
+          "Account created! Please check your email to confirm, then login.",
+        );
+        setTimeout(() => _agShowTab("login"), 2000);
       }
-    } catch(e) {
-      _agSetErr(e.message || 'Signup failed. Try again.');
-      btn.disabled = false; btn.textContent = 'Create Account';
+    } catch (e) {
+      _agSetErr(e.message || "Signup failed. Try again.");
+      btn.disabled = false;
+      btn.textContent = "Create Account";
     }
   };
 
   // Allow Enter key to submit
-  document.addEventListener('keydown', function(e) {
-    if (e.key !== 'Enter') return;
-    const loginVisible = document.getElementById('_agLoginForm').style.display !== 'none';
-    if (loginVisible) _agLogin(); else _agSignup();
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Enter") return;
+    const loginVisible =
+      document.getElementById("_agLoginForm").style.display !== "none";
+    if (loginVisible) _agLogin();
+    else _agSignup();
   });
 })();

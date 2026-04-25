@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <script>!function(){var s=sessionStorage.getItem('earnify_dark_mode');if(s==='1'){document.documentElement.classList.add('dark-mode');}}();</script>
- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap rel=stylesheet>
-  <title>Admin Login - Earnify</title>
+  <script>!function () { var s = sessionStorage.getItem('creatorpay_dark_mode'); if (s === '1') { document.documentElement.classList.add('dark-mode'); } }();</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap rel=stylesheet">
+  <title>Admin Login - Creator Pay</title>
   <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
   <style>
     * {
@@ -150,7 +151,7 @@
       display: none;
       width: 20px;
       height: 20px;
-      border: 2px solid rgba(255,255,255,0.3);
+      border: 2px solid rgba(255, 255, 255, 0.3);
       border-top-color: white;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
@@ -166,7 +167,9 @@
     }
 
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
 
     .toggle-form {
@@ -278,6 +281,7 @@
   </style>
   <link rel="stylesheet" href="../dark-theme.css">
 </head>
+
 <body>
   <div class="auth-container">
     <div class="auth-header">
@@ -293,13 +297,14 @@
       <div class="form-group">
         <label>Email Address</label>
         <div class="input-wrapper">
-          <input type="email" id="loginEmail" required placeholder="admin@earnify.com" autocomplete="email">
+          <input type="email" id="loginEmail" required placeholder="admin@creatorpay.com" autocomplete="email">
         </div>
       </div>
       <div class="form-group">
         <label>Password</label>
         <div class="password-wrapper">
-          <input type="password" id="loginPassword" required placeholder="Enter your password" autocomplete="current-password">
+          <input type="password" id="loginPassword" required placeholder="Enter your password"
+            autocomplete="current-password">
           <span class="password-toggle" onclick="togglePassword('loginPassword', this)">👁️</span>
         </div>
       </div>
@@ -326,13 +331,14 @@
       <div class="form-group">
         <label>Email Address</label>
         <div class="input-wrapper">
-          <input type="email" id="signupEmail" required placeholder="admin@earnify.com" autocomplete="email">
+          <input type="email" id="signupEmail" required placeholder="admin@creatorpay.com" autocomplete="email">
         </div>
       </div>
       <div class="form-group">
         <label>Password</label>
         <div class="password-wrapper">
-          <input type="password" id="signupPassword" required placeholder="Create a strong password" autocomplete="new-password">
+          <input type="password" id="signupPassword" required placeholder="Create a strong password"
+            autocomplete="new-password">
           <span class="password-toggle" onclick="togglePassword('signupPassword', this)">👁️</span>
         </div>
         <div class="password-strength" id="passwordStrength">
@@ -354,7 +360,8 @@
       <div class="form-group">
         <label>Confirm Password</label>
         <div class="password-wrapper">
-          <input type="password" id="signupConfirmPassword" required placeholder="Re-enter your password" autocomplete="new-password">
+          <input type="password" id="signupConfirmPassword" required placeholder="Re-enter your password"
+            autocomplete="new-password">
           <span class="password-toggle" onclick="togglePassword('signupConfirmPassword', this)">👁️</span>
         </div>
       </div>
@@ -392,7 +399,7 @@
       const loginForm = document.getElementById('loginForm');
       const signupForm = document.getElementById('signupForm');
       const subtitle = document.getElementById('authSubtitle');
-      
+
       if (loginForm.classList.contains('hidden')) {
         loginForm.classList.remove('hidden');
         signupForm.classList.add('hidden');
@@ -457,16 +464,16 @@
       // Update requirement indicators
       document.getElementById('req-length').className = requirements.length ? 'valid' : 'invalid';
       document.getElementById('req-length').querySelector('.check-icon').textContent = requirements.length ? '✓' : '○';
-      
+
       document.getElementById('req-upper').className = requirements.upper ? 'valid' : 'invalid';
       document.getElementById('req-upper').querySelector('.check-icon').textContent = requirements.upper ? '✓' : '○';
-      
+
       document.getElementById('req-lower').className = requirements.lower ? 'valid' : 'invalid';
       document.getElementById('req-lower').querySelector('.check-icon').textContent = requirements.lower ? '✓' : '○';
-      
+
       document.getElementById('req-number').className = requirements.number ? 'valid' : 'invalid';
       document.getElementById('req-number').querySelector('.check-icon').textContent = requirements.number ? '✓' : '○';
-      
+
       document.getElementById('req-special').className = requirements.special ? 'valid' : 'invalid';
       document.getElementById('req-special').querySelector('.check-icon').textContent = requirements.special ? '✓' : '○';
 
@@ -482,11 +489,11 @@
       const strengthDiv = document.getElementById('passwordStrength');
       const strengthFill = document.getElementById('strengthFill');
       const strengthText = document.getElementById('strengthText');
-      
+
       if (password.length > 0) {
         strengthDiv.style.display = 'block';
         strengthFill.style.width = score + '%';
-        
+
         if (score <= 40) {
           strengthFill.style.background = '#ef4444';
           strengthText.textContent = 'Weak password';
@@ -530,38 +537,38 @@
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       hideMessages();
-      
+
       const email = document.getElementById('loginEmail').value.trim();
       const password = document.getElementById('loginPassword').value;
       const btn = document.getElementById('loginBtn');
-      
+
       // Client-side validation
       if (!email) {
         showError('Please enter your email address');
         return;
       }
-      
+
       if (!isValidEmail(email)) {
         showError('Please enter a valid email address');
         return;
       }
-      
+
       if (!password) {
         showError('Please enter your password');
         return;
       }
-      
+
       setButtonLoading(btn, true);
-      
+
       try {
         const response = await fetch('/api/admin/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.token) {
           localStorage.setItem('adminToken', data.token);
           showSuccess('Login successful! Redirecting...');
@@ -580,60 +587,60 @@
     document.getElementById('signupForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       hideMessages();
-      
+
       const name = document.getElementById('signupName').value.trim();
       const email = document.getElementById('signupEmail').value.trim();
       const password = document.getElementById('signupPassword').value;
       const confirmPassword = document.getElementById('signupConfirmPassword').value;
       const btn = document.getElementById('signupBtn');
-      
+
       // Client-side validation
       if (!name) {
         showError('Please enter your full name');
         return;
       }
-      
+
       if (name.length < 2) {
         showError('Name must be at least 2 characters');
         return;
       }
-      
+
       if (!email) {
         showError('Please enter your email address');
         return;
       }
-      
+
       if (!isValidEmail(email)) {
         showError('Please enter a valid email address');
         return;
       }
-      
+
       if (!password) {
         showError('Please create a password');
         return;
       }
-      
+
       if (!checkPasswordStrength(password)) {
         showError('Please create a stronger password (use 8+ characters with letters, numbers, and symbols)');
         return;
       }
-      
+
       if (password !== confirmPassword) {
         showError('Passwords do not match');
         return;
       }
-      
+
       setButtonLoading(btn, true);
-      
+
       try {
         const response = await fetch('/api/admin/signup', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email, password, name })
         });
-        
+
         const data = await response.json();
-        
+
         if (data.token) {
           localStorage.setItem('adminToken', data.token);
           showSuccess('Account created successfully! Redirecting...');
@@ -669,12 +676,12 @@
         }, 2000);
         return;
       }
-      
+
       // Check for token in URL hash (from email confirmation - Supabase uses #)
       const hashParams = new URLSearchParams(window.location.hash.substring(1));
       const accessToken = hashParams.get('access_token');
       const refreshToken = hashParams.get('refresh_token');
-      
+
       if (accessToken && refreshToken) {
         // Show success message
         showSuccess('Email verified! Redirecting to home...');
@@ -685,7 +692,7 @@
         }, 2000);
         return;
       }
-      
+
       // Check if already logged in
       const token = localStorage.getItem('adminToken');
       if (token) {
@@ -700,4 +707,5 @@
   </script>
   <script src="../dark-theme.js"></script>
 </body>
+
 </html>

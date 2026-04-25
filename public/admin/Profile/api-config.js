@@ -1,4 +1,4 @@
-// API Configuration for Earnify
+// API Configuration for Creator Pay
 // This file automatically detects if we're running locally or on Vercel
 
 const API_CONFIG = {
@@ -8,9 +8,9 @@ const API_CONFIG = {
   // Base URL for API calls
   get baseURL() {
     if (this.isLocal) {
-      return window.location.port === '5500'
-        ? 'https://earnify-gamma.vercel.app'
-        : 'http://localhost:5000';
+      return window.location.port === "5500"
+        ? "https://creatorpay.in/"
+        : "http://localhost:5000";
     }
     return window.location.origin;
   },

@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <script>!function(){var s=sessionStorage.getItem('earnify_dark_mode');if(s==='1'){document.documentElement.classList.add('dark-mode');}}();</script>
- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap rel=stylesheet>
-  <title>Payment - Earnify</title>
-  <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
+  <script>!function () { var s = sessionStorage.getItem('creatorpay_dark_mode'); if (s === '1') { document.documentElement.classList.add('dark-mode'); } }();</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap rel=stylesheet>
+  <title>Payment - Creator Pay</title>
+  <link rel=" icon" href="/file/logo1.jpeg" type="image/jpeg">
   <link rel="stylesheet" href="landing.css">
   <script src="api-config.js"></script>
   <script src="auth-guard.js"></script>
   <script src="toast.js"></script>
   <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
   <style>
-    #resources { 
-      max-width: 1200px; 
-      margin: 0 auto; 
+    #resources {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 20px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
-    .resource-card { 
-      border: 1px solid #e2e8f0; 
-      padding: 20px; 
-      border-radius: 12px; 
+
+    .resource-card {
+      border: 1px solid #e2e8f0;
+      padding: 20px;
+      border-radius: 12px;
       background: white;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s;
     }
+
     .resource-card:hover {
       transform: translateY(-3px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
     }
-    .buy-btn { 
-      background: #8b5cf6; 
-      color: white; 
-      padding: 10px 20px; 
-      border: none; 
-      border-radius: 8px; 
+
+    .buy-btn {
+      background: #8b5cf6;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
       width: 100%;
       font-weight: 600;
       margin-top: 10px;
     }
-    .buy-btn:hover { background: #7c3aed; }
+
+    .buy-btn:hover {
+      background: #7c3aed;
+    }
   </style>
   <link rel="stylesheet" href="../dark-theme.css">
 </head>
+
 <body>
   <nav class="navbar">
     <div class="container">
       <div class="nav-header">
-        <a href="../" style="text-decoration: none; color: inherit;"><h1 class="logo">💰 Earnify</h1></a>
+        <a href="../" style="text-decoration: none; color: inherit;">
+          <h1 class="logo">💰 Creator Pay</h1>
+        </a>
         <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
           <span class="hamburger"></span>
           <span class="hamburger"></span>
@@ -64,11 +74,11 @@
         <button id="logoutBtn" class="admin-btn" onclick="logout()" style="display:none;">Logout</button>
       </div>
     </div>
-    
+
     <!-- Mobile Sidebar -->
     <div class="mobile-sidebar" id="mobileSidebar">
       <div class="mobile-sidebar-header">
-        <h2>💰 Earnify</h2>
+        <h2>💰 Creator Pay</h2>
         <button class="close-sidebar" onclick="toggleMobileMenu()">&times;</button>
       </div>
       <div class="mobile-sidebar-content">
@@ -90,7 +100,7 @@
   <script>
     const currentUser = JSON.parse(localStorage.getItem('currentUser'));
     const isLoggedIn = localStorage.getItem('userLoggedIn') === 'true';
-    
+
     if (!currentUser || !isLoggedIn) {
       alert('Please login first');
       window.location.href = '/';
@@ -100,7 +110,7 @@
     async function loadResources() {
       const response = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.resources));
       const resources = await response.json();
-      
+
       const container = document.getElementById('resources');
       container.innerHTML = resources.map(resource => `
         <div class="resource-card">
@@ -117,7 +127,7 @@
     async function buyResource(resourceId, price, title) {
       try {
         console.log('Starting payment for:', { resourceId, price, title });
-        
+
         // Create order
         const orderResponse = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.createOrder), {
           method: 'POST',
@@ -127,40 +137,40 @@
             receipt: `receipt_${resourceId}_${Date.now()}`
           })
         });
-        
+
         if (!orderResponse.ok) {
           const errorText = await orderResponse.text();
           console.error('Order creation failed:', errorText);
           throw new Error(`Failed to create order: ${errorText}`);
         }
-        
+
         const order = await orderResponse.json();
         console.log('Order created:', order);
-        
+
         // Get Razorpay key from server
         const keyResponse = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.paymentKey));
         if (!keyResponse.ok) {
           throw new Error('Failed to get payment key');
         }
         const keyData = await keyResponse.json();
-        
+
         if (!keyData.key) {
           throw new Error('Payment key not configured');
         }
-        
+
         // Open Razorpay checkout
         const options = {
           key: keyData.key,
           amount: order.amount,
           currency: order.currency,
-          name: 'Earnify',
+          name: 'creatorpay_dark_mode',
           description: title,
           order_id: order.id,
           timeout: 300,
-          handler: async function(response) {
+          handler: async function (response) {
             try {
               console.log('Payment response:', response);
-              
+
               // Verify payment
               const verifyResponse = await fetch(API_CONFIG.getURL(API_CONFIG.endpoints.verifyPayment), {
                 method: 'POST',
@@ -173,16 +183,16 @@
                   userId: currentUser.id
                 })
               });
-              
+
               if (!verifyResponse.ok) {
                 const errorText = await verifyResponse.text();
                 console.error('Verification failed:', errorText);
                 throw new Error(`Verification failed: ${errorText}`);
               }
-              
+
               const result = await verifyResponse.json();
               console.log('Verification result:', result);
-              
+
               if (result.success) {
                 alert('Payment successful! You can now access this resource.');
                 window.location.href = 'dashboard.html';
@@ -199,7 +209,7 @@
             email: currentUser.email || ''
           },
           modal: {
-            ondismiss: function() {
+            ondismiss: function () {
               console.log('Payment modal dismissed');
               alert('Payment cancelled by user');
             }
@@ -208,7 +218,7 @@
             color: '#8b5cf6'
           }
         };
-        
+
         console.log('Opening Razorpay with options:', options);
         const rzp = new Razorpay(options);
         rzp.on('payment.failed', function (response) {
@@ -233,4 +243,5 @@
   <script src="landing.js"></script>
   <script src="../dark-theme.js"></script>
 </body>
+
 </html>

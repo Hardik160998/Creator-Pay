@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <script>!function(){var s=sessionStorage.getItem('earnify_dark_mode');if(s==='1'){document.documentElement.classList.add('dark-mode');}}();</script>
- <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap rel=stylesheet>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resources - Earnify Admin</title>
+  <script>!function () { var s = sessionStorage.getItem('creatorpay_dark_mode'); if (s === '1') { document.documentElement.classList.add('dark-mode'); } }();</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap rel=stylesheet>
+  <meta name=" viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources - Creator Pay Admin</title>
   <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
   <link rel="stylesheet" href="../style.css">
   <link rel="stylesheet" href="../light-theme.css">
@@ -12,324 +13,329 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="../dark-theme.css">
 </head>
+
 <body class="light-mode">
 
 
 
-<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-<div class="sidebar">
-  <h2>Earnify Admin</h2>
-  <a href="../Resources/">📚 Resources</a>
-  <a href="../Statistics/">📈 Statistics</a>
-  <a href="../Profile/">👤 Profile</a>
-  <a href="../" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">🏠 Main Site</a>
-  <a onclick="logout()"><span>🚪</span> Logout</a>
-  
-  <!-- User Profile Section -->
-  <div class="sidebar-user" id="sidebarUser" style="display: none;">
-    <div class="user-info">
-      <div class="user-avatar" id="sidebarAvatar">👤</div>
-      <div class="user-details">
-        <div class="user-name" id="sidebarUserName">User</div>
-        <div class="user-email" id="sidebarUserEmail">user@email.com</div>
-      </div>
-    </div>
-    <a onclick="logout()" class="logout-link">🚪 Logout</a>
-  </div>
-</div>
+  <div class="sidebar">
+    <h2>Creator Pay Admin</h2>
+    <a href="../Resources/">📚 Resources</a>
+    <a href="../Statistics/">📈 Statistics</a>
+    <a href="../Profile/">👤 Profile</a>
+    <a href="../" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 10px;">🏠 Main Site</a>
+    <a onclick="logout()"><span>🚪</span> Logout</a>
 
-<div id="authModal" class="auth-modal">
-  <div class="auth-modal-content">
-    <span class="close" onclick="closeAuthModal()">&times;</span>
-    <h2 id="authTitle">Admin Login</h2>
-    <p id="authSubtitle">Login to access admin dashboard</p>
-    <div id="authError" class="error-message"></div>
-    <div id="authSuccess" class="success-message"></div>
-    <form id="authLoginForm">
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="authLoginEmail" required placeholder="admin@earnify.com" autocomplete="username">
+    <!-- User Profile Section -->
+    <div class="sidebar-user" id="sidebarUser" style="display: none;">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebarAvatar">👤</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebarUserName">User</div>
+          <div class="user-email" id="sidebarUserEmail">user@email.com</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="authLoginPassword" required placeholder="Enter password" autocomplete="current-password">
-      </div>
-      <button type="submit" class="btn-submit">Login</button>
-      <div class="toggle-form">
-        Don't have an account? <a onclick="toggleAuthForm()">Sign Up</a>
-      </div>
-    </form>
-    <form id="authSignupForm" class="hidden">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" id="authSignupName" required placeholder="Enter your name">
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="authSignupEmail" required placeholder="admin@earnify.com" autocomplete="username">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="authSignupPassword" required placeholder="Min 6 characters" autocomplete="new-password">
-      </div>
-      <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" id="authSignupConfirm" required placeholder="Re-enter password" autocomplete="new-password">
-      </div>
-      <button type="submit" class="btn-submit">Sign Up</button>
-      <div class="toggle-form">
-        Already have an account? <a onclick="toggleAuthForm()">Login</a>
-      </div>
-    </form>
-  </div>
-</div>
-
-<div class="main">
-  <div class="page-header">
-    <div class="header-content">
-      <h1>Resources</h1>
-      <p class="subtitle">Manage your PDF notes, Excel templates, Exam materials, and Freelance services</p>
+      <a onclick="logout()" class="logout-link">🚪 Logout</a>
     </div>
   </div>
 
-  <div class="resource-dropdown-container">
-    <label for="resourceSelect" class="dropdown-label">📂 Select Resource Type:</label>
-    <select id="resourceSelect" class="resource-dropdown" onchange="showTab(this.value)">
-      <option value="all">📋 All Resources</option>
-      <option value="pdf">📄 PDF Notes</option>
-      <option value="excel">📊 Excel Templates</option>
-      <option value="exam">📝 Exam Materials</option>
-      <option value="freelance">💼 Freelance Services</option>
-    </select>
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+      <span class="close" onclick="closeAuthModal()">&times;</span>
+      <h2 id="authTitle">Admin Login</h2>
+      <p id="authSubtitle">Login to access admin dashboard</p>
+      <div id="authError" class="error-message"></div>
+      <div id="authSuccess" class="success-message"></div>
+      <form id="authLoginForm">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="authLoginEmail" required placeholder="admin@creatorpay.com" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authLoginPassword" required placeholder="Enter password"
+            autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-submit">Login</button>
+        <div class="toggle-form">
+          Don't have an account? <a onclick="toggleAuthForm()">Sign Up</a>
+        </div>
+      </form>
+      <form id="authSignupForm" class="hidden">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="authSignupName" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="authSignupEmail" required placeholder="admin@creatorpay.com" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authSignupPassword" required placeholder="Min 6 characters"
+            autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="authSignupConfirm" required placeholder="Re-enter password"
+            autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-submit">Sign Up</button>
+        <div class="toggle-form">
+          Already have an account? <a onclick="toggleAuthForm()">Login</a>
+        </div>
+      </form>
+    </div>
   </div>
 
-  <div id="all" class="tab-content active">
-    <div class="resource-section">
-      <div class="section-header">
-        <div class="section-title">
-          <h2>All Resources</h2>
-          <span class="resource-count" id="allCount">0 items</span>
+  <div class="main">
+    <div class="page-header">
+      <div class="header-content">
+        <h1>Resources</h1>
+        <p class="subtitle">Manage your PDF notes, Excel templates, Exam materials, and Freelance services</p>
+      </div>
+    </div>
+
+    <div class="resource-dropdown-container">
+      <label for="resourceSelect" class="dropdown-label">📂 Select Resource Type:</label>
+      <select id="resourceSelect" class="resource-dropdown" onchange="showTab(this.value)">
+        <option value="all">📋 All Resources</option>
+        <option value="pdf">📄 PDF Notes</option>
+        <option value="excel">📊 Excel Templates</option>
+        <option value="exam">📝 Exam Materials</option>
+        <option value="freelance">💼 Freelance Services</option>
+      </select>
+    </div>
+
+    <div id="all" class="tab-content active">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>All Resources</h2>
+            <span class="resource-count" id="allCount">0 items</span>
+          </div>
+          <div class="add-buttons-group">
+            <button class="add-btn pdf-btn" onclick="showAddModal('pdf')">
+              <span class="btn-icon">📄</span>
+              <span class="btn-text">Add PDF</span>
+            </button>
+            <button class="add-btn excel-btn" onclick="showAddModal('excel')">
+              <span class="btn-icon">📊</span>
+              <span class="btn-text">Add Excel</span>
+            </button>
+            <button class="add-btn exam-btn" onclick="showAddModal('exam')">
+              <span class="btn-icon">📝</span>
+              <span class="btn-text">Add Exam</span>
+            </button>
+            <button class="add-btn freelance-btn" onclick="showAddModal('freelance')">
+              <span class="btn-icon">💼</span>
+              <span class="btn-text">Add Service</span>
+            </button>
+          </div>
         </div>
-        <div class="add-buttons-group">
-          <button class="add-btn pdf-btn" onclick="showAddModal('pdf')">
-            <span class="btn-icon">📄</span>
-            <span class="btn-text">Add PDF</span>
-          </button>
-          <button class="add-btn excel-btn" onclick="showAddModal('excel')">
-            <span class="btn-icon">📊</span>
-            <span class="btn-text">Add Excel</span>
-          </button>
-          <button class="add-btn exam-btn" onclick="showAddModal('exam')">
-            <span class="btn-icon">📝</span>
-            <span class="btn-text">Add Exam</span>
-          </button>
-          <button class="add-btn freelance-btn" onclick="showAddModal('freelance')">
-            <span class="btn-icon">💼</span>
-            <span class="btn-text">Add Service</span>
-          </button>
+        <div class="resource-grid" id="allGrid">
+          <div class="empty-state">
+            <div class="empty-icon">📦</div>
+            <h3>No Resources Yet</h3>
+            <p>Click the buttons above to add your first resource!</p>
+          </div>
         </div>
       </div>
-      <div class="resource-grid" id="allGrid">
-        <div class="empty-state">
-          <div class="empty-icon">📦</div>
-          <h3>No Resources Yet</h3>
-          <p>Click the buttons above to add your first resource!</p>
+    </div>
+
+    <div id="pdf" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>📄 PDF Notes</h2>
+            <span class="resource-count" id="pdfCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-grid" id="pdfGrid">
+          <div class="empty-state">
+            <div class="empty-icon">📄</div>
+            <h3>No PDF Notes</h3>
+            <p>Go to "All Resources" tab to add PDF notes</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="excel" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>📊 Excel Templates</h2>
+            <span class="resource-count" id="excelCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-grid" id="excelGrid">
+          <div class="empty-state">
+            <div class="empty-icon">📊</div>
+            <h3>No Excel Templates</h3>
+            <p>Go to "All Resources" tab to add Excel templates</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="exam" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>📝 Exam Materials</h2>
+            <span class="resource-count" id="examCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-grid" id="examGrid">
+          <div class="empty-state">
+            <div class="empty-icon">📝</div>
+            <h3>No Exam Materials</h3>
+            <p>Go to "All Resources" tab to add exam materials</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="freelance" class="tab-content">
+      <div class="resource-section">
+        <div class="section-header">
+          <div class="section-title">
+            <h2>💼 Freelance Services</h2>
+            <span class="resource-count" id="freelanceCount">0 items</span>
+          </div>
+        </div>
+        <div class="resource-grid" id="freelanceGrid">
+          <div class="empty-state">
+            <div class="empty-icon">💼</div>
+            <h3>No Freelance Services</h3>
+            <p>Go to "All Resources" tab to add freelance services</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div id="pdf" class="tab-content">
-    <div class="resource-section">
-      <div class="section-header">
-        <div class="section-title">
-          <h2>📄 PDF Notes</h2>
-          <span class="resource-count" id="pdfCount">0 items</span>
-        </div>
-      </div>
-      <div class="resource-grid" id="pdfGrid">
-        <div class="empty-state">
-          <div class="empty-icon">📄</div>
-          <h3>No PDF Notes</h3>
-          <p>Go to "All Resources" tab to add PDF notes</p>
-        </div>
+  <div id="addModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle">Add Resource</h2>
+      <form id="resourceForm">
+        <input type="text" id="title" placeholder="Title" required>
+        <textarea id="description" placeholder="Description" required></textarea>
+        <input type="text" id="price" placeholder="Price (₹)" required>
+        <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx" required>
+        <div id="uploadProgress" style="display:none;">Uploading...</div>
+        <button type="submit">Add Resource</button>
+      </form>
+    </div>
+  </div>
+
+  <div id="viewModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeViewModal()">&times;</span>
+      <h2>View Resource</h2>
+      <div id="viewContent">
+        <p><strong>Title:</strong> <span id="viewTitle"></span></p>
+        <p><strong>Description:</strong> <span id="viewDescription"></span></p>
+        <p><strong>Price:</strong> ₹<span id="viewPrice"></span></p>
+        <p><strong>Type:</strong> <span id="viewType"></span></p>
+        <p><strong>File:</strong> <span id="viewFileName">No file uploaded</span></p>
       </div>
     </div>
   </div>
 
-  <div id="excel" class="tab-content">
-    <div class="resource-section">
-      <div class="section-header">
-        <div class="section-title">
-          <h2>📊 Excel Templates</h2>
-          <span class="resource-count" id="excelCount">0 items</span>
+  <div id="editModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeEditModal()">&times;</span>
+      <h2>Edit Resource</h2>
+      <form id="editForm">
+        <input type="hidden" id="editId">
+        <input type="text" id="editTitle" placeholder="Title" required>
+        <textarea id="editDescription" placeholder="Description" required></textarea>
+        <input type="text" id="editPrice" placeholder="Price (₹)" required>
+        <input type="file" id="editFileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx">
+        <small style="color: #64748b; margin-bottom: 10px; display: block;">Leave empty to keep current file</small>
+        <div class="last-file-info">
+          <small>Last uploaded: <span id="lastFileName">No file</span></small>
         </div>
-      </div>
-      <div class="resource-grid" id="excelGrid">
-        <div class="empty-state">
-          <div class="empty-icon">📊</div>
-          <h3>No Excel Templates</h3>
-          <p>Go to "All Resources" tab to add Excel templates</p>
-        </div>
-      </div>
+        <button type="submit">Update Resource</button>
+      </form>
     </div>
   </div>
 
-  <div id="exam" class="tab-content">
-    <div class="resource-section">
-      <div class="section-header">
-        <div class="section-title">
-          <h2>📝 Exam Materials</h2>
-          <span class="resource-count" id="examCount">0 items</span>
-        </div>
-      </div>
-      <div class="resource-grid" id="examGrid">
-        <div class="empty-state">
-          <div class="empty-icon">📝</div>
-          <h3>No Exam Materials</h3>
-          <p>Go to "All Resources" tab to add exam materials</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script src="../api-config.js"></script>
+  <script src="../supabase-config.js"></script>
+  <script src="../app.js"></script>
+  <script src="../auth-modal.js"></script>
+  <script>
+    // Make sure functions are globally accessible
+    window.showAddModal = window.showAddModal || function (type) {
+      console.log('showAddModal called with type:', type);
+      const modal = document.getElementById('addModal');
+      if (modal) {
+        modal.style.display = 'flex';
+      }
+    };
 
-  <div id="freelance" class="tab-content">
-    <div class="resource-section">
-      <div class="section-header">
-        <div class="section-title">
-          <h2>💼 Freelance Services</h2>
-          <span class="resource-count" id="freelanceCount">0 items</span>
-        </div>
-      </div>
-      <div class="resource-grid" id="freelanceGrid">
-        <div class="empty-state">
-          <div class="empty-icon">💼</div>
-          <h3>No Freelance Services</h3>
-          <p>Go to "All Resources" tab to add freelance services</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    window.showTab = window.showTab || function (type) {
+      console.log('showTab called with type:', type);
+    };
 
-<div id="addModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2 id="modalTitle">Add Resource</h2>
-    <form id="resourceForm">
-      <input type="text" id="title" placeholder="Title" required>
-      <textarea id="description" placeholder="Description" required></textarea>
-      <input type="text" id="price" placeholder="Price (₹)" required>
-      <input type="file" id="fileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx" required>
-      <div id="uploadProgress" style="display:none;">Uploading...</div>
-      <button type="submit">Add Resource</button>
-    </form>
-  </div>
-</div>
+    // Check login status and update sidebar
+    (function () {
+      const token = localStorage.getItem('adminToken');
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const sidebarUser = document.getElementById('sidebarUser');
 
-<div id="viewModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeViewModal()">&times;</span>
-    <h2>View Resource</h2>
-    <div id="viewContent">
-      <p><strong>Title:</strong> <span id="viewTitle"></span></p>
-      <p><strong>Description:</strong> <span id="viewDescription"></span></p>
-      <p><strong>Price:</strong> ₹<span id="viewPrice"></span></p>
-      <p><strong>Type:</strong> <span id="viewType"></span></p>
-      <p><strong>File:</strong> <span id="viewFileName">No file uploaded</span></p>
-    </div>
-  </div>
-</div>
+      if (token && currentUser.email) {
+        if (sidebarUser) sidebarUser.style.display = 'block';
 
-<div id="editModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeEditModal()">&times;</span>
-    <h2>Edit Resource</h2>
-    <form id="editForm">
-      <input type="hidden" id="editId">
-      <input type="text" id="editTitle" placeholder="Title" required>
-      <textarea id="editDescription" placeholder="Description" required></textarea>
-      <input type="text" id="editPrice" placeholder="Price (₹)" required>
-      <input type="file" id="editFileUpload" accept=".pdf,.xlsx,.xls,.doc,.docx">
-      <small style="color: #64748b; margin-bottom: 10px; display: block;">Leave empty to keep current file</small>
-      <div class="last-file-info">
-        <small>Last uploaded: <span id="lastFileName">No file</span></small>
-      </div>
-      <button type="submit">Update Resource</button>
-    </form>
-  </div>
-</div>
+        const userName = currentUser.user_metadata?.name || currentUser.email?.split('@')[0] || 'User';
+        const userEmail = currentUser.email || '';
 
-<script src="../api-config.js"></script>
-<script src="../supabase-config.js"></script>
-<script src="../app.js"></script>
-<script src="../auth-modal.js"></script>
-<script>
-  // Make sure functions are globally accessible
-  window.showAddModal = window.showAddModal || function(type) {
-    console.log('showAddModal called with type:', type);
-    const modal = document.getElementById('addModal');
-    if (modal) {
-      modal.style.display = 'flex';
+        const sidebarUserName = document.getElementById('sidebarUserName');
+        const sidebarUserEmail = document.getElementById('sidebarUserEmail');
+        const sidebarAvatar = document.getElementById('sidebarAvatar');
+
+        if (sidebarUserName) sidebarUserName.textContent = userName;
+        if (sidebarUserEmail) sidebarUserEmail.textContent = userEmail;
+        if (sidebarAvatar) sidebarAvatar.textContent = userName.charAt(0).toUpperCase();
+      }
+    })();
+
+    function logout() {
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('userLoggedIn');
+      window.location.href = '../index.html';
     }
-  };
-  
-  window.showTab = window.showTab || function(type) {
-    console.log('showTab called with type:', type);
-  };
-  
-  // Check login status and update sidebar
-  (function() {
-    const token = localStorage.getItem('adminToken');
-    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    const sidebarUser = document.getElementById('sidebarUser');
-    
-    if (token && currentUser.email) {
-      if (sidebarUser) sidebarUser.style.display = 'block';
-      
-      const userName = currentUser.user_metadata?.name || currentUser.email?.split('@')[0] || 'User';
-      const userEmail = currentUser.email || '';
-      
-      const sidebarUserName = document.getElementById('sidebarUserName');
-      const sidebarUserEmail = document.getElementById('sidebarUserEmail');
-      const sidebarAvatar = document.getElementById('sidebarAvatar');
-      
-      if (sidebarUserName) sidebarUserName.textContent = userName;
-      if (sidebarUserEmail) sidebarUserEmail.textContent = userEmail;
-      if (sidebarAvatar) sidebarAvatar.textContent = userName.charAt(0).toUpperCase();
+
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      const body = document.body;
+
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      body.classList.toggle('sidebar-open');
     }
-  })();
-  
-  function logout() {
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('userLoggedIn');
-    window.location.href = '../index.html';
-  }
-  
-  function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.querySelector('.sidebar-overlay');
-    const body = document.body;
-    
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-    body.classList.toggle('sidebar-open');
-  }
-  
-  function closeMobileSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.querySelector('.sidebar-overlay');
-    const body = document.body;
-    
-    if (sidebar.classList.contains('active')) {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-      body.classList.remove('sidebar-open');
+
+    function closeMobileSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      const body = document.body;
+
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        body.classList.remove('sidebar-open');
+      }
     }
-  }
-</script>
+  </script>
   <script src="../dark-theme.js"></script>
 </body>
+
 </html>

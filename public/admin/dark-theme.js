@@ -1,5 +1,5 @@
 (function () {
-  var DARK_KEY = 'earnify_dark_mode';
+  var DARK_KEY = 'creatorpay_dark_mode';
 
   function applyDarkMode(dark) {
     var html = document.documentElement;

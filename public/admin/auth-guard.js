@@ -113,7 +113,7 @@
     <div id="_agLeft">
       <div class="_ag-brand">
         <div class="_ag-logo-box">💰</div>
-        <span class="_ag-brand-name">Earnify</span>
+        <span class="_ag-brand-name">Creator Pay</span>
       </div>
       <div class="_ag-left-body">
         <div class="_ag-headline">
@@ -171,11 +171,11 @@
               </button>
             </div>
           </div>
-          <button class="_ag-submit" id="_agLoginBtn" onclick="_agLogin()">🚀 Log In to Earnify</button>
-          <p class="_ag-switch">New to Earnify? <a onclick="_agShowTab('signup')">Create a free account</a></p>
+          <button class="_ag-submit" id="_agLoginBtn" onclick="_agLogin()">🚀 Log In to Creator Pay</button>
+          <p class="_ag-switch">New to Creator Pay? <a onclick="_agShowTab('signup')">Create a free account</a></p>
         </div>
         <div id="_agSignupForm" style="display:none;">
-          <div class="_ag-header"><h2>Join Earnify 🎉</h2><p>Free account. Start earning from your knowledge today.</p></div>
+          <div class="_ag-header"><h2>Join Creator Pay 🎉</h2><p>Free account. Start earning from your knowledge today.</p></div>
           <div class="_ag-input-group"><label>Full Name</label><input class="_ag-input" type="text" id="_agSName" placeholder="Your full name" autocomplete="name"></div>
           <div class="_ag-input-group"><label>Email Address</label><input class="_ag-input" type="email" id="_agSEmail" placeholder="you@example.com" autocomplete="email"></div>
           <div class="_ag-input-group">
@@ -241,7 +241,7 @@
       setTimeout(() => _agDismiss(data.user, data.session?.access_token), 600);
     } catch(e) {
       _agSetErr('Invalid email or password.');
-      btn.disabled = false; btn.textContent = '🚀 Log In to Earnify';
+      btn.disabled = false; btn.textContent = "🚀 Log In to Creator Pay";
     }
   };
 

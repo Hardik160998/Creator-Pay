@@ -1,4 +1,4 @@
-// API Configuration for Earnify
+// API Configuration for Creator Pay
 // This file automatically detects if we're running locally or on Vercel
 
 const API_CONFIG = {

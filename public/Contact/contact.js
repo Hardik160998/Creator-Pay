@@ -1,26 +1,28 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener("DOMContentLoaded", function () {
   loadContactContent();
 });
 
 function loadContactContent() {
   showShimmer();
-  setTimeout(() => { loadActualContent(); }, 1200);
+  setTimeout(() => {
+    loadActualContent();
+  }, 1200);
 }
 
 function showShimmer() {
-  const container = document.getElementById('contactContainer');
+  const container = document.getElementById("contactContainer");
 
-  const infoCards = Array(4).fill(
-    `<div class="shimmer-info-card"></div>`
-  ).join('');
+  const infoCards = Array(4)
+    .fill(`<div class="shimmer-info-card"></div>`)
+    .join("");
 
-  const formFields = Array(3).fill(
-    `<div class="shimmer-form-field"></div>`
-  ).join('');
+  const formFields = Array(3)
+    .fill(`<div class="shimmer-form-field"></div>`)
+    .join("");
 
-  const faqCards = Array(4).fill(
-    `<div class="shimmer-faq-card"></div>`
-  ).join('');
+  const faqCards = Array(4)
+    .fill(`<div class="shimmer-faq-card"></div>`)
+    .join("");
 
   container.innerHTML = `
     <div class="contact-page">
@@ -46,15 +48,33 @@ function showShimmer() {
 }
 
 function loadActualContent() {
-  const container = document.getElementById('contactContainer');
+  const container = document.getElementById("contactContainer");
 
   const faqs = [
-    { q: 'How do I access my purchased resources?', a: 'After a successful payment, go to your Dashboard. All purchased resources appear under "My Purchases" and are available for immediate download.' },
-    { q: 'What payment methods do you accept?', a: 'We accept all major credit/debit cards, UPI, net banking, and digital wallets through Razorpay — an RBI-regulated, PCI-DSS compliant gateway.' },
-    { q: 'Can I get a refund?', a: 'All digital sales are generally final once accessed. Refunds are considered if the resource is corrupted, inaccessible, or significantly misrepresented. Email us within 48 hours of purchase.' },
-    { q: 'How do withdrawals work?', a: 'Submit a withdrawal request from your Dashboard. Our team reviews it and transfers the amount (minus the 5% platform fee) to your bank or UPI account.' },
-    { q: 'How long does a withdrawal take?', a: 'Withdrawals are reviewed within 1–2 business days. Transfer time depends on your bank, typically 1–3 business days after approval.' },
-    { q: 'How do I report an issue with a resource?', a: 'Email support@earnify.com with your order ID and a description of the issue. We investigate and resolve all reports within 2 business days.' },
+    {
+      q: "How do I access my purchased resources?",
+      a: 'After a successful payment, go to your Dashboard. All purchased resources appear under "My Purchases" and are available for immediate download.',
+    },
+    {
+      q: "What payment methods do you accept?",
+      a: "We accept all major credit/debit cards, UPI, net banking, and digital wallets through Razorpay — an RBI-regulated, PCI-DSS compliant gateway.",
+    },
+    {
+      q: "Can I get a refund?",
+      a: "All digital sales are generally final once accessed. Refunds are considered if the resource is corrupted, inaccessible, or significantly misrepresented. Email us within 48 hours of purchase.",
+    },
+    {
+      q: "How do withdrawals work?",
+      a: "Submit a withdrawal request from your Dashboard. Our team reviews it and transfers the amount (minus the 5% platform fee) to your bank or UPI account.",
+    },
+    {
+      q: "How long does a withdrawal take?",
+      a: "Withdrawals are reviewed within 1–2 business days. Transfer time depends on your bank, typically 1–3 business days after approval.",
+    },
+    {
+      q: "How do I report an issue with a resource?",
+      a: "Email support@creatorpay.com with your order ID and a description of the issue. We investigate and resolve all reports within 2 business days.",
+    },
   ];
 
   container.innerHTML = `
@@ -70,8 +90,8 @@ function loadActualContent() {
         <div class="response-badge"><i class="fas fa-bolt"></i> Average response: <strong>&nbsp;under 2 hours</strong></div>
 
         <div class="info-cards">
-          <a href="mailto:support@earnify.com" class="info-card">
-            <div><strong>Email Us</strong><span>support@earnify.com</span></div>
+          <a href="mailto:support@creatorpay.com" class="info-card">
+            <div><strong>Email Us</strong><span>support@creatorpay.com</span></div>
             <i class="fas fa-arrow-right info-card-arrow"></i>
           </a>
           <a href="tel:+116046453263" class="info-card">
@@ -147,53 +167,62 @@ function loadActualContent() {
         <p>Quick answers to the most common questions.</p>
       </div>
       <div class="faq-grid">
-        ${faqs.map(f => `
+        ${faqs
+          .map(
+            (f) => `
           <div class="faq-item" onclick="toggleFaq(this)">
             <div class="faq-q"><span>${f.q}</span><i class="fas fa-chevron-down faq-icon"></i></div>
             <div class="faq-a">${f.a}</div>
-          </div>`).join('')}
+          </div>`,
+          )
+          .join("")}
       </div>
     </div>
   `;
 
-  document.getElementById('contactForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const btn     = this.querySelector('.submit-btn');
-    const name    = document.getElementById('name').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const subject = document.getElementById('subject').value;
-    const message = document.getElementById('message').value.trim();
-    if (!name || !email || !subject || !message) return;
+  document
+    .getElementById("contactForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
+      const btn = this.querySelector(".submit-btn");
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const subject = document.getElementById("subject").value;
+      const message = document.getElementById("message").value.trim();
+      if (!name || !email || !subject || !message) return;
 
-    btn.disabled = true;
-    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
+      btn.disabled = true;
+      btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending…';
 
-    try {
-      const res  = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, subject, message })
-      });
-      const data = await res.json();
-      if (data.success) {
-        btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
-        btn.style.background = 'linear-gradient(135deg,#10b981,#059669)';
-        this.reset();
-      } else throw new Error();
-    } catch {
-      btn.innerHTML = '<i class="fas fa-exclamation-circle"></i> Failed — Try Again';
-      btn.style.background = 'linear-gradient(135deg,#ef4444,#dc2626)';
-    }
-    setTimeout(() => {
-      btn.disabled = false;
-      btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-      btn.style.background = '';
-    }, 3000);
-  });
+      try {
+        const res = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name, email, subject, message }),
+        });
+        const data = await res.json();
+        if (data.success) {
+          btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+          btn.style.background = "linear-gradient(135deg,#10b981,#059669)";
+          this.reset();
+        } else throw new Error();
+      } catch {
+        btn.innerHTML =
+          '<i class="fas fa-exclamation-circle"></i> Failed — Try Again';
+        btn.style.background = "linear-gradient(135deg,#ef4444,#dc2626)";
+      }
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+        btn.style.background = "";
+      }, 3000);
+    });
 }
 
 function toggleFaq(el) {
-  const isOpen = el.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(f => f.classList.remove('open'));
-  if (!isOpen) el.classList.add('open');
+  const isOpen = el.classList.contains("open");
+  document
+    .querySelectorAll(".faq-item.open")
+    .forEach((f) => f.classList.remove("open"));
+  if (!isOpen) el.classList.add("open");
 }

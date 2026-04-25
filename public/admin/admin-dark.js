@@ -1,4 +1,4 @@
-const DARK_KEY = 'earnify_dark_mode';
+const DARK_KEY = 'creatorpay_dark_mode';
 
 function applyAdminDark(dark) {
   document.documentElement.classList.toggle('dark-mode', dark);

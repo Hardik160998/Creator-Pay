@@ -1,30 +1,32 @@
 // Shimmer loading for Terms page
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
   loadTermsContent();
 });
 
 function loadTermsContent() {
   showShimmer();
-  setTimeout(() => { loadActualContent(); }, 1500);
+  setTimeout(() => {
+    loadActualContent();
+  }, 1500);
 }
 
 function showShimmer() {
-  const container = document.getElementById('termsContainer');
+  const container = document.getElementById("termsContainer");
 
   const patterns = [
-    ['', 'w85', 'w70'],
-    ['', 'w90', ''],
-    ['', '', 'w85', 'w60'],
-    ['', 'w70'],
-    ['', 'w90', 'w85'],
-    ['', '', 'w70'],
+    ["", "w85", "w70"],
+    ["", "w90", ""],
+    ["", "", "w85", "w60"],
+    ["", "w70"],
+    ["", "w90", "w85"],
+    ["", "", "w70"],
   ];
 
-  let cards = '';
+  let cards = "";
   for (let i = 0; i < 6; i++) {
-    const lines = patterns[i].map(w =>
-      `<div class="shimmer-text${w ? ' ' + w : ''}"></div>`
-    ).join('');
+    const lines = patterns[i]
+      .map((w) => `<div class="shimmer-text${w ? " " + w : ""}"></div>`)
+      .join("");
     cards += `
       <div class="content-box shimmer-card">
         <div class="shimmer-icon"></div>
@@ -33,9 +35,12 @@ function showShimmer() {
       </div>`;
   }
 
-  const sidebarLines = ['w85','w70','w90','w60','w85','w70','w90','w60'].map(w =>
-    `<div class="shimmer-text ${w}" style="height:11px;margin-bottom:9px"></div>`
-  ).join('');
+  const sidebarLines = ["w85", "w70", "w90", "w60", "w85", "w70", "w90", "w60"]
+    .map(
+      (w) =>
+        `<div class="shimmer-text ${w}" style="height:11px;margin-bottom:9px"></div>`,
+    )
+    .join("");
 
   const sidebar = `
     <div class="shimmer-sidebar" style="width:230px;flex-shrink:0">
@@ -50,7 +55,7 @@ function showShimmer() {
 }
 
 function loadActualContent() {
-  const container = document.getElementById('termsContainer');
+  const container = document.getElementById("termsContainer");
   container.innerHTML = `
     <div class="terms-layout">
 
@@ -73,7 +78,7 @@ function loadActualContent() {
             <a href="#t12" class="toc-link"><span class="toc-num">12</span> Changes to Terms</a>
             <a href="#t13" class="toc-link"><span class="toc-num">13</span> Contact</a>
           </nav>
-          <a href="mailto:support@earnify.com" class="toc-cta"><i class="fas fa-envelope"></i> Need Help?</a>
+          <a href="mailto:support@creatorpay.com" class="toc-cta"><i class="fas fa-envelope"></i> Need Help?</a>
         </div>
       </aside>
 
@@ -83,8 +88,8 @@ function loadActualContent() {
         <div class="content-box" id="t1">
           <div class="section-icon-wrap"><i class="fas fa-file-signature"></i></div>
           <h2>1. Acceptance of Terms</h2>
-          <p>By accessing and using Earnify, you accept and agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services. These terms apply to all users — buyers, sellers, and visitors.</p>
-          <div class="info-box info-blue"><i class="fas fa-info-circle"></i> These terms form a legally binding agreement between you and Earnify.</div>
+          <p>By accessing and using Creator Pay, you accept and agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services. These terms apply to all users — buyers, sellers, and visitors.</p>
+          <div class="info-box info-blue"><i class="fas fa-info-circle"></i> These terms form a legally binding agreement between you and Creator Pay.</div>
         </div>
 
         <div class="content-box" id="t2">
@@ -114,7 +119,7 @@ function loadActualContent() {
             <li><i class="fas fa-check-circle"></i><span><strong>Supported Methods:</strong> Credit/debit cards, UPI, net banking, and digital wallets.</span></li>
             <li><i class="fas fa-check-circle"></i><span><strong>Pricing:</strong> All prices are in Indian Rupees (₹) and set by the resource creator.</span></li>
             <li><i class="fas fa-check-circle"></i><span><strong>Instant Access:</strong> Upon successful payment, you get immediate access. Confirmation is recorded in your Dashboard.</span></li>
-            <li><i class="fas fa-exclamation-circle" style="color:#f59e0b"></i><span><strong>Failed Payments:</strong> Contact support@earnify.com with transaction details. Resolved within 5–7 business days.</span></li>
+            <li><i class="fas fa-exclamation-circle" style="color:#f59e0b"></i><span><strong>Failed Payments:</strong> Contact support@creatorpay.com with transaction details. Resolved within 5–7 business days.</span></li>
           </ul>
         </div>
 
@@ -164,7 +169,7 @@ function loadActualContent() {
             <li><i class="fas fa-check-circle"></i><span>The file is corrupted or inaccessible.</span></li>
             <li><i class="fas fa-check-circle"></i><span>A duplicate purchase was made accidentally.</span></li>
           </ul>
-          <div class="info-box info-blue" style="margin-top:14px"><i class="fas fa-envelope"></i> Email <a href="mailto:support@earnify.com" style="color:#667eea;font-weight:600;">support@earnify.com</a> within <strong>48 hours</strong> of purchase. We respond within 5 business days.</div>
+          <div class="info-box info-blue" style="margin-top:14px"><i class="fas fa-envelope"></i> Email <a href="mailto:support@creatorpay.com" style="color:#667eea;font-weight:600;">support@creatorpay.com</a> within <strong>48 hours</strong> of purchase. We respond within 5 business days.</div>
         </div>
 
         <div class="content-box" id="t7">
@@ -177,11 +182,11 @@ function loadActualContent() {
             </div>
             <div class="rule-card">
               <i class="fas fa-store"></i>
-              <div><strong>Seller Ownership</strong><p>Sellers retain full ownership. By listing, you grant Earnify a non-exclusive license to display and distribute your resources.</p></div>
+              <div><strong>Seller Ownership</strong><p>Sellers retain full ownership. By listing, you grant Creator Pay a non-exclusive license to display and distribute your resources.</p></div>
             </div>
             <div class="rule-card">
               <i class="fas fa-shield-alt"></i>
-              <div><strong>Platform Content</strong><p>Earnify's design, logo, code, and features are protected by copyright and trademark laws.</p></div>
+              <div><strong>Platform Content</strong><p>Creator Pay's design, logo, code, and features are protected by copyright and trademark laws.</p></div>
             </div>
           </div>
         </div>
@@ -201,7 +206,7 @@ function loadActualContent() {
         <div class="content-box" id="t9">
           <div class="section-icon-wrap"><i class="fas fa-balance-scale"></i></div>
           <h2>9. Limitation of Liability</h2>
-          <div class="info-box info-warn"><i class="fas fa-exclamation-triangle"></i> Earnify is provided <strong>"as is"</strong> without warranties of any kind.</div>
+          <div class="info-box info-warn"><i class="fas fa-exclamation-triangle"></i> Creator Pay is provided <strong>"as is"</strong> without warranties of any kind.</div>
           <p>We are not liable for any indirect, incidental, or consequential damages. Our total liability shall not exceed the amount you paid for the specific resource. We are not responsible for losses from incorrect bank details provided during withdrawal requests.</p>
         </div>
 
@@ -214,7 +219,7 @@ function loadActualContent() {
         <div class="content-box" id="t11">
           <div class="section-icon-wrap"><i class="fas fa-lock"></i></div>
           <h2>11. Privacy &amp; Data Security</h2>
-          <div class="info-box info-green"><i class="fas fa-shield-alt"></i> Payment data is handled exclusively by Razorpay and is <strong>never stored</strong> on Earnify servers.</div>
+          <div class="info-box info-green"><i class="fas fa-shield-alt"></i> Payment data is handled exclusively by Razorpay and is <strong>never stored</strong> on Creator Pay servers.</div>
           <p>Your personal information is used only to operate the platform and process transactions. Review our <a href="../Privacy/" style="color:#667eea;font-weight:600;">Privacy Policy</a> for full details.</p>
         </div>
 
@@ -229,7 +234,7 @@ function loadActualContent() {
           <h2>13. Contact Information</h2>
           <p>For questions about these terms, withdrawal issues, or payment disputes, please reach out:</p>
           <div class="contact-card">
-            <a href="mailto:support@earnify.com" class="contact-item"><i class="fas fa-envelope"></i><span>support@earnify.com</span></a>
+            <a href="mailto:support@creatorpay.com" class="contact-item"><i class="fas fa-envelope"></i><span>support@creatorpay.com</span></a>
             <div class="contact-item"><i class="fas fa-clock"></i><span>Response within 2 business days</span></div>
           </div>
         </div>
@@ -252,16 +257,21 @@ function loadActualContent() {
   `;
 
   // Highlight active TOC link on scroll
-  const sections = document.querySelectorAll('.content-box[id]');
-  const tocLinks = document.querySelectorAll('.toc-link');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        tocLinks.forEach(l => l.classList.remove('active'));
-        const active = document.querySelector(`.toc-link[href="#${e.target.id}"]`);
-        if (active) active.classList.add('active');
-      }
-    });
-  }, { threshold: 0.4 });
-  sections.forEach(s => observer.observe(s));
+  const sections = document.querySelectorAll(".content-box[id]");
+  const tocLinks = document.querySelectorAll(".toc-link");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          tocLinks.forEach((l) => l.classList.remove("active"));
+          const active = document.querySelector(
+            `.toc-link[href="#${e.target.id}"]`,
+          );
+          if (active) active.classList.add("active");
+        }
+      });
+    },
+    { threshold: 0.4 },
+  );
+  sections.forEach((s) => observer.observe(s));
 }

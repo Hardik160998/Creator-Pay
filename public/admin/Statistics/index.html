@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Statistics - Earnify Admin</title>
+  <title>Statistics - Creator Pay Admin</title>
   <link rel="icon" href="/file/logo1.jpeg" type="image/jpeg">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="mobile-responsive.css">
   <link rel="stylesheet" href="/admin/admin-bottom-nav.css">
   <link rel="stylesheet" href="/admin/admin-dark.css">
-  <script>!function(){var d=localStorage.getItem("earnify_dark_mode")==="1";document.documentElement.classList.toggle("dark-mode",d);if(d){document.documentElement.style.background="#0d1117";document.documentElement.style.colorScheme="dark";}var s=document.createElement("style");s.id="stats-flash-fix";s.textContent=d?".main{background:#0d1117!important}.sidebar{background:linear-gradient(180deg,#161b22,#0d1117)!important;border-right-color:#30363d!important}.stat-card,.analytics-section,.shimmer-stat-card{background:#161b22!important;border-color:#30363d!important}.sb-nm-knob{left:52px!important;background:#2d3748!important;box-shadow:2px 2px 5px #0d1117,-1px -1px 4px #3a4a5c!important}.sb-nm-toggle{background:#1e2535!important;box-shadow:4px 4px 8px #0d1117,-3px -3px 7px #2d3a4a!important}":".main{background:rgba(255,255,255,0.8)!important}.sb-nm-knob{left:4px!important}.sb-nm-toggle{box-shadow:4px 4px 8px #b8bec7,-4px -4px 8px #ffffff!important}";document.head.appendChild(s);document.addEventListener("DOMContentLoaded",function(){document.body.classList.toggle("dark-mode",d);var k=document.getElementById("sbNmKnob");if(k)k.textContent=d?"🌙":"☀️";setTimeout(function(){var el=document.getElementById("stats-flash-fix");if(el)el.remove();},400);});}();</script>
+  <script>!function () { var d = localStorage.getItem("creatorpay_dark_mode") === "1"; document.documentElement.classList.toggle("dark-mode", d); if (d) { document.documentElement.style.background = "#0d1117"; document.documentElement.style.colorScheme = "dark"; } var s = document.createElement("style"); s.id = "stats-flash-fix"; s.textContent = d ? ".main{background:#0d1117!important}.sidebar{background:linear-gradient(180deg,#161b22,#0d1117)!important;border-right-color:#30363d!important}.stat-card,.analytics-section,.shimmer-stat-card{background:#161b22!important;border-color:#30363d!important}.sb-nm-knob{left:52px!important;background:#2d3748!important;box-shadow:2px 2px 5px #0d1117,-1px -1px 4px #3a4a5c!important}.sb-nm-toggle{background:#1e2535!important;box-shadow:4px 4px 8px #0d1117,-3px -3px 7px #2d3a4a!important}" : ".main{background:rgba(255,255,255,0.8)!important}.sb-nm-knob{left:4px!important}.sb-nm-toggle{box-shadow:4px 4px 8px #b8bec7,-4px -4px 8px #ffffff!important}"; document.head.appendChild(s); document.addEventListener("DOMContentLoaded", function () { document.body.classList.toggle("dark-mode", d); var k = document.getElementById("sbNmKnob"); if (k) k.textContent = d ? "🌙" : "☀️"; setTimeout(function () { var el = document.getElementById("stats-flash-fix"); if (el) el.remove(); }, 400); }); }();</script>
   <style>
     .sidebar-header {
       display: flex;
@@ -19,12 +21,14 @@
       padding: 0 20px 30px;
       border-bottom: 2px solid rgba(59, 130, 246, 0.2);
     }
+
     .sidebar-header h2 {
       padding: 0;
       border-bottom: none;
       margin: 0;
       white-space: nowrap;
     }
+
     .sidebar-close-btn {
       display: none;
       background: none;
@@ -38,10 +42,12 @@
       transition: background 0.2s, color 0.2s;
       box-shadow: none !important;
     }
+
     .sidebar-close-btn:hover {
-      background: rgba(255,255,255,0.15);
+      background: rgba(255, 255, 255, 0.15);
       color: #ef4444;
     }
+
     .logout-link {
       background: white !important;
       color: #1e293b !important;
@@ -50,20 +56,25 @@
       font-weight: 600 !important;
       transition: all 0.3s !important;
     }
+
     .logout-link:hover {
       background: #fee2e2 !important;
       color: #dc2626 !important;
       border-color: #dc2626 !important;
       transform: translateY(-2px) !important;
     }
+
     .sidebar.active .sidebar-close-btn {
       display: block;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color:white;
-    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
     }
+
     @media (min-width: 769px) {
-      .sidebar-close-btn { display: none !important; }
+      .sidebar-close-btn {
+        display: none !important;
+      }
     }
 
     /* Enhanced Shimmer Animation - Smaller and Subtle */
@@ -72,9 +83,11 @@
         background-position: -800px 0;
         opacity: 0.9;
       }
+
       50% {
         opacity: 1;
       }
+
       100% {
         background-position: 800px 0;
         opacity: 0.9;
@@ -85,11 +98,13 @@
     #analyticsShimmer .modern-table thead {
       background: #f1f5f9 !important;
     }
+
     #analyticsShimmer .modern-table th {
       padding: 14px 20px;
       color: transparent !important;
       border-right-color: #e2e8f0 !important;
     }
+
     #analyticsShimmer .modern-table th .shimmer-table-cell {
       width: 80%;
       margin: 0;
@@ -97,31 +112,38 @@
       background-size: 400px 100% !important;
       animation: shimmerSlide 1.4s infinite linear !important;
     }
+
     #analyticsShimmer .modern-table tbody tr {
       background: white !important;
     }
+
     #analyticsShimmer .modern-table tbody td {
       border-right-color: #f1f5f9 !important;
       border-bottom-color: #f1f5f9 !important;
     }
+
     /* ── Shimmer table: dark mode ── */
     html.dark-mode #analyticsShimmer .modern-table thead,
     body.dark-mode #analyticsShimmer .modern-table thead {
       background: #1c2333 !important;
     }
+
     html.dark-mode #analyticsShimmer .modern-table th,
     body.dark-mode #analyticsShimmer .modern-table th {
       border-right-color: #30363d !important;
     }
+
     html.dark-mode #analyticsShimmer .modern-table th .shimmer-table-cell,
     body.dark-mode #analyticsShimmer .modern-table th .shimmer-table-cell {
       background: linear-gradient(90deg, #21293d 25%, #2d3a4a 50%, #21293d 75%) !important;
       background-size: 400px 100% !important;
     }
+
     html.dark-mode #analyticsShimmer .modern-table tbody tr,
     body.dark-mode #analyticsShimmer .modern-table tbody tr {
       background: #161b22 !important;
     }
+
     html.dark-mode #analyticsShimmer .modern-table tbody td,
     body.dark-mode #analyticsShimmer .modern-table tbody td {
       border-right-color: #21293d !important;
@@ -133,9 +155,12 @@
     }
 
     @keyframes pulse {
-      0%, 100% {
+
+      0%,
+      100% {
         opacity: 1;
       }
+
       50% {
         opacity: 0.5;
       }
@@ -144,12 +169,10 @@
     .shimmer-table-cell {
       height: 20px;
       border-radius: 4px;
-      background: linear-gradient(
-        90deg,
-        #f0f0f0 0%,
-        #e0e0e0 50%,
-        #f0f0f0 100%
-      );
+      background: linear-gradient(90deg,
+          #f0f0f0 0%,
+          #e0e0e0 50%,
+          #f0f0f0 100%);
       background-size: 1000px 100%;
       animation: shimmer 2s infinite linear;
       margin: 8px 0;
@@ -160,22 +183,22 @@
     .page-header {
       display: block;
       visibility: visible;
-          border-radius: 15px;
+      border-radius: 15px;
       padding: 40px 20px;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       margin-bottom: 30px;
     }
-    
-   
-    
+
+
+
     .header-content h1 {
       font-size: 36px;
       font-weight: 700;
       margin: 0 0 10px 0;
       text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    
+
     .header-content .subtitle {
       font-size: 16px;
       opacity: 0.9;
@@ -183,7 +206,7 @@
       font-weight: 400;
       display: none;
     }
-    
+
     /* Date Filter Section - Desktop and Mobile */
     .date-filter-section {
       margin-top: 25px;
@@ -201,7 +224,7 @@
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 15px;
-     
+
       visibility: visible !important;
     }
 
@@ -220,6 +243,7 @@
       .date-filter-buttons {
         display: flex !important;
       }
+
       .date-filter-dropdown {
         display: none !important;
       }
@@ -233,9 +257,11 @@
         gap: 8px !important;
         width: 100% !important;
       }
+
       .date-filter-dropdown {
         display: none !important;
       }
+
       .filter-btn {
         display: flex !important;
         /* flex-direction: column !important; */
@@ -249,10 +275,12 @@
         text-align: center !important;
         min-height: 56px !important;
       }
+
       .filter-btn .btn-icon {
         font-size: 18px !important;
         display: block !important;
       }
+
       .filter-btn .btn-text {
         font-size: 11px !important;
         font-weight: 600 !important;
@@ -697,7 +725,7 @@
       flex-direction: row;
       align-items: center;
       gap: 14px;
-      border: 1px solid rgba(0,0,0,0.05);
+      border: 1px solid rgba(0, 0, 0, 0.05);
       position: relative;
       overflow: hidden;
       min-height: 80px;
@@ -708,38 +736,63 @@
     .shimmer-stat-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
+      top: 0;
+      left: 0;
+      right: 0;
       height: 3px;
       background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
     }
+
     .stat-card:nth-child(2)::before,
-    .shimmer-stat-card:nth-child(2)::before { background: linear-gradient(90deg,#f093fb,#f5576c); }
+    .shimmer-stat-card:nth-child(2)::before {
+      background: linear-gradient(90deg, #f093fb, #f5576c);
+    }
+
     .stat-card:nth-child(3)::before,
-    .shimmer-stat-card:nth-child(3)::before { background: linear-gradient(90deg,#4facfe,#00f2fe); }
+    .shimmer-stat-card:nth-child(3)::before {
+      background: linear-gradient(90deg, #4facfe, #00f2fe);
+    }
 
     /* Hover — only real cards */
-    .stat-card { cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    .stat-card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
-    .stat-card:hover::before { height: 4px; }
+    .stat-card {
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .stat-card:hover::before {
+      height: 4px;
+    }
 
     /* Icon */
     .stat-icon {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 22px;
       flex-shrink: 0;
       border: 1px solid #e2e8f0;
       transition: transform 0.2s;
     }
-    .stat-card:hover .stat-icon { transform: scale(1.06); }
+
+    .stat-card:hover .stat-icon {
+      transform: scale(1.06);
+    }
 
     /* Shimmer icon placeholder */
     .shimmer-stat-icon {
-      width: 48px; height: 48px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
       flex-shrink: 0;
-      background: linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
       background-size: 400px 100%;
       animation: shimmerSlide 1.4s infinite linear;
     }
@@ -748,62 +801,98 @@
     .stat-content {
       flex: 1;
       text-align: right;
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       justify-content: center;
       gap: 4px;
     }
+
     .stat-content h3 {
-      font-size: 11px; color: #64748b;
-      text-transform: uppercase; letter-spacing: 0.6px;
-      margin: 0; font-weight: 600;
+      font-size: 11px;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin: 0;
+      font-weight: 600;
     }
+
     .stat-number {
-      font-size: 28px; font-weight: 800;
-      background: linear-gradient(135deg,#1e293b,#475569);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1e293b, #475569);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       background-clip: text;
-      margin: 0; line-height: 1.1;
+      margin: 0;
+      line-height: 1.1;
     }
+
     .stat-card:hover .stat-number {
-      background: linear-gradient(135deg,#667eea,#764ba2);
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       background-clip: text;
     }
+
     .stat-label {
-      font-size: 10px; color: #94a3b8;
-      font-weight: 500; text-transform: uppercase;
-      letter-spacing: 0.5px; margin: 0;
+      font-size: 10px;
+      color: #94a3b8;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin: 0;
     }
 
     /* Shimmer content placeholders */
     .shimmer-stat-content {
       flex: 1;
-      display: flex; flex-direction: column;
+      display: flex;
+      flex-direction: column;
       align-items: flex-end;
       gap: 8px;
     }
+
     .shimmer-stat-title,
     .shimmer-stat-number,
     .shimmer-stat-label {
       border-radius: 4px;
-      background: linear-gradient(90deg,#f0f0f0 25%,#e0e0e0 50%,#f0f0f0 75%);
+      background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
       background-size: 400px 100%;
       animation: shimmerSlide 1.4s infinite linear;
     }
-    .shimmer-stat-title  { width: 55%; height: 10px; }
-    .shimmer-stat-number { width: 70%; height: 24px; }
-    .shimmer-stat-label  { width: 45%; height: 8px; }
+
+    .shimmer-stat-title {
+      width: 55%;
+      height: 10px;
+    }
+
+    .shimmer-stat-number {
+      width: 70%;
+      height: 24px;
+    }
+
+    .shimmer-stat-label {
+      width: 45%;
+      height: 8px;
+    }
 
     @keyframes shimmerSlide {
-      0%   { background-position: -400px 0; }
-      100% { background-position:  400px 0; }
+      0% {
+        background-position: -400px 0;
+      }
+
+      100% {
+        background-position: 400px 0;
+      }
     }
+
     /* Dark mode shimmer overrides */
     html.dark-mode .shimmer-stat-card,
     body.dark-mode .shimmer-stat-card {
       background: #161b22 !important;
       border-color: #30363d !important;
     }
+
     html.dark-mode .shimmer-stat-icon,
     body.dark-mode .shimmer-stat-icon,
     html.dark-mode .shimmer-stat-title,
@@ -812,27 +901,32 @@
     body.dark-mode .shimmer-stat-number,
     html.dark-mode .shimmer-stat-label,
     body.dark-mode .shimmer-stat-label {
-      background: linear-gradient(90deg,#1c2333 25%,#21293d 50%,#1c2333 75%) !important;
+      background: linear-gradient(90deg, #1c2333 25%, #21293d 50%, #1c2333 75%) !important;
       background-size: 400px 100% !important;
     }
+
     html.dark-mode .shimmer-table-cell,
     body.dark-mode .shimmer-table-cell {
-      background: linear-gradient(90deg,#1c2333 25%,#21293d 50%,#1c2333 75%) !important;
+      background: linear-gradient(90deg, #1c2333 25%, #21293d 50%, #1c2333 75%) !important;
       background-size: 1000px 100% !important;
     }
+
     html.dark-mode #analyticsShimmer .modern-table thead,
     body.dark-mode #analyticsShimmer .modern-table thead {
       background: #1c2333 !important;
     }
+
     html.dark-mode #analyticsShimmer .modern-table tbody tr,
     body.dark-mode #analyticsShimmer .modern-table tbody tr {
       background: #161b22 !important;
     }
+
     html.dark-mode .shimmer-profile-card,
     body.dark-mode .shimmer-profile-card {
       background: #161b22 !important;
       border-color: #30363d !important;
     }
+
     html.dark-mode .shimmer-avatar-circle,
     body.dark-mode .shimmer-avatar-circle,
     html.dark-mode .shimmer-profile-name-line,
@@ -841,34 +935,52 @@
     body.dark-mode .shimmer-profile-email-line,
     html.dark-mode .shimmer-profile-badge-line,
     body.dark-mode .shimmer-profile-badge-line {
-      background: linear-gradient(90deg,#1c2333 25%,#21293d 50%,#1c2333 75%) !important;
+      background: linear-gradient(90deg, #1c2333 25%, #21293d 50%, #1c2333 75%) !important;
       background-size: 800px 100% !important;
     }
 
     /* ── Mobile ── */
     @media (max-width: 768px) {
+
       .stats-overview,
       .shimmer-stats {
-        grid-template-columns: 1fr ;
+        grid-template-columns: 1fr;
       }
+
       .stat-card,
       .shimmer-stat-card {
         padding: 12px 14px !important;
         gap: 12px !important;
         min-height: 68px !important;
       }
+
       .stat-icon,
       .shimmer-stat-icon {
-        width: 42px !important; height: 42px !important;
+        width: 42px !important;
+        height: 42px !important;
         font-size: 19px !important;
         border-radius: 9px !important;
       }
-      .stat-number { font-size: 22px !important; }
-      .stat-content h3 { font-size: 10px !important; }
-      .stat-label { font-size: 9px !important; }
-      .shimmer-stat-number { height: 20px !important; }
+
+      .stat-number {
+        font-size: 22px !important;
+      }
+
+      .stat-content h3 {
+        font-size: 10px !important;
+      }
+
+      .stat-label {
+        font-size: 9px !important;
+      }
+
+      .shimmer-stat-number {
+        height: 20px !important;
+      }
     }
+
     @media (max-width: 380px) {
+
       .stats-overview,
       .shimmer-stats {
         grid-template-columns: 1fr !important;
@@ -879,42 +991,70 @@
     #analyticsContent .table-wrapper {
       /* overflow-x: auto; */
     }
+
     #analyticsContent .modern-table {
       width: 100% !important;
       min-width: unset !important;
       table-layout: fixed;
     }
+
     #analyticsContent .modern-table th,
     #analyticsContent .modern-table td {
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+
     /* Customer email column — allow wrap on small screens */
     #analyticsContent .customer-email {
       white-space: nowrap;
       text-overflow: ellipsis;
       max-width: 180px;
     }
+
     @media (max-width: 768px) {
       #analyticsContent .modern-table {
         table-layout: auto;
         /* min-width: 420px !important; */
       }
+
       #analyticsContent .customer-email {
         max-width: 120px;
         font-size: 12px !important;
       }
     }
+
     @media (max-width: 768px) {
-      .col-quantity, .col-resources { display: none !important; }
-      .col-eye { display: table-cell !important; }
-      .modern-table th, .modern-table td { padding: 10px 10px !important; font-size: 13px !important; }
-      .customer-email { font-size: 12px !important; word-break: break-all; }
-      .amount-value { font-size: 13px !important; }
+
+      .col-quantity,
+      .col-resources {
+        display: none !important;
+      }
+
+      .col-eye {
+        display: table-cell !important;
+      }
+
+      .modern-table th,
+      .modern-table td {
+        padding: 10px 10px !important;
+        font-size: 13px !important;
+      }
+
+      .customer-email {
+        font-size: 12px !important;
+        word-break: break-all;
+      }
+
+      .amount-value {
+        font-size: 13px !important;
+      }
     }
+
     @media (min-width: 769px) {
-      .col-eye { display: none !important; }
+      .col-eye {
+        display: none !important;
+      }
     }
 
     /* Eye button */
@@ -922,14 +1062,18 @@
       background: white !important;
       border: 1.5px solid #667eea;
       border-radius: 8px;
-      width: 64px; height: 30px;
-      display: flex; align-items: center; justify-content: center;
+      width: 64px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
       transition: transform 0.2s, box-shadow 0.2s;
       margin: 0 auto;
       padding: 0;
       box-shadow: none;
     }
+
     .eye-btn span {
       display: block;
       font-size: 11px;
@@ -942,7 +1086,11 @@
       color: transparent;
       line-height: 1;
     }
-    .eye-btn:hover { transform: scale(1.05); box-shadow: 0 3px 10px rgba(102,126,234,0.25) !important; }
+
+    .eye-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 3px 10px rgba(102, 126, 234, 0.25) !important;
+    }
 
     /* Detail Modal */
     #customerDetailModal {
@@ -952,9 +1100,13 @@
       z-index: 9999;
       align-items: flex-end;
       justify-content: center;
-      background: rgba(0,0,0,0.45);
+      background: rgba(0, 0, 0, 0.45);
     }
-    #customerDetailModal.open { display: flex; }
+
+    #customerDetailModal.open {
+      display: flex;
+    }
+
     .detail-sheet {
       background: white;
       border-radius: 20px 20px 0 0;
@@ -965,67 +1117,127 @@
       overflow-y: auto;
       animation: slideUp 0.3s ease;
     }
+
     @keyframes slideUp {
-      from { transform: translateY(100%); opacity: 0; }
-      to   { transform: translateY(0);    opacity: 1; }
+      from {
+        transform: translateY(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
     }
+
     .detail-sheet-handle {
-      width: 40px; height: 4px;
+      width: 40px;
+      height: 4px;
       background: #e2e8f0;
       border-radius: 2px;
       margin: 0 auto 20px;
     }
+
     .detail-sheet h3 {
-      font-size: 17px; font-weight: 700; color: #1e293b;
-      margin: 0 0 18px; text-align: center;
+      font-size: 17px;
+      font-weight: 700;
+      color: #1e293b;
+      margin: 0 0 18px;
+      text-align: center;
     }
+
     .detail-row {
-      display: flex; justify-content: space-between; align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
       padding: 12px 0;
       border-bottom: 1px solid #f1f5f9;
       gap: 12px;
     }
-    .detail-row:last-child { border-bottom: none; }
+
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+
     .detail-label {
-      font-size: 12px; font-weight: 600; color: #64748b;
-      text-transform: uppercase; letter-spacing: 0.5px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
       flex-shrink: 0;
     }
+
     .detail-value {
-      font-size: 14px; font-weight: 600; color: #1e293b;
-      text-align: right; word-break: break-all;
+      font-size: 14px;
+      font-weight: 600;
+      color: #1e293b;
+      text-align: right;
+      word-break: break-all;
     }
-    .detail-resources { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+
+    .detail-resources {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: flex-end;
+    }
+
     .detail-close-btn {
-      width: 100%; margin-top: 20px;
+      width: 100%;
+      margin-top: 20px;
       padding: 14px;
       background: linear-gradient(135deg, #667eea, #764ba2);
-      color: white; border: none; border-radius: 12px;
-      font-size: 15px; font-weight: 700; cursor: pointer;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
       transition: opacity 0.2s;
     }
-    .detail-close-btn:hover { opacity: 0.9; }
+
+    .detail-close-btn:hover {
+      opacity: 0.9;
+    }
+
     @media (max-width: 768px) {
-      .mobile-menu-toggle:not(.page-header-toggle) { display: none !important; }
+      .mobile-menu-toggle:not(.page-header-toggle) {
+        display: none !important;
+      }
+
       .page-header-toggle {
         display: flex !important;
         position: static !important;
-        width: 44px !important; height: 44px !important; min-width: 44px !important;
-        padding: 8px !important; border-radius: 10px !important;
-        flex-shrink: 0 !important; box-shadow: none !important;
-        background: rgba(255,255,255,0.25) !important;
-        border: 2px solid rgba(255,255,255,0.5) !important;
-        align-items: center !important; justify-content: center !important;
-        flex-direction: column !important; gap: 5px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        padding: 8px !important;
+        border-radius: 10px !important;
+        flex-shrink: 0 !important;
+        box-shadow: none !important;
+        background: rgba(255, 255, 255, 0.25) !important;
+        border: 2px solid rgba(255, 255, 255, 0.5) !important;
+        align-items: center !important;
+        justify-content: center !important;
+        flex-direction: column !important;
+        gap: 5px !important;
       }
+
       .page-header-toggle .hamburger {
-        width: 22px !important; height: 2px !important;
-        background: #ffffff !important; border-radius: 2px !important;
-        display: block !important; margin: 0 !important;
+        width: 22px !important;
+        height: 2px !important;
+        background: #ffffff !important;
+        border-radius: 2px !important;
+        display: block !important;
+        margin: 0 !important;
       }
     }
+
     @media (min-width: 769px) {
-      .page-header-toggle { display: none !important; }
+      .page-header-toggle {
+        display: none !important;
+      }
     }
 
     /* ── Neumorphic Theme Toggle ── */
@@ -1037,13 +1249,21 @@
       border-top: 1px solid #e2e8f0;
       /* margin-bottom: 4px; */
     }
-    body.dark-mode .sb-nm-wrap { border-bottom-color: #30363d; }
+
+    body.dark-mode .sb-nm-wrap {
+      border-bottom-color: #30363d;
+    }
+
     .sb-nm-wrap-label {
       font-size: 13px;
       font-weight: 600;
       color: #64748b;
     }
-    body.dark-mode .sb-nm-wrap-label { color: #8b949e; }
+
+    body.dark-mode .sb-nm-wrap-label {
+      color: #8b949e;
+    }
+
     .sb-nm-toggle {
       position: relative;
       width: 80px;
@@ -1058,12 +1278,14 @@
       box-shadow: 4px 4px 8px #b8bec7, -4px -4px 8px #ffffff;
       transition: background 0.4s;
     }
+
     html.dark-mode .sb-nm-toggle,
     body.dark-mode .sb-nm-toggle {
       background: #1e2535 !important;
       box-shadow: 4px 4px 8px #0d1117, -3px -3px 7px #2d3a4a !important;
       transition: background 0.4s !important;
     }
+
     .sb-nm-knob {
       position: absolute;
       top: 4px;
@@ -1079,15 +1301,17 @@
       font-size: 16px;
       line-height: 1;
       pointer-events: none;
-      transition: left 0.4s cubic-bezier(.4,0,.2,1), background 0.4s;
+      transition: left 0.4s cubic-bezier(.4, 0, .2, 1), background 0.4s;
       z-index: 2;
     }
+
     html.dark-mode .sb-nm-knob,
     body.dark-mode .sb-nm-knob {
       left: 52px !important;
       background: #2d3748 !important;
       box-shadow: 2px 2px 5px #0d1117, -1px -1px 4px #3a4a5c !important;
     }
+
     .sb-nm-label {
       position: absolute !important;
       top: 50% !important;
@@ -1101,598 +1325,724 @@
       transition: opacity 0.3s !important;
       white-space: nowrap !important;
     }
-    .sb-nm-label-light { right: 9px !important; color: #64748b !important; opacity: 1 !important; }
-    .sb-nm-label-dark  { left: 9px !important;  color: #a78bfa !important; opacity: 0 !important; }
-    body.dark-mode .sb-nm-label-light { opacity: 0 !important; }
-    body.dark-mode .sb-nm-label-dark  { opacity: 1 !important; }
+
+    .sb-nm-label-light {
+      right: 9px !important;
+      color: #64748b !important;
+      opacity: 1 !important;
+    }
+
+    .sb-nm-label-dark {
+      left: 9px !important;
+      color: #a78bfa !important;
+      opacity: 0 !important;
+    }
+
+    body.dark-mode .sb-nm-label-light {
+      opacity: 0 !important;
+    }
+
+    body.dark-mode .sb-nm-label-dark {
+      opacity: 1 !important;
+    }
   </style>
   <link rel="stylesheet" href="/admin/dark-theme.css">
   <script src="/admin/dark-theme.js"></script>
 </head>
+
 <body>
 
-<button class="mobile-menu-toggle" onclick="toggleSidebar()">
-  <div class="hamburger"></div>
-  <div class="hamburger"></div>
-  <div class="hamburger"></div>
-</button>
+  <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <div class="hamburger"></div>
+    <div class="hamburger"></div>
+    <div class="hamburger"></div>
+  </button>
 
-<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-<div class="sidebar">
-  <div class="sidebar-header">
-    <h2>Earnify Admin</h2>
-    <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
-  </div>
-  <a href="/admin/Resources/" onclick="closeMobileSidebar()" class="nav-link">📚 Resources</a>
-  <a href="/admin/Statistics/" onclick="closeMobileSidebar()" class="nav-link active-link">📈 Statistics</a>
-  <a href="/admin/Profile/" onclick="closeMobileSidebar()" class="nav-link">👤 Profile</a>
-  <a href="/admin/Withdrawal/" onclick="closeMobileSidebar()" class="nav-link">💸 Withdrawal</a>
-  <!-- Neumorphic Theme Toggle -->
-  <div class="sb-nm-wrap">
-<button class="sb-nm-toggle" id="sbNmToggle" onclick="toggleDarkMode()" title="Toggle dark/light mode">
-      <span class="sb-nm-knob" id="sbNmKnob"></span>
-      <span class="sb-nm-label sb-nm-label-light">LIGHT</span>
-      <span class="sb-nm-label sb-nm-label-dark">DARK</span>
-    </button>
-  </div>
-  <a href="/" class="nav-link nav-link-divider" onclick="closeMobileSidebar()">🏠 Main Site</a>
-  <a onclick="logout()" class="nav-link nav-link-logout"><span>🚪</span> Logout</a>
-
-  <!-- User Profile Section -->
-  <div class="sidebar-user" id="sidebarUser" style="display: none;">
-    <div class="user-info">
-      <div class="user-avatar" id="sidebarAvatar">👤</div>
-      <div class="user-details">
-        <div class="user-name" id="sidebarUserName">User</div>
-        <div class="user-email" id="sidebarUserEmail">user@email.com</div>
-      </div>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h2>Creator Pay Admin</h2>
+      <button class="sidebar-close-btn" onclick="toggleSidebar()">&times;</button>
     </div>
-    <a onclick="logout()" class="logout-link">🚪 Logout</a>
-  </div>
-</div>
-<script>!function(){var k=document.getElementById('sbNmKnob');if(k)k.textContent=localStorage.getItem('earnify_dark_mode')==='1'?'🌙':'☀️';}();</script>
+    <a href="/admin/Resources/" onclick="closeMobileSidebar()" class="nav-link">📚 Resources</a>
+    <a href="/admin/Statistics/" onclick="closeMobileSidebar()" class="nav-link active-link">📈 Statistics</a>
+    <a href="/admin/Profile/" onclick="closeMobileSidebar()" class="nav-link">👤 Profile</a>
+    <a href="/admin/Withdrawal/" onclick="closeMobileSidebar()" class="nav-link">💸 Withdrawal</a>
+    <!-- Neumorphic Theme Toggle -->
+    <div class="sb-nm-wrap">
+      <button class="sb-nm-toggle" id="sbNmToggle" onclick="toggleDarkMode()" title="Toggle dark/light mode">
+        <span class="sb-nm-knob" id="sbNmKnob"></span>
+        <span class="sb-nm-label sb-nm-label-light">LIGHT</span>
+        <span class="sb-nm-label sb-nm-label-dark">DARK</span>
+      </button>
+    </div>
+    <a href="/" class="nav-link nav-link-divider" onclick="closeMobileSidebar()">🏠 Main Site</a>
+    <a onclick="logout()" class="nav-link nav-link-logout"><span>🚪</span> Logout</a>
 
-<div id="authModal" class="auth-modal">
-  <div class="auth-modal-content">
-    <span class="close" onclick="closeAuthModal()">&times;</span>
-    <h2 id="authTitle">Admin Login</h2>
-    <p id="authSubtitle">Login to access admin dashboard</p>
-    <div id="authError" class="error-message"></div>
-    <div id="authSuccess" class="success-message"></div>
-    <form id="authLoginForm">
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="authLoginEmail" required placeholder="admin@earnify.com">
+    <!-- User Profile Section -->
+    <div class="sidebar-user" id="sidebarUser" style="display: none;">
+      <div class="user-info">
+        <div class="user-avatar" id="sidebarAvatar">👤</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebarUserName">User</div>
+          <div class="user-email" id="sidebarUserEmail">user@email.com</div>
+        </div>
       </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="authLoginPassword" required placeholder="Enter password" autocomplete="current-password">
-      </div>
-      <button type="submit" class="btn-submit">Login</button>
-      <div class="toggle-form">
-        Don't have an account? <a onclick="toggleAuthForm()">Sign Up</a>
-      </div>
-    </form>
-    <form id="authSignupForm" class="hidden">
-      <div class="form-group">
-        <label>Full Name</label>
-        <input type="text" id="authSignupName" required placeholder="Enter your name">
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="email" id="authSignupEmail" required placeholder="admin@earnify.com">
-      </div>
-      <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="authSignupPassword" required placeholder="Min 6 characters" autocomplete="new-password">
-      </div>
-      <div class="form-group">
-        <label>Confirm Password</label>
-        <input type="password" id="authSignupConfirm" required placeholder="Re-enter password" autocomplete="new-password">
-      </div>
-      <button type="submit" class="btn-submit">Sign Up</button>
-      <div class="toggle-form">
-        Already have an account? <a onclick="toggleAuthForm()">Login</a>
-      </div>
-    </form>
+      <a onclick="logout()" class="logout-link">🚪 Logout</a>
+    </div>
   </div>
-</div>
+  <script>!function () { var k = document.getElementById('sbNmKnob'); if (k) k.textContent = localStorage.getItem('creatorpay_dark_mode') === '1' ? '🌙' : '☀️'; }();</script>
 
-<div class="main">
-  <div class="page-header">
-    <div class="header-content">
-      <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:10px;">
-        <div style="display:flex; align-items:center; gap:14px;">
-          <button class="mobile-menu-toggle page-header-toggle" onclick="toggleSidebar()" style="display:none;">
-            <div class="hamburger"></div>
-            <div class="hamburger"></div>
-            <div class="hamburger"></div>
-          </button>
-          <h1 style="margin:0;">Sales Statistics</h1>
+  <div id="authModal" class="auth-modal">
+    <div class="auth-modal-content">
+      <span class="close" onclick="closeAuthModal()">&times;</span>
+      <h2 id="authTitle">Admin Login</h2>
+      <p id="authSubtitle">Login to access admin dashboard</p>
+      <div id="authError" class="error-message"></div>
+      <div id="authSuccess" class="success-message"></div>
+      <form id="authLoginForm">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="authLoginEmail" required placeholder="admin@creatorpay.com">
         </div>
-        
-        <a href="/admin/Withdrawal/" style="display:inline-flex; align-items:center; gap:8px; padding:12px 22px; background:rgba(255,255,255,.18); backdrop-filter:blur(10px); border:1.5px solid rgba(255,255,255,.4); color:#fff; border-radius:12px; font-size:14px; font-weight:700; text-decoration:none; transition:all .25s; white-space:nowrap;" onmouseover="this.style.background='rgba(255,255,255,.3)'" onmouseout="this.style.background='rgba(255,255,255,.18)'">💸 Request Withdrawal</a>
-      </div>
-      <p class="subtitle">Track sales performance and customer insights for your resources</p>
-      
-      <!-- Date Filter Section - Desktop and Mobile -->
-      <div class="date-filter-section">
-        <div class="filter-label">
-          <span class="filter-icon">📅</span>
-          <span>Filter by Date:</span>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authLoginPassword" required placeholder="Enter password"
+            autocomplete="current-password">
         </div>
-        
-        <!-- Desktop View - Buttons -->
-        <div class="date-filter-buttons">
-          <button class="filter-btn active" onclick="filterByDate('alltime')" data-period="alltime">
-            <span class="btn-icon">📊</span>
-            <span class="btn-text">All Time</span>
-          </button>
-          <button class="filter-btn" onclick="filterByDate('today')" data-period="today">
-            <span class="btn-icon">📉</span>
-            <span class="btn-text">Today</span>
-          </button>
-          <button class="filter-btn" onclick="filterByDate('yesterday')" data-period="yesterday">
-            <span class="btn-icon">📉</span>
-            <span class="btn-text">Yesterday</span>
-          </button>
-          <button class="filter-btn" onclick="filterByDate('lastweek')" data-period="lastweek">
-            <span class="btn-icon">📋</span>
-            <span class="btn-text">Last Week</span>
-          </button>
-          <button class="filter-btn" onclick="filterByDate('lastmonth')" data-period="lastmonth">
-            <span class="btn-icon">📅</span>
-            <span class="btn-text">Last Month</span>
-          </button>
-          <button class="filter-btn" onclick="showCustomDateModal()" data-period="custom">
-            <span class="btn-icon">🗓️</span>
-            <span class="btn-text">Custom</span>
-          </button>
+        <button type="submit" class="btn-submit">Login</button>
+        <div class="toggle-form">
+          Don't have an account? <a onclick="toggleAuthForm()">Sign Up</a>
         </div>
-        
-        <!-- Mobile View - Dropdown -->
-        <div class="date-filter-dropdown">
-          <div class="filter-dropdown-toggle" onclick="toggleFilterDropdown()" id="filterDropdownToggle">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span class="dropdown-current-icon">📊</span>
-              <span class="dropdown-current-text">All Time</span>
-            </div>
-            <span class="dropdown-arrow">▼</span>
+      </form>
+      <form id="authSignupForm" class="hidden">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="authSignupName" required placeholder="Enter your name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="authSignupEmail" required placeholder="admin@creatorpay.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="authSignupPassword" required placeholder="Min 6 characters"
+            autocomplete="new-password">
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" id="authSignupConfirm" required placeholder="Re-enter password"
+            autocomplete="new-password">
+        </div>
+        <button type="submit" class="btn-submit">Sign Up</button>
+        <div class="toggle-form">
+          Already have an account? <a onclick="toggleAuthForm()">Login</a>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="page-header">
+      <div class="header-content">
+        <div
+          style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:10px;">
+          <div style="display:flex; align-items:center; gap:14px;">
+            <button class="mobile-menu-toggle page-header-toggle" onclick="toggleSidebar()" style="display:none;">
+              <div class="hamburger"></div>
+              <div class="hamburger"></div>
+              <div class="hamburger"></div>
+            </button>
+            <h1 style="margin:0;">Sales Statistics</h1>
           </div>
-          <div class="filter-dropdown-menu" id="filterDropdownMenu">
-            <div class="filter-dropdown-item active" onclick="selectDropdownFilter('alltime')" data-period="alltime">
-              <span class="dropdown-item-icon">📊</span>
-              <span class="dropdown-item-text">All Time</span>
-            </div>
-            <div class="filter-dropdown-item" onclick="selectDropdownFilter('today')" data-period="today">
-              <span class="dropdown-item-icon">📈</span>
-              <span class="dropdown-item-text">Today</span>
-            </div>
-            <div class="filter-dropdown-item" onclick="selectDropdownFilter('yesterday')" data-period="yesterday">
-              <span class="dropdown-item-icon">📉</span>
-              <span class="dropdown-item-text">Yesterday</span>
-            </div>
-            <div class="filter-dropdown-item" onclick="selectDropdownFilter('lastweek')" data-period="lastweek">
-              <span class="dropdown-item-icon">📋</span>
-              <span class="dropdown-item-text">Last Week</span>
-            </div>
-            <div class="filter-dropdown-item" onclick="selectDropdownFilter('lastmonth')" data-period="lastmonth">
-              <span class="dropdown-item-icon">📅</span>
-              <span class="dropdown-item-text">Last Month</span>
-            </div>
-            <div class="filter-dropdown-item" onclick="selectDropdownFilter('custom')" data-period="custom">
-              <span class="dropdown-item-icon">🗓️</span>
-              <span class="dropdown-item-text">Custom</span>
-            </div>
+
+          <a href="/admin/Withdrawal/"
+            style="display:inline-flex; align-items:center; gap:8px; padding:12px 22px; background:rgba(255,255,255,.18); backdrop-filter:blur(10px); border:1.5px solid rgba(255,255,255,.4); color:#fff; border-radius:12px; font-size:14px; font-weight:700; text-decoration:none; transition:all .25s; white-space:nowrap;"
+            onmouseover="this.style.background='rgba(255,255,255,.3)'"
+            onmouseout="this.style.background='rgba(255,255,255,.18)'">💸 Request Withdrawal</a>
+        </div>
+        <p class="subtitle">Track sales performance and customer insights for your resources</p>
+
+        <!-- Date Filter Section - Desktop and Mobile -->
+        <div class="date-filter-section">
+          <div class="filter-label">
+            <span class="filter-icon">📅</span>
+            <span>Filter by Date:</span>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class="stats-container">
-    <!-- Shimmer Loading for Stats -->
-    <div class="stats-overview shimmer-stats" id="shimmerStats">
-      <div class="shimmer-stat-card">
-        <div class="shimmer-stat-icon"></div>
-        <div class="shimmer-stat-content">
-          <div class="shimmer-stat-title"></div>
-          <div class="shimmer-stat-number"></div>
-          <div class="shimmer-stat-label"></div>
-        </div>
-      </div>
-      <div class="shimmer-stat-card">
-        <div class="shimmer-stat-icon"></div>
-        <div class="shimmer-stat-content">
-          <div class="shimmer-stat-title"></div>
-          <div class="shimmer-stat-number"></div>
-          <div class="shimmer-stat-label"></div>
-        </div>
-      </div>
-      <div class="shimmer-stat-card">
-        <div class="shimmer-stat-icon"></div>
-        <div class="shimmer-stat-content">
-          <div class="shimmer-stat-title"></div>
-          <div class="shimmer-stat-number"></div>
-          <div class="shimmer-stat-label"></div>
-        </div>
-      </div>
-      
-    </div>
-    
-    <!-- Actual Stats (Hidden Initially) -->
-    <div class="stats-overview loaded" id="statsOverview" style="display:none; opacity:0; transform:translateY(20px); transition:opacity 0.4s ease, transform 0.4s ease;">
-   
+          <!-- Desktop View - Buttons -->
+          <div class="date-filter-buttons">
+            <button class="filter-btn active" onclick="filterByDate('alltime')" data-period="alltime">
+              <span class="btn-icon">📊</span>
+              <span class="btn-text">All Time</span>
+            </button>
+            <button class="filter-btn" onclick="filterByDate('today')" data-period="today">
+              <span class="btn-icon">📉</span>
+              <span class="btn-text">Today</span>
+            </button>
+            <button class="filter-btn" onclick="filterByDate('yesterday')" data-period="yesterday">
+              <span class="btn-icon">📉</span>
+              <span class="btn-text">Yesterday</span>
+            </button>
+            <button class="filter-btn" onclick="filterByDate('lastweek')" data-period="lastweek">
+              <span class="btn-icon">📋</span>
+              <span class="btn-text">Last Week</span>
+            </button>
+            <button class="filter-btn" onclick="filterByDate('lastmonth')" data-period="lastmonth">
+              <span class="btn-icon">📅</span>
+              <span class="btn-text">Last Month</span>
+            </button>
+            <button class="filter-btn" onclick="showCustomDateModal()" data-period="custom">
+              <span class="btn-icon">🗓️</span>
+              <span class="btn-text">Custom</span>
+            </button>
+          </div>
 
-      <div class="stat-card">
-        <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">💰</div>
-        <div class="stat-content">
-          <div class="stat-number" id="totalRevenue">₹0</div>
-          <h3>Total Revenue</h3>
-          <div class="stat-label">All time earnings</div>
-        </div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">📦</div>
-        <div class="stat-content">
-          <div class="stat-number" id="totalSales">0</div>
-          <h3>Total Sales</h3>
-          <div class="stat-label">Resources sold</div>
-        </div>
-      </div>
-      
-      <div class="stat-card">
-        <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">👥</div>
-        <div class="stat-content">
-          <div class="stat-number" id="totalCustomers">0</div>
-          <h3>Customers</h3>
-          <div class="stat-label">Unique buyers</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Shimmer for analytics section -->
-    <div class="analytics-section" id="analyticsShimmer">
-      <div class="section-header">
-        <div class="shimmer-table-cell" style="width:260px;height:22px;border-radius:6px;margin-bottom:8px;"></div>
-        <div class="shimmer-table-cell" style="width:200px;height:14px;border-radius:4px;"></div>
-      </div>
-      <div class="table-wrapper">
-        <table class="modern-table">
-          <thead>
-            <tr>
-              <th><div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div></th>
-              <th><div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div></th>
-              <th><div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div></th>
-              <th><div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="shimmer-table-row"><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td></tr>
-            <tr class="shimmer-table-row"><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td></tr>
-            <tr class="shimmer-table-row"><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td></tr>
-            <tr class="shimmer-table-row"><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td></tr>
-            <tr class="shimmer-table-row"><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td><td><div class="shimmer-table-cell"></div></td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Real analytics section (hidden until loaded) -->
-    <div class="analytics-section" id="analyticsSection" style="display:none;">
-      <div class="section-header">
-        <div>
-          <h2><span style="-webkit-text-fill-color:initial;">📈</span> <span class="analytics-h2-text">My Customer Purchase Details</span></h2>
-          <p>Customers who purchased your resources :</p>
-        </div>
-        <div class="cd-wrap" id="cdWrap-statsPageSize">
-          <button class="cd-btn" onclick="cdToggle('statsPageSize')" type="button">
-            <span class="cd-label" id="cdLabel-statsPageSize">10 / page</span>
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
-          </button>
-          <div class="cd-list" id="cdList-statsPageSize" style="display:none;" data-align="right">
-            <div class="cd-item selected" onclick="cdStatsPageSize('10','10 / page')">10 / page<span class="cd-check">&#10003;</span></div>
-            <div class="cd-item" onclick="cdStatsPageSize('30','30 / page')">30 / page<span class="cd-check">&#10003;</span></div>
-            <div class="cd-item" onclick="cdStatsPageSize('50','50 / page')">50 / page<span class="cd-check">&#10003;</span></div>
-            <div class="cd-item" onclick="cdStatsPageSize('100','100 / page')">100 / page<span class="cd-check">&#10003;</span></div>
-            <div class="cd-item" onclick="cdStatsPageSize('all','All')">All<span class="cd-check">&#10003;</span></div>
+          <!-- Mobile View - Dropdown -->
+          <div class="date-filter-dropdown">
+            <div class="filter-dropdown-toggle" onclick="toggleFilterDropdown()" id="filterDropdownToggle">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="dropdown-current-icon">📊</span>
+                <span class="dropdown-current-text">All Time</span>
+              </div>
+              <span class="dropdown-arrow">▼</span>
+            </div>
+            <div class="filter-dropdown-menu" id="filterDropdownMenu">
+              <div class="filter-dropdown-item active" onclick="selectDropdownFilter('alltime')" data-period="alltime">
+                <span class="dropdown-item-icon">📊</span>
+                <span class="dropdown-item-text">All Time</span>
+              </div>
+              <div class="filter-dropdown-item" onclick="selectDropdownFilter('today')" data-period="today">
+                <span class="dropdown-item-icon">📈</span>
+                <span class="dropdown-item-text">Today</span>
+              </div>
+              <div class="filter-dropdown-item" onclick="selectDropdownFilter('yesterday')" data-period="yesterday">
+                <span class="dropdown-item-icon">📉</span>
+                <span class="dropdown-item-text">Yesterday</span>
+              </div>
+              <div class="filter-dropdown-item" onclick="selectDropdownFilter('lastweek')" data-period="lastweek">
+                <span class="dropdown-item-icon">📋</span>
+                <span class="dropdown-item-text">Last Week</span>
+              </div>
+              <div class="filter-dropdown-item" onclick="selectDropdownFilter('lastmonth')" data-period="lastmonth">
+                <span class="dropdown-item-icon">📅</span>
+                <span class="dropdown-item-text">Last Month</span>
+              </div>
+              <div class="filter-dropdown-item" onclick="selectDropdownFilter('custom')" data-period="custom">
+                <span class="dropdown-item-icon">🗓️</span>
+                <span class="dropdown-item-text">Custom</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div id="analyticsContent">
-        <!-- filled by JS: table or empty state -->
+    </div>
+
+    <div class="stats-container">
+      <!-- Shimmer Loading for Stats -->
+      <div class="stats-overview shimmer-stats" id="shimmerStats">
+        <div class="shimmer-stat-card">
+          <div class="shimmer-stat-icon"></div>
+          <div class="shimmer-stat-content">
+            <div class="shimmer-stat-title"></div>
+            <div class="shimmer-stat-number"></div>
+            <div class="shimmer-stat-label"></div>
+          </div>
+        </div>
+        <div class="shimmer-stat-card">
+          <div class="shimmer-stat-icon"></div>
+          <div class="shimmer-stat-content">
+            <div class="shimmer-stat-title"></div>
+            <div class="shimmer-stat-number"></div>
+            <div class="shimmer-stat-label"></div>
+          </div>
+        </div>
+        <div class="shimmer-stat-card">
+          <div class="shimmer-stat-icon"></div>
+          <div class="shimmer-stat-content">
+            <div class="shimmer-stat-title"></div>
+            <div class="shimmer-stat-number"></div>
+            <div class="shimmer-stat-label"></div>
+          </div>
+        </div>
+
       </div>
-      <div id="statsPagination" style="font-family:inherit;margin-top:16px;"></div>
+
+      <!-- Actual Stats (Hidden Initially) -->
+      <div class="stats-overview loaded" id="statsOverview"
+        style="display:none; opacity:0; transform:translateY(20px); transition:opacity 0.4s ease, transform 0.4s ease;">
+
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">💰
+          </div>
+          <div class="stat-content">
+            <div class="stat-number" id="totalRevenue">₹0</div>
+            <h3>Total Revenue</h3>
+            <div class="stat-label">All time earnings</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">📦
+          </div>
+          <div class="stat-content">
+            <div class="stat-number" id="totalSales">0</div>
+            <h3>Total Sales</h3>
+            <div class="stat-label">Resources sold</div>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white;">👥
+          </div>
+          <div class="stat-content">
+            <div class="stat-number" id="totalCustomers">0</div>
+            <h3>Customers</h3>
+            <div class="stat-label">Unique buyers</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shimmer for analytics section -->
+      <div class="analytics-section" id="analyticsShimmer">
+        <div class="section-header">
+          <div class="shimmer-table-cell" style="width:260px;height:22px;border-radius:6px;margin-bottom:8px;"></div>
+          <div class="shimmer-table-cell" style="width:200px;height:14px;border-radius:4px;"></div>
+        </div>
+        <div class="table-wrapper">
+          <table class="modern-table">
+            <thead>
+              <tr>
+                <th>
+                  <div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div>
+                </th>
+                <th>
+                  <div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div>
+                </th>
+                <th>
+                  <div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div>
+                </th>
+                <th>
+                  <div class="shimmer-table-cell" style="height:16px;border-radius:4px;"></div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="shimmer-table-row">
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+              </tr>
+              <tr class="shimmer-table-row">
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+              </tr>
+              <tr class="shimmer-table-row">
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+              </tr>
+              <tr class="shimmer-table-row">
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+              </tr>
+              <tr class="shimmer-table-row">
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+                <td>
+                  <div class="shimmer-table-cell"></div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Real analytics section (hidden until loaded) -->
+      <div class="analytics-section" id="analyticsSection" style="display:none;">
+        <div class="section-header">
+          <div>
+            <h2><span style="-webkit-text-fill-color:initial;">📈</span> <span class="analytics-h2-text">My Customer
+                Purchase Details</span></h2>
+            <p>Customers who purchased your resources :</p>
+          </div>
+          <div class="cd-wrap" id="cdWrap-statsPageSize">
+            <button class="cd-btn" onclick="cdToggle('statsPageSize')" type="button">
+              <span class="cd-label" id="cdLabel-statsPageSize">10 / page</span>
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+            <div class="cd-list" id="cdList-statsPageSize" style="display:none;" data-align="right">
+              <div class="cd-item selected" onclick="cdStatsPageSize('10','10 / page')">10 / page<span
+                  class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdStatsPageSize('30','30 / page')">30 / page<span
+                  class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdStatsPageSize('50','50 / page')">50 / page<span
+                  class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdStatsPageSize('100','100 / page')">100 / page<span
+                  class="cd-check">&#10003;</span></div>
+              <div class="cd-item" onclick="cdStatsPageSize('all','All')">All<span class="cd-check">&#10003;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="analyticsContent">
+          <!-- filled by JS: table or empty state -->
+        </div>
+        <div id="statsPagination" style="font-family:inherit;margin-top:16px;"></div>
+      </div>
     </div>
   </div>
-</div>
 
-<!-- Custom Date Range Modal -->
-<div id="customDateModal" class="modal">
-  <div class="modal-content custom-date-modal">
-    <span class="close" onclick="closeCustomDateModal()">&times;</span>
-    <h2>Custom Date Range</h2>
-    <div class="date-range-form">
-      <div class="date-input-group">
-        <label for="startDate">From Date:</label>
-        <input type="date" id="startDate" class="date-input">
-      </div>
-      <div class="date-input-group">
-        <label for="endDate">To Date:</label>
-        <input type="date" id="endDate" class="date-input">
-      </div>
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeCustomDateModal()">Cancel</button>
-        <button class="btn-apply" onclick="applyCustomDateRange()">Apply Filter</button>
+  <!-- Custom Date Range Modal -->
+  <div id="customDateModal" class="modal">
+    <div class="modal-content custom-date-modal">
+      <span class="close" onclick="closeCustomDateModal()">&times;</span>
+      <h2>Custom Date Range</h2>
+      <div class="date-range-form">
+        <div class="date-input-group">
+          <label for="startDate">From Date:</label>
+          <input type="date" id="startDate" class="date-input">
+        </div>
+        <div class="date-input-group">
+          <label for="endDate">To Date:</label>
+          <input type="date" id="endDate" class="date-input">
+        </div>
+        <div class="modal-actions">
+          <button class="btn-cancel" onclick="closeCustomDateModal()">Cancel</button>
+          <button class="btn-apply" onclick="applyCustomDateRange()">Apply Filter</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Customer Detail Modal (mobile) -->
-<div id="customerDetailModal" onclick="if(event.target===this)closeCustomerDetail()">
-  <div class="detail-sheet">
-    <div class="detail-sheet-handle"></div>
-    <h3>👤 Customer Details</h3>
-    <div id="customerDetailBody"></div>
-    <button class="detail-close-btn" onclick="closeCustomerDetail()">Close</button>
+  <!-- Customer Detail Modal (mobile) -->
+  <div id="customerDetailModal" onclick="if(event.target===this)closeCustomerDetail()">
+    <div class="detail-sheet">
+      <div class="detail-sheet-handle"></div>
+      <h3>👤 Customer Details</h3>
+      <div id="customerDetailBody"></div>
+      <button class="detail-close-btn" onclick="closeCustomerDetail()">Close</button>
+    </div>
   </div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <!-- Mobile Bottom Nav -->
   <nav class="admin-mob-nav">
     <a href="/admin/Resources/" class="amn-item">
-      <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+        <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+      </svg>
       <span>Resources</span>
     </a>
     <a href="/admin/Statistics/" class="amn-item active">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <svg viewBox="0 0 24 24">
+        <line x1="18" y1="20" x2="18" y2="10" />
+        <line x1="12" y1="20" x2="12" y2="4" />
+        <line x1="6" y1="20" x2="6" y2="14" />
+      </svg>
       <span>Statistics</span>
     </a>
     <a href="/" class="amn-item amn-home">
-      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+        <polyline points="9 22 9 12 15 12 15 22" />
+      </svg>
       <span>Home</span>
     </a>
     <a href="/admin/Profile/" class="amn-item">
-      <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </svg>
       <span>Profile</span>
     </a>
     <a href="/admin/Withdrawal/" class="amn-item">
-      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <svg viewBox="0 0 24 24">
+        <line x1="12" y1="1" x2="12" y2="23" />
+        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+      </svg>
       <span>Withdraw</span>
     </a>
   </nav>
 
-<script src="/admin/api-config.js"></script>
-<script src="/admin/auth-guard.js"></script>
-<script src="/admin/toast.js"></script>
-<script src="./auth-modal.js"></script>
-<script>
-  const SUPA_URL = 'https://emnrgsgerfjvndexomro.supabase.co';
-  const SUPA_SVC = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjQyMDIxMCwiZXhwIjoyMDg3OTk2MjEwfQ.mr4k_GsJ14CC1mqvEZgf9cTaNiLMlnj_sZxFjJud67k';
+  <script src="/admin/api-config.js"></script>
+  <script src="/admin/auth-guard.js"></script>
+  <script src="/admin/toast.js"></script>
+  <script src="./auth-modal.js"></script>
+  <script>
+    const SUPA_URL = 'https://emnrgsgerfjvndexomro.supabase.co';
+    const SUPA_SVC = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVtbnJnc2dlcmZqdm5kZXhvbXJvIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjQyMDIxMCwiZXhwIjoyMDg3OTk2MjEwfQ.mr4k_GsJ14CC1mqvEZgf9cTaNiLMlnj_sZxFjJud67k';
 
-  // One client, isolated storageKey so it never conflicts with auth-modal.js or other scripts
-  const _db = window.supabase.createClient(SUPA_URL, SUPA_SVC, {
-    auth: { storageKey: 'earnify-stats', persistSession: false, autoRefreshToken: false }
-  });
+    // One client, isolated storageKey so it never conflicts with auth-modal.js or other scripts
+    const _db = window.supabase.createClient(SUPA_URL, SUPA_SVC, {
+      auth: { storageKey: 'creatorpay_dark_mode-stats', persistSession: false, autoRefreshToken: false }
+    });
 
-  let currentDateFilter = 'alltime';
-  let originalStatsData = null;
+    let currentDateFilter = 'alltime';
+    let originalStatsData = null;
 
-  // XSS escape
-  function esc(s) {
-    if (s == null) return '—';
-    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-  }
-
-  // Decode base64url JWT — synchronous, no network needed
-  function _decodeJwt(token) {
-    try {
-      return JSON.parse(atob(token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));
-    } catch(e) { return null; }
-  }
-
-  // Get email from localStorage — synchronous, works on both local and Vercel
-  function _getEmail() {
-    // Vercel: login.html stores adminToken (Supabase JWT containing email)
-    const token = localStorage.getItem('adminToken');
-    if (token) {
-      const p = _decodeJwt(token);
-      if (p?.email) { console.log('[Stats] email from adminToken:', p.email); return p.email; }
+    // XSS escape
+    function esc(s) {
+      if (s == null) return '—';
+      return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
     }
-    // Local dev: auth-modal.js stores currentUser
-    try {
-      const cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
-      if (cu?.email) { console.log('[Stats] email from currentUser:', cu.email); return cu.email; }
-    } catch(e) {}
-    console.warn('[Stats] no email found');
-    return null;
-  }
 
-  // Init sidebar
-  (async function() {
-    const email = _getEmail();
-    const cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
-    const sidebarUser = document.getElementById('sidebarUser');
-    if (email && sidebarUser) {
-      sidebarUser.style.display = 'flex';
-      sidebarUser.style.flexDirection = 'column';
-      sidebarUser.style.gap = '5px';
-      const name = cu.user_metadata?.name || email.split('@')[0];
-      document.getElementById('sidebarUserName').textContent  = name;
-      document.getElementById('sidebarUserEmail').textContent = email;
-      document.getElementById('sidebarAvatar').textContent    = name.charAt(0).toUpperCase();
-
-      // Super Admin button injected by super-admin-btn.js
-    }
-    loadStatistics();
-  })();
-
-  async function loadStatistics() {
-    const userEmail = _getEmail();
-    console.log('[Stats] 1. userEmail =>', userEmail);
-    if (!userEmail) { showNoDataMessage(); return; }
-
-    try {
-      // 2. Resources
-      const { data: resources, error: resErr } = await _db
-        .from('resources')
-        .select('id, title, price')
-        .eq('user_email', userEmail);
-      console.log('[Stats] 2. resources =>', resources?.length, resErr?.message);
-      if (resErr) { showErrorMessage(); return; }
-      if (!resources?.length) { displayStatsData({ userStats:[], totalRevenue:0, totalPurchases:0, totalCustomers:0 }); return; }
-
-      const priceMap = {}, titleMap = {};
-      const resourceIds = resources.map(r => { priceMap[r.id]=parseFloat(r.price||0); titleMap[r.id]=r.title; return r.id; });
-
-      // 3. Payments
-      const { data: payments, error: payErr } = await _db
-        .from('payments')
-        .select('user_id, resource_id, created_at')
-        .eq('status', 'completed')
-        .in('resource_id', resourceIds)
-        .order('created_at', { ascending: false });
-      console.log('[Stats] 3. payments =>', payments?.length, payErr?.message);
-      if (payErr) { showErrorMessage(); return; }
-      if (!payments?.length) { displayStatsData({ userStats:[], totalRevenue:0, totalPurchases:0, totalCustomers:0 }); return; }
-
-      // 4. Resolve buyer emails via Auth Admin REST (no Supabase JS client needed)
-      const emailMap = {};
+    // Decode base64url JWT — synchronous, no network needed
+    function _decodeJwt(token) {
       try {
-        const r = await fetch(`${SUPA_URL}/auth/v1/admin/users?per_page=1000`, {
-          headers: { apikey: SUPA_SVC, Authorization: `Bearer ${SUPA_SVC}` }
-        });
-        console.log('[Stats] 4. auth API status =>', r.status);
-        if (r.ok) { const j = await r.json(); (j.users||[]).forEach(u => { if(u.id&&u.email) emailMap[u.id]=u.email; }); }
-        console.log('[Stats] 4. emailMap size =>', Object.keys(emailMap).length);
-      } catch(e) { console.warn('[Stats] 4. auth API failed =>', e.message); }
-
-      // 5. Build rows, exclude self-purchases
-      const sellerUid = Object.keys(emailMap).find(id => emailMap[id] === userEmail);
-      console.log('[Stats] 5. sellerUid =>', sellerUid);
-      const userStats = payments
-        .filter(p => p.user_id !== sellerUid)
-        .map(p => ({
-          email:          emailMap[p.user_id] || p.user_id,
-          totalPurchases: 1,
-          totalAmount:    priceMap[p.resource_id] || 0,
-          resources:      [titleMap[p.resource_id] || 'Unknown'],
-          created_at:     p.created_at
-        }));
-      console.log('[Stats] 5. userStats rows =>', userStats.length);
-
-      const statsData = {
-        userStats,
-        totalRevenue:   userStats.reduce((s,u) => s+u.totalAmount, 0),
-        totalPurchases: userStats.length,
-        totalCustomers: new Set(userStats.map(u=>u.email)).size
-      };
-      originalStatsData = statsData;
-      window.originalStatsData = statsData;
-
-      const displayData = currentDateFilter !== 'alltime'
-        ? filterDataByDate(statsData, currentDateFilter, window.customStartDate, window.customEndDate)
-        : statsData;
-
-      displayStatsData(displayData);
-      updateSectionHeader();
-
-    } catch(err) {
-      console.error('[Stats] crash =>', err);
-      showErrorMessage();
+        return JSON.parse(atob(token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/')));
+      } catch (e) { return null; }
     }
-  }
-  
-  function displayStatsData(statsData) {
-    console.log('Displaying stats data:', statsData);
-    
-    // Update stats display
-    const totalRevenueEl = document.getElementById('totalRevenue');
-    const totalSalesEl = document.getElementById('totalSales');
-    const totalCustomersEl = document.getElementById('totalCustomers');
-    
-    const userStats = statsData.userStats || [];
-    const revenue = userStats.reduce((s, u) => s + (parseFloat(u.totalAmount) || 0), 0) || (statsData.totalRevenue || 0);
-    const sales = userStats.length || (statsData.totalPurchases || 0);
-    const customers = statsData.totalCustomers || new Set(userStats.map(u => u.email)).size;
-    
-    if (totalRevenueEl) totalRevenueEl.textContent = `₹${revenue.toFixed(0)}`;
-    if (totalSalesEl) totalSalesEl.textContent = sales;
-    if (totalCustomersEl) totalCustomersEl.textContent = customers;
-    
-    console.log('Updated stats display:', { revenue, sales, customers });
-    
-    // Convert userStats to the format expected by displayCustomerPurchases
-    const customerStats = {};
-    
-    if (statsData.userStats && Array.isArray(statsData.userStats)) {
-      statsData.userStats.forEach((user, index) => {
-        customerStats[`customer_${index}`] = {
-          email: user.email,
-          quantity: user.totalPurchases,
-          totalAmount: user.totalAmount,
-          resources: user.resources || [],
-          purchaseDate: user.purchaseDate || user.created_at || new Date().toISOString()
+
+    // Get email from localStorage — synchronous, works on both local and Vercel
+    function _getEmail() {
+      // Vercel: login.html stores adminToken (Supabase JWT containing email)
+      const token = localStorage.getItem('adminToken');
+      if (token) {
+        const p = _decodeJwt(token);
+        if (p?.email) { console.log('[Stats] email from adminToken:', p.email); return p.email; }
+      }
+      // Local dev: auth-modal.js stores currentUser
+      try {
+        const cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        if (cu?.email) { console.log('[Stats] email from currentUser:', cu.email); return cu.email; }
+      } catch (e) { }
+      console.warn('[Stats] no email found');
+      return null;
+    }
+
+    // Init sidebar
+    (async function () {
+      const email = _getEmail();
+      const cu = JSON.parse(localStorage.getItem('currentUser') || '{}');
+      const sidebarUser = document.getElementById('sidebarUser');
+      if (email && sidebarUser) {
+        sidebarUser.style.display = 'flex';
+        sidebarUser.style.flexDirection = 'column';
+        sidebarUser.style.gap = '5px';
+        const name = cu.user_metadata?.name || email.split('@')[0];
+        document.getElementById('sidebarUserName').textContent = name;
+        document.getElementById('sidebarUserEmail').textContent = email;
+        document.getElementById('sidebarAvatar').textContent = name.charAt(0).toUpperCase();
+
+        // Super Admin button injected by super-admin-btn.js
+      }
+      loadStatistics();
+    })();
+
+    async function loadStatistics() {
+      const userEmail = _getEmail();
+      console.log('[Stats] 1. userEmail =>', userEmail);
+      if (!userEmail) { showNoDataMessage(); return; }
+
+      try {
+        // 2. Resources
+        const { data: resources, error: resErr } = await _db
+          .from('resources')
+          .select('id, title, price')
+          .eq('user_email', userEmail);
+        console.log('[Stats] 2. resources =>', resources?.length, resErr?.message);
+        if (resErr) { showErrorMessage(); return; }
+        if (!resources?.length) { displayStatsData({ userStats: [], totalRevenue: 0, totalPurchases: 0, totalCustomers: 0 }); return; }
+
+        const priceMap = {}, titleMap = {};
+        const resourceIds = resources.map(r => { priceMap[r.id] = parseFloat(r.price || 0); titleMap[r.id] = r.title; return r.id; });
+
+        // 3. Payments
+        const { data: payments, error: payErr } = await _db
+          .from('payments')
+          .select('user_id, resource_id, created_at')
+          .eq('status', 'completed')
+          .in('resource_id', resourceIds)
+          .order('created_at', { ascending: false });
+        console.log('[Stats] 3. payments =>', payments?.length, payErr?.message);
+        if (payErr) { showErrorMessage(); return; }
+        if (!payments?.length) { displayStatsData({ userStats: [], totalRevenue: 0, totalPurchases: 0, totalCustomers: 0 }); return; }
+
+        // 4. Resolve buyer emails via Auth Admin REST (no Supabase JS client needed)
+        const emailMap = {};
+        try {
+          const r = await fetch(`${SUPA_URL}/auth/v1/admin/users?per_page=1000`, {
+            headers: { apikey: SUPA_SVC, Authorization: `Bearer ${SUPA_SVC}` }
+          });
+          console.log('[Stats] 4. auth API status =>', r.status);
+          if (r.ok) { const j = await r.json(); (j.users || []).forEach(u => { if (u.id && u.email) emailMap[u.id] = u.email; }); }
+          console.log('[Stats] 4. emailMap size =>', Object.keys(emailMap).length);
+        } catch (e) { console.warn('[Stats] 4. auth API failed =>', e.message); }
+
+        // 5. Build rows, exclude self-purchases
+        const sellerUid = Object.keys(emailMap).find(id => emailMap[id] === userEmail);
+        console.log('[Stats] 5. sellerUid =>', sellerUid);
+        const userStats = payments
+          .filter(p => p.user_id !== sellerUid)
+          .map(p => ({
+            email: emailMap[p.user_id] || p.user_id,
+            totalPurchases: 1,
+            totalAmount: priceMap[p.resource_id] || 0,
+            resources: [titleMap[p.resource_id] || 'Unknown'],
+            created_at: p.created_at
+          }));
+        console.log('[Stats] 5. userStats rows =>', userStats.length);
+
+        const statsData = {
+          userStats,
+          totalRevenue: userStats.reduce((s, u) => s + u.totalAmount, 0),
+          totalPurchases: userStats.length,
+          totalCustomers: new Set(userStats.map(u => u.email)).size
         };
-      });
+        originalStatsData = statsData;
+        window.originalStatsData = statsData;
+
+        const displayData = currentDateFilter !== 'alltime'
+          ? filterDataByDate(statsData, currentDateFilter, window.customStartDate, window.customEndDate)
+          : statsData;
+
+        displayStatsData(displayData);
+        updateSectionHeader();
+
+      } catch (err) {
+        console.error('[Stats] crash =>', err);
+        showErrorMessage();
+      }
     }
-    
-    console.log('Customer stats for table:', customerStats);
-    
-    // Display customer purchase table
-    displayCustomerPurchases(customerStats);
-    
-    // Show actual stats and hide shimmer
-    const shimmerStats = document.getElementById('shimmerStats');
-    const statsOverview = document.getElementById('statsOverview');
-    const analyticsShimmer = document.getElementById('analyticsShimmer');
-    const analyticsSection = document.getElementById('analyticsSection');
-    
-    if (shimmerStats) shimmerStats.style.display = 'none';
-    if (analyticsShimmer) analyticsShimmer.style.display = 'none';
-    if (analyticsSection) analyticsSection.style.display = '';
-    if (statsOverview) {
-      statsOverview.style.display = 'grid';
-      requestAnimationFrame(() => {
-        statsOverview.style.opacity = '1';
-        statsOverview.style.transform = 'translateY(0)';
-      });
+
+    function displayStatsData(statsData) {
+      console.log('Displaying stats data:', statsData);
+
+      // Update stats display
+      const totalRevenueEl = document.getElementById('totalRevenue');
+      const totalSalesEl = document.getElementById('totalSales');
+      const totalCustomersEl = document.getElementById('totalCustomers');
+
+      const userStats = statsData.userStats || [];
+      const revenue = userStats.reduce((s, u) => s + (parseFloat(u.totalAmount) || 0), 0) || (statsData.totalRevenue || 0);
+      const sales = userStats.length || (statsData.totalPurchases || 0);
+      const customers = statsData.totalCustomers || new Set(userStats.map(u => u.email)).size;
+
+      if (totalRevenueEl) totalRevenueEl.textContent = `₹${revenue.toFixed(0)}`;
+      if (totalSalesEl) totalSalesEl.textContent = sales;
+      if (totalCustomersEl) totalCustomersEl.textContent = customers;
+
+      console.log('Updated stats display:', { revenue, sales, customers });
+
+      // Convert userStats to the format expected by displayCustomerPurchases
+      const customerStats = {};
+
+      if (statsData.userStats && Array.isArray(statsData.userStats)) {
+        statsData.userStats.forEach((user, index) => {
+          customerStats[`customer_${index}`] = {
+            email: user.email,
+            quantity: user.totalPurchases,
+            totalAmount: user.totalAmount,
+            resources: user.resources || [],
+            purchaseDate: user.purchaseDate || user.created_at || new Date().toISOString()
+          };
+        });
+      }
+
+      console.log('Customer stats for table:', customerStats);
+
+      // Display customer purchase table
+      displayCustomerPurchases(customerStats);
+
+      // Show actual stats and hide shimmer
+      const shimmerStats = document.getElementById('shimmerStats');
+      const statsOverview = document.getElementById('statsOverview');
+      const analyticsShimmer = document.getElementById('analyticsShimmer');
+      const analyticsSection = document.getElementById('analyticsSection');
+
+      if (shimmerStats) shimmerStats.style.display = 'none';
+      if (analyticsShimmer) analyticsShimmer.style.display = 'none';
+      if (analyticsSection) analyticsSection.style.display = '';
+      if (statsOverview) {
+        statsOverview.style.display = 'grid';
+        requestAnimationFrame(() => {
+          statsOverview.style.opacity = '1';
+          statsOverview.style.transform = 'translateY(0)';
+        });
+      }
     }
-  }
-  
-  function displayCustomerPurchases(customerStats) {
-    const content = document.getElementById('analyticsContent');
-    if (!content) return;
-    
-    if (Object.keys(customerStats).length === 0) {
-      content.innerHTML = `
+
+    function displayCustomerPurchases(customerStats) {
+      const content = document.getElementById('analyticsContent');
+      if (!content) return;
+
+      if (Object.keys(customerStats).length === 0) {
+        content.innerHTML = `
         <div style="text-align:center;padding:50px 20px;border-radius:12px;">
           <div style="margin-bottom:14px;"><img src="/file/empty-statistic.png" class="empty-state-img" style="width:60px;height:60px;object-fit:contain;"></div>
           <h3 style="margin:0 0 8px;font-size:18px;">No Records Found</h3>
           <p style="margin:0;font-size:14px;">No purchases found for the selected period.</p>
         </div>`;
-      const pagEl = document.getElementById('statsPagination');
-      if (pagEl) pagEl.innerHTML = '';
-      return;
+        const pagEl = document.getElementById('statsPagination');
+        if (pagEl) pagEl.innerHTML = '';
+        return;
+      }
+
+      window._customerStatsData = customerStats;
+      window._statsAllData = customerStats;
+      window._statsPage = 1;
+      _renderStatsPage();
     }
 
-    window._customerStatsData = customerStats;
-    window._statsAllData = customerStats;
-    window._statsPage = 1;
-    _renderStatsPage();
-  }
-
-  function openCustomerDetail(userId) {
-    const stats = window._customerStatsData && window._customerStatsData[userId];
-    if (!stats) return;
-    const modal = document.getElementById('customerDetailModal');
-    const body = document.getElementById('customerDetailBody');
-    const purchaseDate = stats.purchaseDate ? new Date(stats.purchaseDate).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }) : '—';
-    body.innerHTML = `
+    function openCustomerDetail(userId) {
+      const stats = window._customerStatsData && window._customerStatsData[userId];
+      if (!stats) return;
+      const modal = document.getElementById('customerDetailModal');
+      const body = document.getElementById('customerDetailBody');
+      const purchaseDate = stats.purchaseDate ? new Date(stats.purchaseDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+      body.innerHTML = `
       <div class="detail-row">
         <span class="detail-label">Email</span>
         <span class="detail-value">${esc(stats.email)}</span>
@@ -1713,520 +2063,718 @@
         <span class="detail-label">Resources</span>
         <div class="detail-value detail-resources">${stats.resources.length ? stats.resources.map(r => `<span class="resource-tag">${esc(r)}</span>`).join('') : '<span style="color:#94a3b8;">—</span>'}</div>
       </div>`;
-    modal.classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeCustomerDetail() {
-    document.getElementById('customerDetailModal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-  
-  function showNoDataMessage() {
-    const shimmerStats = document.getElementById('shimmerStats');
-    const statsOverview = document.getElementById('statsOverview');
-    const tbody = document.getElementById('purchaseTableBody');
-    
-    if (shimmerStats) shimmerStats.style.display = 'none';
-    const analyticsShimmerND = document.getElementById('analyticsShimmer');
-    const analyticsSectionND = document.getElementById('analyticsSection');
-    if (analyticsShimmerND) analyticsShimmerND.style.display = 'none';
-    if (analyticsSectionND) analyticsSectionND.style.display = '';
-    if (statsOverview) {
-      statsOverview.style.display = 'grid';
-      requestAnimationFrame(() => {
-        statsOverview.style.opacity = '1';
-        statsOverview.style.transform = 'translateY(0)';
-      });
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
     }
-    const contentND = document.getElementById('analyticsContent');
-    if (contentND) contentND.innerHTML = `
+
+    function closeCustomerDetail() {
+      document.getElementById('customerDetailModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function showNoDataMessage() {
+      const shimmerStats = document.getElementById('shimmerStats');
+      const statsOverview = document.getElementById('statsOverview');
+      const tbody = document.getElementById('purchaseTableBody');
+
+      if (shimmerStats) shimmerStats.style.display = 'none';
+      const analyticsShimmerND = document.getElementById('analyticsShimmer');
+      const analyticsSectionND = document.getElementById('analyticsSection');
+      if (analyticsShimmerND) analyticsShimmerND.style.display = 'none';
+      if (analyticsSectionND) analyticsSectionND.style.display = '';
+      if (statsOverview) {
+        statsOverview.style.display = 'grid';
+        requestAnimationFrame(() => {
+          statsOverview.style.opacity = '1';
+          statsOverview.style.transform = 'translateY(0)';
+        });
+      }
+      const contentND = document.getElementById('analyticsContent');
+      if (contentND) contentND.innerHTML = `
       <div style="text-align:center;padding:50px 20px;border-radius:12px;">
         <div style="margin-bottom:14px;"><img src="/file/empty-statistic.png" class="empty-state-img" style="width:80px;height:80px;object-fit:contain;"></div>
         <h3 style="margin:0 0 8px;font-size:18px;">Please Login</h3>
         <p style="margin:0;font-size:14px;">You need to be logged in to view your sales statistics.</p>
       </div>`;
-  }
-  
-  function showErrorMessage() {
-    const shimmerStats = document.getElementById('shimmerStats');
-    const statsOverview = document.getElementById('statsOverview');
-    const tbody = document.getElementById('purchaseTableBody');
-    
-    if (shimmerStats) shimmerStats.style.display = 'none';
-    if (statsOverview) {
-      statsOverview.style.display = 'grid';
-      requestAnimationFrame(() => {
-        statsOverview.style.opacity = '1';
-        statsOverview.style.transform = 'translateY(0)';
-      });
     }
-    const analyticsShimmerErr = document.getElementById('analyticsShimmer');
-    const analyticsSectionErr = document.getElementById('analyticsSection');
-    if (analyticsShimmerErr) analyticsShimmerErr.style.display = 'none';
-    if (analyticsSectionErr) analyticsSectionErr.style.display = '';
-    
-    const totalRevenueEl = document.getElementById('totalRevenue');
-    const totalSalesEl = document.getElementById('totalSales');
-    const totalCustomersEl = document.getElementById('totalCustomers');
-    if (totalRevenueEl) totalRevenueEl.textContent = '₹0';
-    if (totalSalesEl) totalSalesEl.textContent = '0';
-    if (totalCustomersEl) totalCustomersEl.textContent = '0';
-    
-    const contentErr = document.getElementById('analyticsContent');
-    if (contentErr) contentErr.innerHTML = `
+
+    function showErrorMessage() {
+      const shimmerStats = document.getElementById('shimmerStats');
+      const statsOverview = document.getElementById('statsOverview');
+      const tbody = document.getElementById('purchaseTableBody');
+
+      if (shimmerStats) shimmerStats.style.display = 'none';
+      if (statsOverview) {
+        statsOverview.style.display = 'grid';
+        requestAnimationFrame(() => {
+          statsOverview.style.opacity = '1';
+          statsOverview.style.transform = 'translateY(0)';
+        });
+      }
+      const analyticsShimmerErr = document.getElementById('analyticsShimmer');
+      const analyticsSectionErr = document.getElementById('analyticsSection');
+      if (analyticsShimmerErr) analyticsShimmerErr.style.display = 'none';
+      if (analyticsSectionErr) analyticsSectionErr.style.display = '';
+
+      const totalRevenueEl = document.getElementById('totalRevenue');
+      const totalSalesEl = document.getElementById('totalSales');
+      const totalCustomersEl = document.getElementById('totalCustomers');
+      if (totalRevenueEl) totalRevenueEl.textContent = '₹0';
+      if (totalSalesEl) totalSalesEl.textContent = '0';
+      if (totalCustomersEl) totalCustomersEl.textContent = '0';
+
+      const contentErr = document.getElementById('analyticsContent');
+      if (contentErr) contentErr.innerHTML = `
       <div style="text-align:center;padding:50px 20px;border-radius:12px;">
         <div style="margin-bottom:14px;"><img src="/file/empty-statistic.png" class="empty-state-img" style="width:80px;height:80px;object-fit:contain;"></div>
         <h3 style="margin:0 0 8px;font-size:18px;">Error Loading Data</h3>
         <p style="margin:0;font-size:14px;">Unable to load statistics. Please check your connection and refresh.</p>
       </div>`;
-  }
-  
-  function logout() {
-    // Clear all authentication data
-    localStorage.removeItem('adminToken');
-    localStorage.removeItem('currentUser');
-    localStorage.removeItem('userLoggedIn');
-    localStorage.removeItem('adminUser');
-    localStorage.removeItem('authToken');
-    localStorage.removeItem('user');
-    
-    // Clear session storage as well
-    sessionStorage.clear();
-    
-    // Sign out from Supabase if available
-    if (typeof supabaseClient !== 'undefined') {
-      supabaseClient.auth.signOut().catch(console.error);
     }
-    
-    // Force redirect to main site index page
-    window.location.href = '../../index.html';
-    
-    // Fallback redirect after a short delay
-    setTimeout(() => {
-      window.location.replace('../../index.html');
-    }, 100);
-  }
-  
-  function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.querySelector('.sidebar-overlay');
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('active');
-    document.body.classList.toggle('sidebar-open');
-  }
 
-  function closeMobileSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    const overlay = document.querySelector('.sidebar-overlay');
-    if (sidebar.classList.contains('active')) {
-      sidebar.classList.remove('active');
-      overlay.classList.remove('active');
-      document.body.classList.remove('sidebar-open');
-    }
-  }
-  
-  function updateSectionHeader() {
-    const sectionHeader = document.querySelector('#analyticsSection .section-header h2 .analytics-h2-text');
-    if (sectionHeader) {
-      const filterText = getFilterDisplayText();
-      sectionHeader.textContent = `Customer Purchase Details - ${filterText}`;
-    }
-  }
-  
-  function filterByDate(period) {
-    console.log(`🎯 Filter button clicked: ${period}`);
-    console.log(`📅 Current date: ${new Date().toLocaleString()}`);
-    
-    // Update active button (desktop)
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    const targetBtn = document.querySelector(`[data-period="${period}"]`);
-    if (targetBtn && targetBtn.classList.contains('filter-btn')) {
-      targetBtn.classList.add('active');
-      console.log(`✅ Activated button: ${period}`);
-    }
-    
-    // Update mobile dropdown display
-    updateDropdownDisplay(period);
-    
-    // Set current filter
-    currentDateFilter = period;
-    console.log(`🔄 Current filter set to: ${currentDateFilter}`);
-    
-    // Apply filter to existing data
-    if (window.originalStatsData) {
-      console.log('📊 Applying filter to existing data...');
-      
-      let filteredData;
-      if (period === 'custom' && window.customStartDate && window.customEndDate) {
-        filteredData = filterDataByDate(window.originalStatsData, period, window.customStartDate, window.customEndDate);
-      } else {
-        filteredData = filterDataByDate(window.originalStatsData, period);
+    function logout() {
+      // Clear all authentication data
+      localStorage.removeItem('adminToken');
+      localStorage.removeItem('currentUser');
+      localStorage.removeItem('userLoggedIn');
+      localStorage.removeItem('adminUser');
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+
+      // Clear session storage as well
+      sessionStorage.clear();
+
+      // Sign out from Supabase if available
+      if (typeof supabaseClient !== 'undefined') {
+        supabaseClient.auth.signOut().catch(console.error);
       }
-      
-      console.log('🎨 Displaying filtered data...');
-      displayStatsData(filteredData);
-      updateSectionHeader();
-    } else {
-      console.log('🔄 No cached data, reloading statistics...');
-      // Reload statistics with new filter
-      loadStatistics();
+
+      // Force redirect to main site index page
+      window.location.href = '../../';
+
+      // Fallback redirect after a short delay
+      setTimeout(() => {
+        window.location.replace('../../');
+      }, 100);
     }
-  }
-  
-  function filterDataByDate(originalData, period, customStartDate = null, customEndDate = null) {
-    if (!originalData || !originalData.userStats) return originalData;
 
-    const now = new Date();
-    let startDate, endDate;
+    function toggleSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      sidebar.classList.toggle('active');
+      overlay.classList.toggle('active');
+      document.body.classList.toggle('sidebar-open');
+    }
 
-    switch (period) {
-      case 'today':
-        startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
-        endDate   = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
-        break;
-      case 'yesterday':
-        const yest = new Date(now);
-        yest.setDate(yest.getDate() - 1);
-        startDate = new Date(yest.getFullYear(), yest.getMonth(), yest.getDate(), 0, 0, 0, 0);
-        endDate   = new Date(yest.getFullYear(), yest.getMonth(), yest.getDate(), 23, 59, 59, 999);
-        break;
-      case 'lastweek':
-        startDate = new Date(now);
-        startDate.setDate(startDate.getDate() - 7);
-        startDate.setHours(0, 0, 0, 0);
-        endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
-        break;
-      case 'lastmonth':
-        startDate = new Date(now);
-        startDate.setDate(startDate.getDate() - 30);
-        startDate.setHours(0, 0, 0, 0);
-        endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
-        break;
-      case 'custom':
-        if (customStartDate && customEndDate) {
-          startDate = new Date(customStartDate + 'T00:00:00');
-          endDate   = new Date(customEndDate   + 'T23:59:59');
+    function closeMobileSidebar() {
+      const sidebar = document.querySelector('.sidebar');
+      const overlay = document.querySelector('.sidebar-overlay');
+      if (sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        document.body.classList.remove('sidebar-open');
+      }
+    }
+
+    function updateSectionHeader() {
+      const sectionHeader = document.querySelector('#analyticsSection .section-header h2 .analytics-h2-text');
+      if (sectionHeader) {
+        const filterText = getFilterDisplayText();
+        sectionHeader.textContent = `Customer Purchase Details - ${filterText}`;
+      }
+    }
+
+    function filterByDate(period) {
+      console.log(`🎯 Filter button clicked: ${period}`);
+      console.log(`📅 Current date: ${new Date().toLocaleString()}`);
+
+      // Update active button (desktop)
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      const targetBtn = document.querySelector(`[data-period="${period}"]`);
+      if (targetBtn && targetBtn.classList.contains('filter-btn')) {
+        targetBtn.classList.add('active');
+        console.log(`✅ Activated button: ${period}`);
+      }
+
+      // Update mobile dropdown display
+      updateDropdownDisplay(period);
+
+      // Set current filter
+      currentDateFilter = period;
+      console.log(`🔄 Current filter set to: ${currentDateFilter}`);
+
+      // Apply filter to existing data
+      if (window.originalStatsData) {
+        console.log('📊 Applying filter to existing data...');
+
+        let filteredData;
+        if (period === 'custom' && window.customStartDate && window.customEndDate) {
+          filteredData = filterDataByDate(window.originalStatsData, period, window.customStartDate, window.customEndDate);
         } else {
+          filteredData = filterDataByDate(window.originalStatsData, period);
+        }
+
+        console.log('🎨 Displaying filtered data...');
+        displayStatsData(filteredData);
+        updateSectionHeader();
+      } else {
+        console.log('🔄 No cached data, reloading statistics...');
+        // Reload statistics with new filter
+        loadStatistics();
+      }
+    }
+
+    function filterDataByDate(originalData, period, customStartDate = null, customEndDate = null) {
+      if (!originalData || !originalData.userStats) return originalData;
+
+      const now = new Date();
+      let startDate, endDate;
+
+      switch (period) {
+        case 'today':
+          startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0, 0, 0, 0);
+          endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+          break;
+        case 'yesterday':
+          const yest = new Date(now);
+          yest.setDate(yest.getDate() - 1);
+          startDate = new Date(yest.getFullYear(), yest.getMonth(), yest.getDate(), 0, 0, 0, 0);
+          endDate = new Date(yest.getFullYear(), yest.getMonth(), yest.getDate(), 23, 59, 59, 999);
+          break;
+        case 'lastweek':
+          startDate = new Date(now);
+          startDate.setDate(startDate.getDate() - 7);
+          startDate.setHours(0, 0, 0, 0);
+          endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+          break;
+        case 'lastmonth':
+          startDate = new Date(now);
+          startDate.setDate(startDate.getDate() - 30);
+          startDate.setHours(0, 0, 0, 0);
+          endDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 23, 59, 59, 999);
+          break;
+        case 'custom':
+          if (customStartDate && customEndDate) {
+            startDate = new Date(customStartDate + 'T00:00:00');
+            endDate = new Date(customEndDate + 'T23:59:59');
+          } else {
+            return originalData;
+          }
+          break;
+        default:
           return originalData;
-        }
-        break;
-      default:
-        return originalData;
-    }
-
-    console.log('Filter:', period, '| Start:', startDate.toLocaleString(), '| End:', endDate.toLocaleString());
-
-    const filteredUserStats = originalData.userStats.filter(user => {
-      const raw = user.created_at;
-      if (!raw) {
-        console.warn('No created_at for:', user.email, '| keys:', Object.keys(user));
-        return false;
       }
-      const d = new Date(raw);
-      if (isNaN(d.getTime())) {
-        console.warn('Invalid date for:', user.email, raw);
-        return false;
-      }
-      const inRange = d >= startDate && d <= endDate;
-      console.log(user.email, '| date:', d.toLocaleString(), '| inRange:', inRange);
-      return inRange;
-    });
 
-    console.log('Result:', filteredUserStats.length, '/', originalData.userStats.length, 'users match', period);
+      console.log('Filter:', period, '| Start:', startDate.toLocaleString(), '| End:', endDate.toLocaleString());
 
-    return {
-      ...originalData,
-      totalRevenue:   filteredUserStats.reduce((s, u) => s + (parseFloat(u.totalAmount)  || 0), 0),
-      totalPurchases: filteredUserStats.length,
-      totalCustomers: new Set(filteredUserStats.map(u => u.email)).size,
-      userStats: filteredUserStats
-    };
-  }
-  
-  function showCustomDateModal() {
-    const modal = document.getElementById('customDateModal');
-    if (modal) {
-      modal.style.display = 'flex';
-      
-      // Set default dates
-      const today = new Date();
-      const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-      
-      document.getElementById('startDate').value = lastWeek.toISOString().split('T')[0];
-      document.getElementById('endDate').value = today.toISOString().split('T')[0];
-    }
-  }
-  
-  function closeCustomDateModal() {
-    const modal = document.getElementById('customDateModal');
-    if (modal) {
-      modal.style.display = 'none';
-    }
-  }
-  
-  function applyCustomDateRange() {
-    const startDate = document.getElementById('startDate').value;
-    const endDate = document.getElementById('endDate').value;
-    
-    if (!startDate || !endDate) {
-      alert('Please select both start and end dates');
-      return;
-    }
-    
-    if (new Date(startDate) > new Date(endDate)) {
-      alert('Start date cannot be later than end date');
-      return;
-    }
-    
-    // Update active button
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-      btn.classList.remove('active');
-    });
-    const customBtn = document.querySelector('[data-period="custom"]');
-    if (customBtn) customBtn.classList.add('active');
-    
-    currentDateFilter = 'custom';
-    
-    // Store custom dates for filtering
-    window.customStartDate = startDate;
-    window.customEndDate = endDate;
-    
-    // Apply custom date filter
-    if (window.originalStatsData) {
-      const filteredData = filterDataByDate(window.originalStatsData, 'custom', startDate, endDate);
-      displayStatsData(filteredData);
-      updateSectionHeader();
-    }
-    
-    closeCustomDateModal();
-  }
-  
-  function getFilterDisplayText() {
-    switch (currentDateFilter) {
-      case 'alltime': return 'All Time';
-      case 'today': return 'Today';
-      case 'yesterday': return 'Yesterday';
-      case 'lastweek': return 'Last Week';
-      case 'lastmonth': return 'Last Month';
-      case 'custom': 
-        if (window.customStartDate && window.customEndDate) {
-          const start = new Date(window.customStartDate).toLocaleDateString();
-          const end = new Date(window.customEndDate).toLocaleDateString();
-          return `${start} to ${end}`;
+      const filteredUserStats = originalData.userStats.filter(user => {
+        const raw = user.created_at;
+        if (!raw) {
+          console.warn('No created_at for:', user.email, '| keys:', Object.keys(user));
+          return false;
         }
-        return 'Custom Range';
-      default: return 'All Time';
+        const d = new Date(raw);
+        if (isNaN(d.getTime())) {
+          console.warn('Invalid date for:', user.email, raw);
+          return false;
+        }
+        const inRange = d >= startDate && d <= endDate;
+        console.log(user.email, '| date:', d.toLocaleString(), '| inRange:', inRange);
+        return inRange;
+      });
+
+      console.log('Result:', filteredUserStats.length, '/', originalData.userStats.length, 'users match', period);
+
+      return {
+        ...originalData,
+        totalRevenue: filteredUserStats.reduce((s, u) => s + (parseFloat(u.totalAmount) || 0), 0),
+        totalPurchases: filteredUserStats.length,
+        totalCustomers: new Set(filteredUserStats.map(u => u.email)).size,
+        userStats: filteredUserStats
+      };
     }
-  }
-  
-  // Mobile dropdown functions
-  function toggleFilterDropdown() {
-    const toggle = document.getElementById('filterDropdownToggle');
-    const menu = document.getElementById('filterDropdownMenu');
-    
-    if (toggle && menu) {
-      const isOpen = menu.classList.contains('show');
-      
-      if (isOpen) {
+
+    function showCustomDateModal() {
+      const modal = document.getElementById('customDateModal');
+      if (modal) {
+        modal.style.display = 'flex';
+
+        // Set default dates
+        const today = new Date();
+        const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+
+        document.getElementById('startDate').value = lastWeek.toISOString().split('T')[0];
+        document.getElementById('endDate').value = today.toISOString().split('T')[0];
+      }
+    }
+
+    function closeCustomDateModal() {
+      const modal = document.getElementById('customDateModal');
+      if (modal) {
+        modal.style.display = 'none';
+      }
+    }
+
+    function applyCustomDateRange() {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+
+      if (!startDate || !endDate) {
+        alert('Please select both start and end dates');
+        return;
+      }
+
+      if (new Date(startDate) > new Date(endDate)) {
+        alert('Start date cannot be later than end date');
+        return;
+      }
+
+      // Update active button
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      const customBtn = document.querySelector('[data-period="custom"]');
+      if (customBtn) customBtn.classList.add('active');
+
+      currentDateFilter = 'custom';
+
+      // Store custom dates for filtering
+      window.customStartDate = startDate;
+      window.customEndDate = endDate;
+
+      // Apply custom date filter
+      if (window.originalStatsData) {
+        const filteredData = filterDataByDate(window.originalStatsData, 'custom', startDate, endDate);
+        displayStatsData(filteredData);
+        updateSectionHeader();
+      }
+
+      closeCustomDateModal();
+    }
+
+    function getFilterDisplayText() {
+      switch (currentDateFilter) {
+        case 'alltime': return 'All Time';
+        case 'today': return 'Today';
+        case 'yesterday': return 'Yesterday';
+        case 'lastweek': return 'Last Week';
+        case 'lastmonth': return 'Last Month';
+        case 'custom':
+          if (window.customStartDate && window.customEndDate) {
+            const start = new Date(window.customStartDate).toLocaleDateString();
+            const end = new Date(window.customEndDate).toLocaleDateString();
+            return `${start} to ${end}`;
+          }
+          return 'Custom Range';
+        default: return 'All Time';
+      }
+    }
+
+    // Mobile dropdown functions
+    function toggleFilterDropdown() {
+      const toggle = document.getElementById('filterDropdownToggle');
+      const menu = document.getElementById('filterDropdownMenu');
+
+      if (toggle && menu) {
+        const isOpen = menu.classList.contains('show');
+
+        if (isOpen) {
+          menu.classList.remove('show');
+          toggle.classList.remove('active');
+        } else {
+          menu.classList.add('show');
+          toggle.classList.add('active');
+        }
+      }
+    }
+
+    function selectDropdownFilter(period) {
+      // Close dropdown
+      const toggle = document.getElementById('filterDropdownToggle');
+      const menu = document.getElementById('filterDropdownMenu');
+
+      if (toggle && menu) {
         menu.classList.remove('show');
         toggle.classList.remove('active');
+      }
+
+      // Update dropdown display
+      updateDropdownDisplay(period);
+
+      // Apply filter
+      if (period === 'custom') {
+        showCustomDateModal();
       } else {
-        menu.classList.add('show');
-        toggle.classList.add('active');
+        filterByDate(period);
       }
     }
-  }
-  
-  function selectDropdownFilter(period) {
-    // Close dropdown
-    const toggle = document.getElementById('filterDropdownToggle');
-    const menu = document.getElementById('filterDropdownMenu');
-    
-    if (toggle && menu) {
-      menu.classList.remove('show');
-      toggle.classList.remove('active');
-    }
-    
-    // Update dropdown display
-    updateDropdownDisplay(period);
-    
-    // Apply filter
-    if (period === 'custom') {
-      showCustomDateModal();
-    } else {
-      filterByDate(period);
-    }
-  }
-  
-  function updateDropdownDisplay(period) {
-    const currentIcon = document.querySelector('.dropdown-current-icon');
-    const currentText = document.querySelector('.dropdown-current-text');
-    
-    // Update active state in dropdown items
-    document.querySelectorAll('.filter-dropdown-item').forEach(item => {
-      item.classList.remove('active');
-    });
-    const activeItem = document.querySelector(`[data-period="${period}"]`);
-    if (activeItem && activeItem.classList.contains('filter-dropdown-item')) {
-      activeItem.classList.add('active');
-    }
-    
-    // Update dropdown toggle display
-    const icons = {
-      'alltime': '📊',
-      'today': '📈',
-      'yesterday': '📉',
-      'lastweek': '📋',
-      'lastmonth': '📅',
-      'custom': '🗓️'
-    };
-    
-    const texts = {
-      'alltime': 'All Time',
-      'today': 'Today',
-      'yesterday': 'Yesterday',
-      'lastweek': 'Last Week',
-      'lastmonth': 'Last Month',
-      'custom': 'Custom'
-    };
-    
-    if (currentIcon) currentIcon.textContent = icons[period] || '📊';
-    if (currentText) currentText.textContent = texts[period] || 'All Time';
-  }
-  
-  // Close dropdown when clicking outside
-  document.addEventListener('click', function(event) {
-    const dropdown = document.querySelector('.date-filter-dropdown');
-    const toggle = document.getElementById('filterDropdownToggle');
-    const menu = document.getElementById('filterDropdownMenu');
-    
-    if (dropdown && toggle && menu && !dropdown.contains(event.target)) {
-      menu.classList.remove('show');
-      toggle.classList.remove('active');
-    }
-  });
-</script>
 
-<script src="/admin/super-admin-btn.js"></script>
-<style>
-  /* ── cd-wrap dropdown ── */
-  .cd-wrap { position: relative; display: inline-flex; align-items: center; font-family: inherit; }
-  .cd-btn {
-    display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; min-width: 110px;
-    background: #fff !important; border: 1.5px solid #e2e8f0 !important; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer;
-    font-family: inherit; outline: none; user-select: none;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06) !important;
-    transition: border-color .18s, box-shadow .18s, color .18s; white-space: nowrap;
-    color: #334155 !important;
-    transform: none !important;
-  }
-  .cd-btn:hover { border-color: #a5b4fc !important; color: #667eea !important; box-shadow: 0 2px 8px rgba(102,126,234,0.12) !important; transform: none !important; }
-  .cd-btn.open { border-color: #667eea !important; color: #667eea !important; box-shadow: 0 0 0 3px rgba(102,126,234,0.15) !important; }
-  .cd-btn svg { flex-shrink: 0; transition: transform .22s; color: inherit; }
-  .cd-btn.open svg { transform: rotate(180deg); }
-  .cd-label { flex: 1; text-align: left; color: inherit; }
-  .cd-list {
-    position: fixed; background: #fff; border: 1.5px solid #e2e8f0; border-radius: 12px;
-    box-shadow: 0 8px 32px rgba(102,126,234,0.14), 0 2px 8px rgba(0,0,0,0.08);
-    z-index: 99999; overflow-y: auto; overflow-x: hidden; padding: 4px;
-    max-height: calc(100vh - 80px);
-    animation: cdDrop .18s cubic-bezier(.22,1,.36,1);
-  }
-  @keyframes cdDrop { from { opacity:0; transform:translateY(-6px) scale(.97); } to { opacity:1; transform:none; } }
-  .cd-item {
-    display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 8px;
-    font-size: 13px; font-weight: 500; color: #334155;
-    cursor: pointer; transition: background .14s, color .14s; white-space: nowrap;
-  }
-  .cd-item:hover { background: #f0f4ff; color: #667eea; }
-  .cd-item.selected { background: linear-gradient(135deg,#667eea,#764ba2); color: #fff; font-weight: 700; }
-  .cd-item.selected:hover { background: linear-gradient(135deg,#5a6fd6,#6a3f96); }
-  .cd-check { margin-left: auto; opacity: 0; font-size: 11px; }
-  .cd-item.selected .cd-check { opacity: 1; }
-  body.dark-mode .cd-btn, html.dark-mode .cd-btn { background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important; box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important; transform: none !important; }
-  body.dark-mode .cd-btn:hover, html.dark-mode .cd-btn:hover { border-color: #7c6af7 !important; color: #a78bfa !important; transform: none !important; }
-  body.dark-mode .cd-btn.open, html.dark-mode .cd-btn.open { border-color: #7c6af7 !important; color: #a78bfa !important; box-shadow: 0 0 0 3px rgba(124,106,247,0.18) !important; }
-  body.dark-mode .cd-list, html.dark-mode .cd-list { background: #1c2333 !important; border-color: #30363d !important; box-shadow: 0 8px 32px rgba(0,0,0,0.5) !important; }
-  body.dark-mode .cd-item, html.dark-mode .cd-item { color: #c9d1d9 !important; }
-  body.dark-mode .cd-item:hover, html.dark-mode .cd-item:hover { background: #21293d !important; color: #a78bfa !important; }
-  body.dark-mode .cd-item.selected, html.dark-mode .cd-item.selected { background: linear-gradient(135deg,#4c3d9e,#3d2f7a) !important; color: #e2d9f3 !important; }
-  /* section-header flex */
-  #analyticsSection .section-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-  @media (max-width: 768px) {
-    #analyticsSection .section-header { flex-wrap: nowrap; align-items: flex-start; gap: 8px; }
-    #analyticsSection .section-header > div:first-child { flex: 1; min-width: 0; }
-    #analyticsSection .section-header h2 { font-size: 14px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
-    #analyticsSection .section-header p { font-size: 11px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    #analyticsSection .section-header .cd-wrap { flex-shrink: 0; }
-    #analyticsSection .section-header .cd-btn { min-width: 90px !important; font-size: 11px !important; padding: 6px 10px !important; }
-  }
-  /* Pagination */
-  #statsPagination > div {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 10px 16px; background: white; border-radius: 12px;
-    border: 1px solid rgba(0,0,0,0.06); flex-wrap: wrap; gap: 8px;
-  }
-  #statsPagination > div > div { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-  #statsPagination button:hover:not([disabled]) { border-color: #667eea !important; color: #667eea !important; }
-  body.dark-mode #statsPagination > div, html.dark-mode #statsPagination > div { background: #161b22 !important; border-color: rgba(124,106,247,0.25) !important; }
-  body.dark-mode #statsPagination button:not([style*='linear-gradient']), html.dark-mode #statsPagination button:not([style*='linear-gradient']) { background: #1c2333 !important; border-color: #30363d !important; color: #8b949e !important; }
-  body.dark-mode #statsPagination span, html.dark-mode #statsPagination span { color: #484f58 !important; }
-</style>
-<script>
-  /* ── cd-wrap Engine ── */
-  window._statsPageSize = 10;
-  window._statsPage = 1;
-  window._statsAllData = null;
+    function updateDropdownDisplay(period) {
+      const currentIcon = document.querySelector('.dropdown-current-icon');
+      const currentText = document.querySelector('.dropdown-current-text');
 
-  function cdToggle(id) {
-    const list = document.getElementById('cdList-' + id);
-    const btn  = document.querySelector('#cdWrap-' + id + ' .cd-btn');
-    const open = list.style.display !== 'none';
-    document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
-    document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
-    if (!open) {
-      if (list.parentNode !== document.body) document.body.appendChild(list);
-      const rect = btn.getBoundingClientRect();
-      const alignRight = list.getAttribute('data-align') === 'right';
-      list.style.position = 'fixed';
-      list.style.left = alignRight ? 'auto' : rect.left + 'px';
-      list.style.right = alignRight ? (window.innerWidth - rect.right) + 'px' : 'auto';
-      list.style.minWidth = rect.width + 'px';
-      list.style.display = '';
-      const listH = list.offsetHeight;
-      const spaceBelow = window.innerHeight - rect.bottom - 8;
-      list.style.top = (spaceBelow < listH && rect.top > listH) ? 'auto' : (rect.bottom + 6) + 'px';
-      list.style.bottom = (spaceBelow < listH && rect.top > listH) ? (window.innerHeight - rect.top + 6) + 'px' : 'auto';
-      btn.classList.add('open');
+      // Update active state in dropdown items
+      document.querySelectorAll('.filter-dropdown-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      const activeItem = document.querySelector(`[data-period="${period}"]`);
+      if (activeItem && activeItem.classList.contains('filter-dropdown-item')) {
+        activeItem.classList.add('active');
+      }
+
+      // Update dropdown toggle display
+      const icons = {
+        'alltime': '📊',
+        'today': '📈',
+        'yesterday': '📉',
+        'lastweek': '📋',
+        'lastmonth': '📅',
+        'custom': '🗓️'
+      };
+
+      const texts = {
+        'alltime': 'All Time',
+        'today': 'Today',
+        'yesterday': 'Yesterday',
+        'lastweek': 'Last Week',
+        'lastmonth': 'Last Month',
+        'custom': 'Custom'
+      };
+
+      if (currentIcon) currentIcon.textContent = icons[period] || '📊';
+      if (currentText) currentText.textContent = texts[period] || 'All Time';
     }
-  }
-  function cdStatsPageSize(value, label) {
-    document.getElementById('cdLabel-statsPageSize').textContent = label;
-    document.querySelectorAll('#cdList-statsPageSize .cd-item').forEach(el => {
-      el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function (event) {
+      const dropdown = document.querySelector('.date-filter-dropdown');
+      const toggle = document.getElementById('filterDropdownToggle');
+      const menu = document.getElementById('filterDropdownMenu');
+
+      if (dropdown && toggle && menu && !dropdown.contains(event.target)) {
+        menu.classList.remove('show');
+        toggle.classList.remove('active');
+      }
     });
-    document.getElementById('cdList-statsPageSize').style.display = 'none';
-    document.querySelector('#cdWrap-statsPageSize .cd-btn').classList.remove('open');
-    window._statsPageSize = value === 'all' ? 'all' : parseInt(value);
+  </script>
+
+  <script src="/admin/super-admin-btn.js"></script>
+  <style>
+    /* ── cd-wrap dropdown ── */
+    .cd-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      font-family: inherit;
+    }
+
+    .cd-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      min-width: 110px;
+      background: #fff !important;
+      border: 1.5px solid #e2e8f0 !important;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      outline: none;
+      user-select: none;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06) !important;
+      transition: border-color .18s, box-shadow .18s, color .18s;
+      white-space: nowrap;
+      color: #334155 !important;
+      transform: none !important;
+    }
+
+    .cd-btn:hover {
+      border-color: #a5b4fc !important;
+      color: #667eea !important;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.12) !important;
+      transform: none !important;
+    }
+
+    .cd-btn.open {
+      border-color: #667eea !important;
+      color: #667eea !important;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.15) !important;
+    }
+
+    .cd-btn svg {
+      flex-shrink: 0;
+      transition: transform .22s;
+      color: inherit;
+    }
+
+    .cd-btn.open svg {
+      transform: rotate(180deg);
+    }
+
+    .cd-label {
+      flex: 1;
+      text-align: left;
+      color: inherit;
+    }
+
+    .cd-list {
+      position: fixed;
+      background: #fff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(102, 126, 234, 0.14), 0 2px 8px rgba(0, 0, 0, 0.08);
+      z-index: 99999;
+      overflow-y: auto;
+      overflow-x: hidden;
+      padding: 4px;
+      max-height: calc(100vh - 80px);
+      animation: cdDrop .18s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    @keyframes cdDrop {
+      from {
+        opacity: 0;
+        transform: translateY(-6px) scale(.97);
+      }
+
+      to {
+        opacity: 1;
+        transform: none;
+      }
+    }
+
+    .cd-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #334155;
+      cursor: pointer;
+      transition: background .14s, color .14s;
+      white-space: nowrap;
+    }
+
+    .cd-item:hover {
+      background: #f0f4ff;
+      color: #667eea;
+    }
+
+    .cd-item.selected {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    .cd-item.selected:hover {
+      background: linear-gradient(135deg, #5a6fd6, #6a3f96);
+    }
+
+    .cd-check {
+      margin-left: auto;
+      opacity: 0;
+      font-size: 11px;
+    }
+
+    .cd-item.selected .cd-check {
+      opacity: 1;
+    }
+
+    body.dark-mode .cd-btn,
+    html.dark-mode .cd-btn {
+      background: #1c2333 !important;
+      border-color: #30363d !important;
+      color: #8b949e !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2) !important;
+      transform: none !important;
+    }
+
+    body.dark-mode .cd-btn:hover,
+    html.dark-mode .cd-btn:hover {
+      border-color: #7c6af7 !important;
+      color: #a78bfa !important;
+      transform: none !important;
+    }
+
+    body.dark-mode .cd-btn.open,
+    html.dark-mode .cd-btn.open {
+      border-color: #7c6af7 !important;
+      color: #a78bfa !important;
+      box-shadow: 0 0 0 3px rgba(124, 106, 247, 0.18) !important;
+    }
+
+    body.dark-mode .cd-list,
+    html.dark-mode .cd-list {
+      background: #1c2333 !important;
+      border-color: #30363d !important;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+    }
+
+    body.dark-mode .cd-item,
+    html.dark-mode .cd-item {
+      color: #c9d1d9 !important;
+    }
+
+    body.dark-mode .cd-item:hover,
+    html.dark-mode .cd-item:hover {
+      background: #21293d !important;
+      color: #a78bfa !important;
+    }
+
+    body.dark-mode .cd-item.selected,
+    html.dark-mode .cd-item.selected {
+      background: linear-gradient(135deg, #4c3d9e, #3d2f7a) !important;
+      color: #e2d9f3 !important;
+    }
+
+    /* section-header flex */
+    #analyticsSection .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    @media (max-width: 768px) {
+      #analyticsSection .section-header {
+        flex-wrap: nowrap;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      #analyticsSection .section-header>div:first-child {
+        flex: 1;
+        min-width: 0;
+      }
+
+      #analyticsSection .section-header h2 {
+        font-size: 14px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        margin-bottom: 2px;
+      }
+
+      #analyticsSection .section-header p {
+        font-size: 11px !important;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      #analyticsSection .section-header .cd-wrap {
+        flex-shrink: 0;
+      }
+
+      #analyticsSection .section-header .cd-btn {
+        min-width: 90px !important;
+        font-size: 11px !important;
+        padding: 6px 10px !important;
+      }
+    }
+
+    /* Pagination */
+    #statsPagination>div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      background: white;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    #statsPagination>div>div {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    #statsPagination button:hover:not([disabled]) {
+      border-color: #667eea !important;
+      color: #667eea !important;
+    }
+
+    body.dark-mode #statsPagination>div,
+    html.dark-mode #statsPagination>div {
+      background: #161b22 !important;
+      border-color: rgba(124, 106, 247, 0.25) !important;
+    }
+
+    body.dark-mode #statsPagination button:not([style*='linear-gradient']),
+    html.dark-mode #statsPagination button:not([style*='linear-gradient']) {
+      background: #1c2333 !important;
+      border-color: #30363d !important;
+      color: #8b949e !important;
+    }
+
+    body.dark-mode #statsPagination span,
+    html.dark-mode #statsPagination span {
+      color: #484f58 !important;
+    }
+  </style>
+  <script>
+    /* ── cd-wrap Engine ── */
+    window._statsPageSize = 10;
     window._statsPage = 1;
-    _renderStatsPage();
-  }
-  function _renderStatsPage() {
-    const data = window._statsAllData;
-    if (!data) return;
-    const entries = Object.entries(data);
-    const total = entries.length;
-    const ps = window._statsPageSize === 'all' ? total : window._statsPageSize;
-    const totalPages = Math.ceil(total / ps) || 1;
-    window._statsPage = Math.min(window._statsPage, totalPages);
-    const start = (window._statsPage - 1) * ps;
-    const slice = window._statsPageSize === 'all' ? entries : entries.slice(start, start + ps);
-    const content = document.getElementById('analyticsContent');
-    if (!content) return;
-    content.innerHTML = `
+    window._statsAllData = null;
+
+    function cdToggle(id) {
+      const list = document.getElementById('cdList-' + id);
+      const btn = document.querySelector('#cdWrap-' + id + ' .cd-btn');
+      const open = list.style.display !== 'none';
+      document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+      document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      if (!open) {
+        if (list.parentNode !== document.body) document.body.appendChild(list);
+        const rect = btn.getBoundingClientRect();
+        const alignRight = list.getAttribute('data-align') === 'right';
+        list.style.position = 'fixed';
+        list.style.left = alignRight ? 'auto' : rect.left + 'px';
+        list.style.right = alignRight ? (window.innerWidth - rect.right) + 'px' : 'auto';
+        list.style.minWidth = rect.width + 'px';
+        list.style.display = '';
+        const listH = list.offsetHeight;
+        const spaceBelow = window.innerHeight - rect.bottom - 8;
+        list.style.top = (spaceBelow < listH && rect.top > listH) ? 'auto' : (rect.bottom + 6) + 'px';
+        list.style.bottom = (spaceBelow < listH && rect.top > listH) ? (window.innerHeight - rect.top + 6) + 'px' : 'auto';
+        btn.classList.add('open');
+      }
+    }
+    function cdStatsPageSize(value, label) {
+      document.getElementById('cdLabel-statsPageSize').textContent = label;
+      document.querySelectorAll('#cdList-statsPageSize .cd-item').forEach(el => {
+        el.classList.toggle('selected', (el.getAttribute('onclick') || '').includes("'" + value + "'"));
+      });
+      document.getElementById('cdList-statsPageSize').style.display = 'none';
+      document.querySelector('#cdWrap-statsPageSize .cd-btn').classList.remove('open');
+      window._statsPageSize = value === 'all' ? 'all' : parseInt(value);
+      window._statsPage = 1;
+      _renderStatsPage();
+    }
+    function _renderStatsPage() {
+      const data = window._statsAllData;
+      if (!data) return;
+      const entries = Object.entries(data);
+      const total = entries.length;
+      const ps = window._statsPageSize === 'all' ? total : window._statsPageSize;
+      const totalPages = Math.ceil(total / ps) || 1;
+      window._statsPage = Math.min(window._statsPage, totalPages);
+      const start = (window._statsPage - 1) * ps;
+      const slice = window._statsPageSize === 'all' ? entries : entries.slice(start, start + ps);
+      const content = document.getElementById('analyticsContent');
+      if (!content) return;
+      content.innerHTML = `
       <div class="table-wrapper">
         <table class="modern-table">
           <thead><tr>
@@ -2237,54 +2785,55 @@
             <th class="col-eye"><div class="th-content"><span>Details</span></div></th>
           </tr></thead>
           <tbody>${slice.map(([userId, stats]) => {
-            const date = stats.purchaseDate ? new Date(stats.purchaseDate).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '—';
-            const resource = stats.resources[0] || '—';
-            return `<tr>
+        const date = stats.purchaseDate ? new Date(stats.purchaseDate).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }) : '—';
+        const resource = stats.resources[0] || '—';
+        return `<tr>
               <td><div class="customer-info"><div class="customer-details"><div class="customer-email">${esc(stats.email)}</div></div></div></td>
               <td class="col-quantity"><span class="date-badge">${date}</span></td>
               <td><span class="amount-value">₹${parseFloat(stats.totalAmount).toFixed(0)}</span></td>
               <td class="col-resources"><div class="resources-list"><span class="resource-tag">${esc(resource)}</span></div></td>
               <td class="col-eye"><button class="eye-btn" onclick="openCustomerDetail('${userId}')" title="View Details"><span>View</span></button></td>
             </tr>`;
-          }).join('')}</tbody>
+      }).join('')}</tbody>
         </table>
       </div>`;
-    const pagEl = document.getElementById('statsPagination');
-    if (!pagEl) return;
-    if (window._statsPageSize === 'all' || totalPages <= 1) { pagEl.innerHTML = ''; return; }
-    const btnBase   = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid #e2e8f0;background:#f8fafc;color:#64748b;transition:all .2s;';
-    const btnActive = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;';
-    const range = 2; let pages = '';
-    for (let p = 1; p <= totalPages; p++) {
-      if (p===1||p===totalPages||(p>=window._statsPage-range&&p<=window._statsPage+range))
-        pages += `<button onclick="window._statsPage=${p};_renderStatsPage()" style="${p===window._statsPage?btnActive:btnBase}">${p}</button>`;
-      else if (p===window._statsPage-range-1||p===window._statsPage+range+1)
-        pages += `<span style="padding:0 2px;color:#94a3b8;">…</span>`;
-    }
-    pagEl.innerHTML = `<div>
-      <span style="font-size:12px;color:#94a3b8;font-weight:500;">Showing ${start+1}–${Math.min(start+ps,total)} of ${total}</span>
+      const pagEl = document.getElementById('statsPagination');
+      if (!pagEl) return;
+      if (window._statsPageSize === 'all' || totalPages <= 1) { pagEl.innerHTML = ''; return; }
+      const btnBase = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid #e2e8f0;background:#f8fafc;color:#64748b;transition:all .2s;';
+      const btnActive = 'padding:6px 10px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:none;background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;';
+      const range = 2; let pages = '';
+      for (let p = 1; p <= totalPages; p++) {
+        if (p === 1 || p === totalPages || (p >= window._statsPage - range && p <= window._statsPage + range))
+          pages += `<button onclick="window._statsPage=${p};_renderStatsPage()" style="${p === window._statsPage ? btnActive : btnBase}">${p}</button>`;
+        else if (p === window._statsPage - range - 1 || p === window._statsPage + range + 1)
+          pages += `<span style="padding:0 2px;color:#94a3b8;">…</span>`;
+      }
+      pagEl.innerHTML = `<div>
+      <span style="font-size:12px;color:#94a3b8;font-weight:500;">Showing ${start + 1}–${Math.min(start + ps, total)} of ${total}</span>
       <div>
-        <button onclick="window._statsPage=Math.max(1,window._statsPage-1);_renderStatsPage()" ${window._statsPage===1?'disabled':''} style="${btnBase}opacity:${window._statsPage===1?'.4':'1'};">&#8249; Prev</button>
+        <button onclick="window._statsPage=Math.max(1,window._statsPage-1);_renderStatsPage()" ${window._statsPage === 1 ? 'disabled' : ''} style="${btnBase}opacity:${window._statsPage === 1 ? '.4' : '1'};">&#8249; Prev</button>
         ${pages}
-        <button onclick="window._statsPage=Math.min(${totalPages},window._statsPage+1);_renderStatsPage()" ${window._statsPage===totalPages?'disabled':''} style="${btnBase}opacity:${window._statsPage===totalPages?'.4':'1'};">Next &#8250;</button>
+        <button onclick="window._statsPage=Math.min(${totalPages},window._statsPage+1);_renderStatsPage()" ${window._statsPage === totalPages ? 'disabled' : ''} style="${btnBase}opacity:${window._statsPage === totalPages ? '.4' : '1'};">Next &#8250;</button>
       </div>
     </div>`;
-  }
-  document.addEventListener('click', function(e) {
-    if (!e.target.closest('.cd-wrap')) {
+    }
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.cd-wrap')) {
+        document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
+        document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+      }
+    });
+    document.querySelector('.main').addEventListener('scroll', function () {
       document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
       document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
+    }, { passive: true });
+    /* Mobile: reduce analytics section padding */
+    if (window.innerWidth <= 768) {
+      const sec = document.getElementById('analyticsSection');
+      if (sec) sec.style.padding = '16px 12px';
     }
-  });
-  document.querySelector('.main').addEventListener('scroll', function() {
-    document.querySelectorAll('.cd-list').forEach(l => l.style.display = 'none');
-    document.querySelectorAll('.cd-btn').forEach(b => b.classList.remove('open'));
-  }, { passive: true });
-  /* Mobile: reduce analytics section padding */
-  if (window.innerWidth <= 768) {
-    const sec = document.getElementById('analyticsSection');
-    if (sec) sec.style.padding = '16px 12px';
-  }
-</script>
+  </script>
 </body>
+
 </html>

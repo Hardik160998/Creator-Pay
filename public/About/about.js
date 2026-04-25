@@ -19,10 +19,10 @@ function showShimmer() {
 function loadActualContent() {
 
   // ── 1. Who We Are ──
-  document.getElementById('contentBox1').innerHTML = `
+  document.getElementById("contentBox1").innerHTML = `
     <h2>Who We Are</h2>
-    <p>Earnify is an Indian digital marketplace that connects <strong>knowledge creators</strong> with <strong>learners and professionals</strong>. We make it easy for anyone to sell their study notes, Excel templates, exam materials, or freelance services — and for buyers to find exactly what they need, instantly.</p>
-    <p>We are built on three principles: <strong>transparency</strong> in earnings, <strong>security</strong> in payments, and <strong>quality</strong> in every resource listed. Whether you are a student, a working professional, or a content creator — Earnify is your platform.</p>
+    <p>Creator Pay is an Indian digital marketplace that connects <strong>knowledge creators</strong> with <strong>learners and professionals</strong>. We make it easy for anyone to sell their study notes, Excel templates, exam materials, or freelance services — and for buyers to find exactly what they need, instantly.</p>
+    <p>We are built on three principles: <strong>transparency</strong> in earnings, <strong>security</strong> in payments, and <strong>quality</strong> in every resource listed. Whether you are a student, a working professional, or a content creator — Creator Pay is your platform.</p>
     <div class="about-stats-row">
       <div class="about-stat">
         <div class="about-stat-num">500+</div>
@@ -44,10 +44,10 @@ function loadActualContent() {
   `;
 
   // ── 2. Our Mission ──
-  document.getElementById('contentBox2').innerHTML = `
+  document.getElementById("contentBox2").innerHTML = `
     <h2>Our Mission</h2>
     <p>Our mission is to <strong>democratise access to quality learning resources</strong> while giving creators a fair, transparent way to earn from their expertise. We believe that the right resource at the right time can change the direction of someone's career or academic journey.</p>
-    <p>Every resource on Earnify is reviewed before going live. Every payment is processed securely through <strong>Razorpay</strong> — an RBI-regulated, PCI-DSS compliant payment gateway. Every withdrawal is handled with a clear, flat <strong>5% platform fee</strong> — no hidden charges, no surprises.</p>
+    <p>Every resource on Creator Pay is reviewed before going live. Every payment is processed securely through <strong>Razorpay</strong> — an RBI-regulated, PCI-DSS compliant payment gateway. Every withdrawal is handled with a clear, flat <strong>5% platform fee</strong> — no hidden charges, no surprises.</p>
   `;
 
   // ── 3. What We Offer ──
@@ -78,8 +78,8 @@ function loadActualContent() {
   `;
 
   // ── 4. How It Works ──
-  document.getElementById('contentBox4').innerHTML = `
-    <h2>How Earnify Works</h2>
+  document.getElementById("contentBox4").innerHTML = `
+    <h2>How Creator Pay Works</h2>
     <p>Getting started takes less than 2 minutes — whether you want to buy or sell.</p>
     <ul class="benefits-list">
       <li>
@@ -110,7 +110,7 @@ function loadActualContent() {
   `;
 
   // ── 5. Our Values ──
-  document.getElementById('contentBox5').innerHTML = `
+  document.getElementById("contentBox5").innerHTML = `
     <h2>Our Values</h2>
     <div class="values-grid">
       <div class="value-card">
@@ -141,17 +141,17 @@ function loadActualContent() {
       <div class="value-card">
         <div class="value-icon">🤝</div>
         <h3>Community</h3>
-        <p>Earnify is built by and for its users. Your feedback shapes every update we make to the platform.</p>
+        <p>Creator Pay is built by and for its users. Your feedback shapes every update we make to the platform.</p>
       </div>
     </div>
   `;
 
   // ── 6. CTA ──
-  document.getElementById('contentBox6').innerHTML = `
+  document.getElementById("contentBox6").innerHTML = `
     <div class="about-cta">
       <div class="about-cta-content">
         <h2>Ready to Start?</h2>
-        <p>Join thousands of buyers and sellers already using Earnify. Sign up free, list your first resource, and start earning today.</p>
+        <p>Join thousands of buyers and sellers already using Creator Pay. Sign up free, list your first resource, and start earning today.</p>
         <div class="about-cta-btns">
           <a href="../admin/Resources/" class="about-btn-primary">Start Selling →</a>
           <a href="../#resources" class="about-btn-secondary">Browse Resources</a>

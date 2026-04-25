@@ -32,7 +32,7 @@
   overlay.innerHTML = `
     <div class="auth-modal-box" style="width:100%;min-height:100vh;">
       <div class="am-left">
-        <div class="am-brand"><div class="am-logo-box">💰</div><span class="am-brand-name">Earnify</span></div>
+        <div class="am-brand"><div class="am-logo-box">💰</div><span class="am-brand-name">Creator Pay</span></div>
         <div class="am-left-body">
           <div class="am-headline"><h2>Turn Skills into Income 🚀</h2><p>Sell notes, templates &amp; services. Buy what you need. All in one place.</p></div>
           <div class="am-stats">
@@ -80,11 +80,11 @@
                 </button>
               </div>
             </div>
-            <button class="am-submit-btn" id="_agLoginBtn" onclick="_agLogin()">🚀 Log In to Earnify</button>
-            <p class="am-switch">New to Earnify? <a onclick="_agShowTab('signup')">Create a free account</a></p>
+            <button class="am-submit-btn" id="_agLoginBtn" onclick="_agLogin()">🚀 Log In to Creator Pay</button>
+            <p class="am-switch">New to Creator Pay? <a onclick="_agShowTab('signup')">Create a free account</a></p>
           </div>
           <div id="_agSignupForm" style="display:none;">
-            <div class="am-header"><h2>Join Earnify 🎉</h2><p>Free account. Start earning from your knowledge today.</p></div>
+            <div class="am-header"><h2>Join Creator Pay 🎉</h2><p>Free account. Start earning from your knowledge today.</p></div>
             <div class="am-input-group"><label>FULL NAME</label><input class="am-input" type="text" id="_agSName" placeholder="Your full name" autocomplete="name"></div>
             <div class="am-input-group"><label>EMAIL ADDRESS</label><input class="am-input" type="email" id="_agSEmail" placeholder="you@example.com" autocomplete="email"></div>
             <div class="am-input-group"><label>PASSWORD</label><div class="am-pw-wrap"><input class="am-input" type="password" id="_agSPass" placeholder="Min 6 characters" autocomplete="new-password"><button type="button" class="am-toggle-pass" onclick="_agTogglePw('_agSPass',this)"><svg class="eye-on" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><svg class="eye-off" style="display:none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg></button></div></div>
@@ -137,7 +137,7 @@
       const res  = await fetch('/api/admin/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, password }) });
       const data = await res.json();
       if (data.token) { _agSetOk('Login successful!'); setTimeout(() => _agDismiss(data.user || { email }, data.token), 600); }
-      else { _agSetErr(data.error || 'Invalid email or password.'); btn.disabled = false; btn.textContent = '🚀 Log In to Earnify'; }
+      else { _agSetErr(data.error || 'Invalid email or password.'); btn.disabled = false; btn.textContent = '🚀 Log In to Creator Pay'; }
     } catch(e) {
       try {
         const sc = window.supabase?.createClient(SUPA_URL, SUPA_ANON, { auth:{ storageKey:'ag-tmp', persistSession:false } });
@@ -146,7 +146,7 @@
         if (error) throw error;
         _agSetOk('Login successful!');
         setTimeout(() => _agDismiss(data.user, data.session?.access_token), 600);
-      } catch(e2) { _agSetErr('Login failed. Check your credentials.'); btn.disabled = false; btn.textContent = '🚀 Log In to Earnify'; }
+      } catch(e2) { _agSetErr('Login failed. Check your credentials.'); btn.disabled = false; btn.textContent = '🚀 Log In to Creator Pay'; }
     }
   };
 
@@ -248,7 +248,7 @@
   overlay.innerHTML = `
     <div id="_authGuardBox">
       <div class="_ag-logo">💰</div>
-      <h2>Earnify</h2>
+      <h2>Creator Pay</h2>
       <p>Please login to access this page</p>
       <div class="_ag-tabs">
         <button class="_ag-tab active" id="_agTabLogin" onclick="_agShowTab('login')">Login</button>
